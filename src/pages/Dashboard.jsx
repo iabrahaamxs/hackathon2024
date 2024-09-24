@@ -76,7 +76,7 @@ export default function Dashboard() {
           background: "white",
           margin: 40,
           flex: 1,
-          alignContent:"center",
+          alignContent: "center",
           borderRadius: "10px",
           paddingLeft: "10px",
         }}
@@ -92,9 +92,9 @@ export default function Dashboard() {
               justifyContent: "center",
             }}
           >
-            <CardCreateUser txt="Registrar usuario viewww" />
-            <CardCreateUser txt="Registrar usuario viewww" />
-            <CardCreateUser txt="Registrar usuario viewww" />
+            <CardCreateUser txt="pacientes" count={68} />
+            <CardCreateUser txt="donantes" count={7} />
+            <CardCreateUser txt="administradores" count={3} />
           </div>
         ) : null}
         {selectedOption === "patient" ? <h2>Pacientes view</h2> : null}
