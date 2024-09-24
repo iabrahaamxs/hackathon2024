@@ -15,8 +15,9 @@ function RegisterUser() {
     <div
       style={{
         display: "flex",
-        gap: "20px",
         justifyContent: "center",
+        gap: "20px",
+        height: '100%'
       }}
     >
       {page === "create" ? (

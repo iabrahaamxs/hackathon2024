@@ -76,7 +76,6 @@ export default function Dashboard() {
           background: "white",
           margin: 40,
           flex: 1,
-          alignContent: "center",
           borderRadius: "10px",
           paddingLeft: "10px",
         }}
