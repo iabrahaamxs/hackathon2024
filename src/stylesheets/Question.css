@@ -15,7 +15,6 @@
 }
 
 .question {
-  background-color: white; /* Fondo blanco para el título cuando está abierta */
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -36,4 +35,10 @@
 
 .question-container.active .answer {
   display: block;
+}
+
+.icon {
+  padding-right: 20px;
+  margin-left: auto;
+  font-size: 35px;
 }

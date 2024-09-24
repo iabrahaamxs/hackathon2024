@@ -1,7 +1,7 @@
 import '../stylesheets/Home.css'
-import Tabs from '../assets/Tabs.jsx'
-import InputField from "../assets/InputField.jsx";
-import Button from "../assets/Button.jsx";
+import Tabs from '../components/Tabs.jsx'
+import InputField from "../components/InputField.jsx";
+import Button from "../components/Button.jsx";
 import {useNavigate} from "react-router-dom";
 
 const Login = () => {

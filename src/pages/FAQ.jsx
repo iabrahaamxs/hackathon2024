@@ -1,6 +1,6 @@
 import '../stylesheets/Home.css'
-import Button from "../assets/Button.jsx";
-import Question from "../assets/Question.jsx";
+import Button from "../components/Button.jsx";
+import Question from "../components/Question.jsx";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 

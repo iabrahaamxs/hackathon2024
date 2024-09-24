@@ -1,5 +1,5 @@
 import '../stylesheets/Question.css'
-import { useState } from 'react';
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 function Question({ question, answer, isOpen, onClick }) {
 
@@ -7,6 +7,7 @@ function Question({ question, answer, isOpen, onClick }) {
       <div className={`question-container ${isOpen ? 'active' : ''}`}>
         <div className={`question ${isOpen ? 'active' : ''}`} onClick={onClick}>
           <h3 className={'question-text'}>{question}</h3>
+          {isOpen ? <FaAngleUp className="icon" /> : <FaAngleDown className="icon" />}
         </div>
         {isOpen && (
             <div className={'answer'}>
