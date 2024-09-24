@@ -1,0 +1,50 @@
+.table-container {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+.table {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #333;
+}
+
+.table td {
+  background-color: #fff;
+  color: #555;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.status-circle {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-disponible {
+  background-color: green;
+}
+
+.status-espera {
+  background-color: yellow;
+}
