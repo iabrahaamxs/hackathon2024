@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { FaHandHoldingMedical } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
 
-function CardCreateUser({ txt, count }) {
+function CardCreateUser({ txt, count, onClick }) {
   const iconMap = {
     pacientes: <FaUser />,
     donantes: <FaHandHoldingMedical />,
@@ -28,13 +28,13 @@ function CardCreateUser({ txt, count }) {
       >
         {iconMap[txt]}
       </i>
-      <h1 style={{ margin: "0px", fontWeight: 900}}>{count}</h1>
-      <div style={{opacity:0.6}}>{txt}</div>
+      <h1 style={{ margin: "0px", fontWeight: 900 }}>{count}</h1>
+      <div style={{ opacity: 0.6 }}>{txt}</div>
       <Button
         variant={"primary"}
         children={"Crear"}
-        onClick={() => navigate("/nosotros")}
-        style={{backgroundColor:"black"}}
+        onClick={() => onClick(txt)}
+        style={{ backgroundColor: "black" }}
       />
     </div>
   );
