@@ -1,0 +1,30 @@
+.panel{
+    background-color: #ffffff;
+    width: 20%;
+    min-width: 240px;
+    height: 100vh;
+ 
+}
+.panel-title{
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    padding-left: 10px;
+   
+}
+img{
+    width: 80px;
+    padding-right: 6px;
+}
+
+.panel-btn{
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+}
+
+.dashboard-container {
+    display: flex; 
+}
+  
