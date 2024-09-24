@@ -28,3 +28,13 @@ img{
     display: flex; 
 }
   
+.card-create{
+    width: 30%;
+    height: 125px;
+
+
+    align-content: center;
+    -webkit-box-shadow: 0px 4px 1px 0 rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 4px 1px 0 rgba(0,0,0,0.35);
+    box-shadow: 0px 4px 4px 1px rgba(0,0,0,0.35);
+}

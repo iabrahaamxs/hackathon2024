@@ -3,6 +3,7 @@ import { useState } from "react";
 import BtnOption from "../components/BtnOption";
 import "../stylesheets/Panel.css";
 import { useNavigate } from "react-router-dom";
+import CardCreateUser from "../components/CardCreateUser";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("deliver");
@@ -75,6 +76,7 @@ export default function Dashboard() {
           background: "white",
           margin: 40,
           flex: 1,
+          alignContent:"center",
           borderRadius: "10px",
           paddingLeft: "10px",
         }}
@@ -82,7 +84,19 @@ export default function Dashboard() {
         {selectedOption === "deliver" ? (
           <h2>Entregar medicamentos view</h2>
         ) : null}
-        {selectedOption === "user" ? <h2>Registrar usuario view</h2> : null}
+        {selectedOption === "user" ? (
+          <div
+            style={{
+              display: "flex",
+              gap: "20px",
+              justifyContent: "center",
+            }}
+          >
+            <CardCreateUser txt="Registrar usuario viewww" />
+            <CardCreateUser txt="Registrar usuario viewww" />
+            <CardCreateUser txt="Registrar usuario viewww" />
+          </div>
+        ) : null}
         {selectedOption === "patient" ? <h2>Pacientes view</h2> : null}
         {selectedOption === "box" ? <h2>Inventario view</h2> : null}
         {selectedOption === "report" ? (
