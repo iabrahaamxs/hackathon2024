@@ -2,12 +2,18 @@
 import { useState } from "react";
 import BtnOption from "../components/BtnOption";
 import "../stylesheets/Panel.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
-  const [selectedOption, setSelectedOption] = useState("deliver"); // Inicializamos con el primer botón
+  const [selectedOption, setSelectedOption] = useState("deliver");
+  const navigate = useNavigate();
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
+
+    if (option === "logout") {
+      navigate("/");
+    }
   };
 
   return (
@@ -70,7 +76,7 @@ export default function Dashboard() {
           margin: 40,
           flex: 1,
           borderRadius: "10px",
-          paddingLeft:'10px'
+          paddingLeft: "10px",
         }}
       >
         {selectedOption === "deliver" ? (

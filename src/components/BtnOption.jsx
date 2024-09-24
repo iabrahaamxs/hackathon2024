@@ -1,4 +1,3 @@
-//import PropTypes from "prop-types";
 import { FaHandHoldingHeart } from "react-icons/fa6";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFileMedical } from "react-icons/fa";
@@ -6,7 +5,6 @@ import { BsBox2HeartFill } from "react-icons/bs";
 import { BiSolidReport } from "react-icons/bi";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
-import { useState } from "react";
 
 function BtnOption({ text, iconName, selected, handleClick }) {
   const iconMap = {
@@ -41,8 +39,3 @@ function BtnOption({ text, iconName, selected, handleClick }) {
 }
 
 export default BtnOption;
-
-// BtnOption.propTypes = {
-//   text: PropTypes.string.isRequired,
-//   iconName: PropTypes,
-// };
