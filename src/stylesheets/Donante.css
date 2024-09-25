@@ -1,0 +1,142 @@
+p {
+  opacity: 0.5;
+}
+
+.donaciones-up {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.donaciones-first-row, .donaciones-second-row, .donaciones-third-row {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.second {
+  width: 635px;
+  height: 290px;
+}
+
+.second-content {
+  margin-top: -10px;
+  display: flex;
+}
+
+
+.custom-pie:first-child {
+  margin-left: 10px;
+}
+
+.custom-pie:not(:first-child) {
+  margin-left: -20px;
+}
+
+/* Checkboxes.css */
+.checkbox-container {
+  display: flex;
+  margin: 10px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+.checkbox-custom::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-color: #007bff;
+  display: none;
+  border-radius: 2px;
+}
+
+.checkbox-label input:checked + .checkbox-custom::after {
+  display: block;
+}
+
+.checkbox-label input:checked + .checkbox-custom {
+  background-color: #007bff;
+}
+
+.second-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px 0 10px;
+}
+
+
+.illness-sector {
+  margin-top: -30px;
+}
+
+.third:first-of-type {
+  width: 800px;
+  height: 350px;
+}
+
+.third {
+  width: 470px;
+}
+
+.slick-prev, .slick-next {
+  font-size: 24px !important;
+  line-height: 10px !important;
+  color: black !important;
+  background: none !important;
+  border: none !important;
+  opacity: 0.75 !important;
+  cursor: pointer !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 1 !important;
+}
+
+.slick-prev {
+  margin-left: 10px !important;
+}
+
+.slick-next {
+  right: 0px !important;
+}
+
+.slick-prev:hover, .slick-next:hover {
+  opacity: 1 !important;
+}
+
+
+
+.medicine {
+  margin-left: 10px;
+  width: 400px;
+  padding: 5px 10px 10px 10px;
+}
+
+.slider {
+  padding: 20px;
+  width: 100%;
+}
