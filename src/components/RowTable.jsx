@@ -1,80 +1,36 @@
 import { FaPencil, FaTrash } from "react-icons/fa6";
+import "../stylesheets/Rowtable.css"; // Asegúrate de tener un archivo CSS para este componente
 
 function Rowtable({ pri, id, name, med, cant, lote, date }) {
-  const getPriori = (pri) => {
-    if (pri === 1) {
-      return "red";
-    } else if (pri === 2) {
-      return "yellow";
-    } else if (pri === 3) {
-      return "green";
-    } else return "";
+  const getPrioriClass = (pri) => {
+    switch (pri) {
+      case 1:
+        return "priority-red";
+      case 2:
+        return "priority-yellow";
+      case 3:
+        return "priority-green";
+      default:
+        return "";
+    }
   };
+
   return (
-    <div
-      className="shadow"
-      style={{
-        width: "100%",
-        height: 50,
-        display: "flex",
-        alignItems: "center",
-        fontSize: 16,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: getPriori(pri),
-          width: 10,
-          height: 10,
-          borderRadius: 9999,
-          margin: 10,
-        }}
-      ></div>
-      <span style={{ width: "10%", opacity: 0.7 }}>{id}</span>
-      <span style={{ width: "30%", opacity: 0.7 }}>{name}</span>
-      <span style={{ width: "14%", opacity: 0.7 }}>{med}</span>
-      <span style={{ width: "10%", opacity: 0.7, backgroundColor: "black" }}>
-        {cant}
-      </span>
-      <span style={{ width: "10%", opacity: 0.7 }}>#{lote}</span>
-      <span style={{ width: "15%", opacity: 0.7 }}>{date}</span>
-      <div
-        style={{
-          width: "10%",
-          opacity: 0.7,
-          display: "flex",
-          flexDirection: "row",
-          gap: 10,
-        }}
-      >
-        <i
-          style={{
-            color: "white",
-            backgroundColor: "red",
-            display: "flex",
-            width: 30,
-            height: 30,
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 999,
-          }}
-        >
+    <div className="row-table shadow">
+      <div className={`priority-indicator ${getPrioriClass(pri)}`}></div>
+      <span className="column id-column">{id}</span>
+      <span className="column name-column">{name}</span>
+      <span className="column med-column">{med}</span>
+      <span className="column cant-column">{cant}</span>
+      <span className="column lote-column">#{lote}</span>
+      <span className="column date-column">{date}</span>
+      <div className="actions-column">
+        <button className="action-btn delete-btn" aria-label="Delete">
           <FaTrash />
-        </i>
-        <i
-          style={{
-            color: "white",
-            backgroundColor: "green",
-            display: "flex",
-            width: 30,
-            height: 30,
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 999,
-          }}
-        >
+        </button>
+        <button className="action-btn edit-btn" aria-label="Edit">
           <FaPencil />
-        </i>
+        </button>
       </div>
     </div>
   );
