@@ -4,6 +4,7 @@ import BtnOption from "../components/BtnOption";
 import "../stylesheets/Panel.css";
 import { useNavigate } from "react-router-dom";
 import RegisterUser from "../components/RegisterUser";
+import History from "../components/History.jsx";
 import Deliver from "../components/Deliver";
 
 export default function Dashboard() {
@@ -83,7 +84,7 @@ export default function Dashboard() {
       >
         {selectedOption === "deliver" ? <Deliver /> : null}
         {selectedOption === "user" ? <RegisterUser /> : null}
-        {selectedOption === "patient" ? <h2>Pacientes view</h2> : null}
+        {selectedOption === "patient" ? <History /> : null}
         {selectedOption === "box" ? <h2>Inventario view</h2> : null}
         {selectedOption === "report" ? (
           <h2>Reportes y estadisticas view 💀</h2>
