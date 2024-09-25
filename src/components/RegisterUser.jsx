@@ -35,7 +35,7 @@ function RegisterUser() {
       ) : null}
 
       {page === "pacientes" ? <NewPatient backClick={handleClick} /> : null}
-      {page === "donantes" ? <NewDonor /> : null}
+      {page === "donantes" ? <NewDonor backClick={handleClick} /> : null}
       {page === "administradores" ? <NewAdmin /> : null}
     </>
   );

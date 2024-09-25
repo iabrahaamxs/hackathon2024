@@ -90,7 +90,7 @@ function NewPatient({ backClick }) {
               <FaLocationDot />
             </i>
             <select name="select" className="select ">
-              <option value="value0" style={{ opacity: 0.6 }}>
+              <option value="value0">
                 Seleccionar sector
               </option>
               <option value="value1">Value 1</option>
