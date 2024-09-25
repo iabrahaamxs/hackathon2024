@@ -34,7 +34,7 @@ function Deliver() {
           }}
         >
           <Button variant={"primary"} children={"Asignar medicamentos"} />
-          <InputField type="text" className={"form"} />
+          <InputField type="text" className={"form"} label={"Buscar"} />
         </div>
         <br />
         <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
