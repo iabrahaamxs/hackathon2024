@@ -47,3 +47,17 @@
 .login {
   width: 350px;
 }
+
+.form{
+  margin-bottom: 0;
+}
+
+.select {
+  width: 350px;
+  padding: 10px 0 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
