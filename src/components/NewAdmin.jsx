@@ -2,6 +2,8 @@ import Button from "./Button";
 import { FaAddressCard, FaHouse, FaPhone, FaUser } from "react-icons/fa6";
 import InputField from "./InputField";
 import { BsFillCalendarDateFill } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
+import { FaLock } from "react-icons/fa";
 
 function NewAdmin({ backClick }) {
   return (
@@ -15,7 +17,7 @@ function NewAdmin({ backClick }) {
           borderRadius: "10px",
         }}
       >
-        <h2>Crear nuevo paciente</h2>
+        <h2>Crear nuevo administrador</h2>
       </div>
       <br />
       <div
@@ -81,7 +83,7 @@ function NewAdmin({ backClick }) {
         <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaPhone />
+              <MdEmail />
             </i>
             <InputField
               label={"Correo"}
@@ -92,11 +94,11 @@ function NewAdmin({ backClick }) {
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaPhone />
+              <FaLock />
             </i>
             <InputField
-              label={"Teléfono"}
-              id={"phone"}
+              label={"Contraseña"}
+              id={"password"}
               type={"text"}
               className={"login form"}
             />
