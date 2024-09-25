@@ -1,8 +1,77 @@
 import Button from "./Button";
 import InputField from "./InputField";
-import Rowtable from "./RowTable";
+import RowtableAssign from "./RowTableAssign";
 
 function TableAssign({ onClick }) {
+  const rows = [
+    {
+      pri: 1,
+      id: "1234567",
+      name: "Marcos Perez Gimenez",
+      med: "Medicamento 2",
+      cant: 699,
+      lote: 222,
+      date1: "27/09/24",
+      date2: "27/09/24",
+      dispo: true,
+    },
+    {
+      pri: 2,
+      id: "7654321",
+      name: "Lucia Fernandez Lopez",
+      med: "Medicamento 5",
+      cant: 150,
+      lote: 987,
+      date1: "28/09/24",
+      date2: "28/09/24",
+      dispo: true,
+    },
+    {
+      pri: 3,
+      id: "4567890",
+      name: "Carlos Garcia Moreno",
+      med: "Medicamento 3",
+      cant: 300,
+      lote: 654,
+      date1: "29/09/24",
+      date2: "29/09/24",
+      dispo: false,
+    },
+    {
+      pri: 1,
+      id: "7890123",
+      name: "Ana Sanchez Diaz",
+      med: "Medicamento 1",
+      cant: 500,
+      lote: 321,
+      date1: "30/09/24",
+      date2: "30/09/24",
+      dispo: true,
+    },
+    {
+      pri: 2,
+      id: "2345678",
+      name: "Javier Martinez Perez",
+      med: "Medicamento 4",
+      cant: 250,
+      lote: 111,
+      date1: "01/10/24",
+      date2: "01/10/24",
+      dispo: false,
+    },
+    {
+      pri: 3,
+      id: "3456789",
+      name: "Isabel Rodriguez Torres",
+      med: "Medicamento 6",
+      cant: 750,
+      lote: 333,
+      date1: "02/10/24",
+      date2: "02/10/24",
+      dispo: true,
+    },
+  ];
+
   return (
     <div
       style={{
@@ -30,38 +99,24 @@ function TableAssign({ onClick }) {
       </div>
       <br />
       <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-        <Rowtable
-          pri={1}
-          id={"1234567"}
-          name={"Marcos Perez Gimenez"}
-          med={"Medicamento 2"}
-          lote={222}
-          date={"27/09/24"}
-        />
-        <Rowtable
-          pri={2}
-          id={"1234567"}
-          name={"Marcos Perez Gimenez"}
-          med={"Medicamento 2"}
-          lote={222}
-          date={"27/09/24"}
-        />
-        <Rowtable
-          pri={3}
-          id={"1234567"}
-          name={"Maria Jose Rodriguez"}
-          med={"Medicamento 55"}
-          lote={272}
-          date={"27/09/24"}
-        />
-        <Rowtable
-          pri={2}
-          id={"1234567"}
-          name={"Marcos Perez Gimenez"}
-          med={"Medicamento 2"}
-          lote={222}
-          date={"27/09/24"}
-        />
+        <div className="row-table" style={{ fontSize: 12, marginBottom: -25 }}>
+          <div className={`priority-indicator`} style={{ width: "64%" }}></div>
+          <span className="column date-column-assign">Última Entrega</span>
+          <span className="column date-column-assign">Renovación</span>
+        </div>
+        {rows.map((row) => (
+          <RowtableAssign
+            key={row.id}
+            pri={row.pri}
+            id={row.id}
+            name={row.name}
+            med={row.med}
+            cant={row.cant}
+            date1={row.date1}
+            date2={row.date2}
+            dispo={row.dispo}
+          />
+        ))}
       </div>
     </div>
   );

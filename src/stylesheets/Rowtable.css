@@ -46,6 +46,11 @@
     display: flex;
     justify-content: center;
   }
+  .cant-column-assign {
+    width: 8%;
+    display: flex;
+    justify-content: center;
+  }
   
   .lote-column {
     width: 10%;
@@ -53,8 +58,15 @@
     justify-content: center;
   }
   
+  
   .date-column {
     width: 15%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .date-column-assign {
+    width: 10%;
     display: flex;
     justify-content: center;
   }
