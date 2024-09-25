@@ -73,11 +73,11 @@ export default function Dashboard() {
 
       <article
         style={{
-          background: "white",
-          margin: 40,
-          flex: 1,
-          borderRadius: "10px",
-          paddingLeft: "10px",
+          // background: "white",
+          padding: 40,
+           flex: 1,
+          // borderRadius: "10px",
+          // paddingLeft: "10px",
         }}
       >
         {selectedOption === "deliver" ? (

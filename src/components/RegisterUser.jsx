@@ -12,16 +12,18 @@ function RegisterUser() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        gap: "20px",
-        height: '100%'
-      }}
-    >
+    <>
       {page === "create" ? (
-        <>
+        <div
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            display: "flex",
+            justifyContent: "center",
+            gap: "20px",
+            height: "100%",
+          }}
+        >
           <CardCreateUser txt="pacientes" count={68} onClick={handleClick} />
           <CardCreateUser txt="donantes" count={7} onClick={handleClick} />
           <CardCreateUser
@@ -29,13 +31,13 @@ function RegisterUser() {
             count={3}
             onClick={handleClick}
           />
-        </>
+        </div>
       ) : null}
 
-      {page === "pacientes" ? <NewPatient /> : null}
+      {page === "pacientes" ? <NewPatient backClick={handleClick} /> : null}
       {page === "donantes" ? <NewDonor /> : null}
       {page === "administradores" ? <NewAdmin /> : null}
-    </div>
+    </>
   );
 }
 
