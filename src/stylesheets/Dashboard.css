@@ -1,0 +1,40 @@
+.section {
+  background-color: white;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  border-radius: 10px;
+  display: block;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.row {
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.row:not(:first-of-type) {
+  margin-left: 294px;
+}
+
+.update {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.treatments {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
