@@ -19,13 +19,14 @@ p {
 }
 
 .second {
-  width: 635px;
-  height: 290px;
+  width: 100%;
+  height: 350px;
 }
 
 .second-content {
   margin-top: -10px;
   display: flex;
+  justify-content: space-between;
 }
 
 
@@ -95,7 +96,6 @@ p {
 
 .third:first-of-type {
   width: 800px;
-  height: 350px;
 }
 
 .third {

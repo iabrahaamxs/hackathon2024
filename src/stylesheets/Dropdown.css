@@ -68,16 +68,19 @@
 .icon-container {
   background-color: #F2F7FA;
   border-radius: 10px;
+  width: 50px;
+  height: 50px;
 }
 
-.icon {
-  font-size: 50px;
+.icon-dropdown {
   position: relative;
-  left: 13px;
+  font-size: 40px;
+  left: 5px;
+  top: 5px;
   color: #4B9AC5;
 }
 
-.labels {
+.labels-dropdown {
   margin-left: 10px;
   padding-right: 10px;
 }
