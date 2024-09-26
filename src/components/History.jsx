@@ -122,7 +122,7 @@ function History({ backClick }) {
       <div>
         <div className={'section header'}>
           <h2>Historia médica</h2>
-          <Button children="Volver" onClick={() => backClick("create")} variant={'outline'}/>
+          <Button children="Volver" onClick={() => backClick("patients")} variant={'outline'} />
         </div>
 
         <p>Datos del paciente</p>
