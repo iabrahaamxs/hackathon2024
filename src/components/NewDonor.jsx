@@ -29,33 +29,35 @@ function NewDonor({ backClick }) {
           borderRadius: "10px",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
+        <div style={{display: "flex", flexDirection: "column", gap: 30}}>
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
           >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUser />
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaUser/>
             </i>
             <InputField
-              label={"Nombre"}
-              id={"name"}
-              type={"text"}
-              className={"login form"}
+                label={"Nombre"}
+                id={"name"}
+                type={"text"}
+                className={"login form"}
+                onlyLetters={true}
+                maxLength={50}
             />
           </div>
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
           >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUsers />
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaUsers/>
             </i>
             <select className="select ">
               <option value="value0">Tipo de organización</option>
@@ -65,52 +67,73 @@ function NewDonor({ backClick }) {
             </select>
           </div>
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
           >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaAddressCard />
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaAddressCard/>
             </i>
             <InputField
-              label={"Identificación"}
-              id={"rif"}
-              type={"text"}
-              className={"login form"}
+                label={"Identificación"}
+                id={"rif"}
+                type={"text"}
+                className={"login form"}
+                onlyAlphanumeric={true}
+                maxLength={11}
             />
           </div>
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
           >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaLock />
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaLock/>
             </i>
             <InputField
-              label={"Contraseña"}
-              id={"passsword"}
-              type={"text"}
-              className={"login form"}
+                label={"Contraseña"}
+                id={"passsword"}
+                type={"password"}
+                className={"login form"}
+                maxLength={16}
+            />
+          </div>
+          <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
+          >
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaLock/>
+            </i>
+            <InputField
+                label={"Confirmar contraseña"}
+                id={"passsword"}
+                type={"password"}
+                className={"login form"}
+                maxLength={16}
             />
           </div>
         </div>
       </div>
 
-      <br />
+      <br/>
 
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
       >
-        <Button children="Cancelar" onClick={() => backClick("create")} />
-        <Button children="Guardar" variant={"primary"} />
+        <Button children="Cancelar" onClick={() => backClick("create")}/>
+        <Button children="Guardar" variant={"primary"}/>
       </div>
     </div>
   );
