@@ -63,7 +63,7 @@ function Patients() {
                       alignItems: "right",
                     }}
                 >
-                  <InputField type="text" className={"form"} label={"Buscar"} />
+                  <InputField type="text" className={"form"} label={"Buscar"} onlyNumbers={true} maxLength={8} />
                 </div>
                 <br />
                 <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>

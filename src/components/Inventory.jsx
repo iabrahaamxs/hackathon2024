@@ -65,14 +65,14 @@ function Inventory() {
               <option value="M">Mecidina 1</option>
               <option value="F">Enfermedad 2</option>
             </select>
-            <InputField className="form" label={"Presentación (mg)"} />
-            <InputField className="form" label={"Lote"} />
+            <InputField className="form" label={"Presentación (mg)"} onlyNumbers={true} maxLength={5} />
+            <InputField className="form" label={"Lote"} maxLength={10} />
             <InputField
               className="form"
               type="date"
               label={"Fecha Vencimiento"}
             />
-            <InputField className="form" label={"Cantidad"} />
+            <InputField className="form" label={"Cantidad"} onlyNumbers={true} maxLength={5} />
             <button className="action-btn delete-btn" aria-label="Delete">
               <FaTrash />
             </button>

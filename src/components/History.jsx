@@ -28,7 +28,9 @@ function History({ backClick }) {
   const sectores = ['Barrio Lindo', 'Alambique', 'Santos Luzardo', 'Cardenales', 'Los Luises'];
 
   const pacienteDatos = {
-    id: '12352242', nombres: 'Jose María', apellidos: 'Pérez Ortega', sexo: 'Masculino', fnacimiento: '1973-04-03', sector: 'Los Luises', direccion: 'Casa imaginaria', telefono: '02567654567', celular: '04162425353'
+    id: '12352242', nombres: 'Jose María', apellidos: 'Pérez Ortega', sexo: 'Masculino',
+    fnacimiento: '1973-04-03', sector: 'Los Luises', direccion: 'Casa imaginaria',
+    telefono: '02567654567', celular: '04162425353'
   }
 
   const [id, setId] = useState(pacienteDatos.id);
@@ -139,6 +141,8 @@ function History({ backClick }) {
                   className={"history form"}
                   value={id}
                   onChange={(e) => setId(e.target.value)}
+                  onlyNumbers={true}
+                  maxLength={8}
               />
             </div>
             <div className={'input'}>
@@ -152,6 +156,8 @@ function History({ backClick }) {
                   className={"history form"}
                   value={nombres}
                   onChange={(e) => setNombres(e.target.value)}
+                  onlyLetters={true}
+                  maxLength={30}
               />
             </div>
             <div className={'input'}>
@@ -165,6 +171,8 @@ function History({ backClick }) {
                   className={"history form"}
                   value={apellidos}
                   onChange={(e) => setApellidos(e.target.value)}
+                  onlyLetters={true}
+                  maxLength={30}
               />
             </div>
           </div>
@@ -217,6 +225,7 @@ function History({ backClick }) {
                   className={"login form"}
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
+                  maxLength={100}
               />
             </div>
           </div>
@@ -232,6 +241,8 @@ function History({ backClick }) {
                   className={"history form"}
                   value={telefono}
                   onChange={(e) => setTelefono(e.target.value)}
+                  onlyNumbers={true}
+                  maxLength={11}
               />
             </div>
             <div className={'input'}>
@@ -245,6 +256,8 @@ function History({ backClick }) {
                   className={"history form"}
                   value={celular}
                   onChange={(e) => setCelular(e.target.value)}
+                  onlyNumbers={true}
+                  maxLength={11}
               />
             </div>
           </div>
@@ -274,9 +287,12 @@ function History({ backClick }) {
           <h2>Agregar Nuevo Tratamiento</h2>
           <InputField type="text" label={'Medicamento'} value={inputValue}
                       onChange={handleChange}
-                      suggestions={meds}/>
+                      suggestions={meds}
+                      onlyAlphanumeric={true}
+                      maxLength={50}
+          />
           <InputField type="date" label={'Fecha de inicio'}/>
-          <InputField type="number" label={'Cantidad mensual'}/>
+          <InputField type="number" label={'Cantidad mensual'} onlyNumbers={true} maxLength={3}/>
           <div className={'center'}><Button variant={'primary'} children={'Guardar'} onClick={handleCloseTreatment}/>
           </div>
         </Modal>
@@ -305,7 +321,7 @@ function History({ backClick }) {
       </div>
         <Modal show={showNewDiagnosis} handleClose={handleCloseDiagnosis}>
           <h2>Agregar Nuevo Diagnóstico</h2>
-          <InputField label="Enfermedad" value={illness} onChange={(e) => setIllness(e.target.value)}/>
+          <InputField label="Enfermedad" value={illness} onChange={(e) => setIllness(e.target.value)} onlyLetters={true} maxLength={30}/>
           <div className="input-row">
             <select name="classification" className="select history" value={classification}
                     onChange={(e) => setClassification(e.target.value)}>
