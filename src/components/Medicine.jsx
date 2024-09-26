@@ -1,4 +1,5 @@
 import Button from "./Button";
+import TableMedicine from "./TableMedicine";
 
 function Medicine({ clickBack }) {
   return (
@@ -20,6 +21,17 @@ function Medicine({ clickBack }) {
         />
       </div>
       <br />
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: 10,
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: "10px",
+        }}
+      >
+        <TableMedicine />
+      </div>
     </>
   );
 }

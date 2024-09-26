@@ -1,5 +1,5 @@
 import { FaPencil, FaTrash } from "react-icons/fa6";
-import "../stylesheets/Rowtable.css"; // Asegúrate de tener un archivo CSS para este componente
+import "../stylesheets/Rowtable.css";
 
 function Rowtable({ pri, id, name, med, cant, lote, date }) {
   const getPrioriClass = (pri) => {
