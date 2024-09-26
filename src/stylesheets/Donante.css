@@ -140,3 +140,68 @@ p {
   padding: 20px;
   width: 100%;
 }
+
+.pie-group {
+  width: 660px;
+  height: 150px;
+}
+
+.statistics-first-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.group-content {
+  margin-top: -35px;
+  display: flex;
+  width: 100%;
+}
+
+.group-content > div:not(:first-of-type) {
+  margin-right: -10px;
+}
+
+.demografia {
+  width: 400px;
+  height: 400px;
+}
+
+.distribucion {
+  height: 400px;
+  width: 560px;
+}
+
+.statistics-second-row {
+  padding-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.vertical > div {
+  margin-bottom: 20px;
+}
+
+.donors {
+  height: 320px;
+  width: 660px;
+}
+
+.percent {
+  width: 300px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.statistics-third-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
