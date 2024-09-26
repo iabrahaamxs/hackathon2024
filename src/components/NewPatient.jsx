@@ -46,6 +46,7 @@ function NewPatient({ backClick }) {
               id={"name"}
               type={"text"}
               className={"login form"}
+              onlyLetters={true}
             />
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -57,6 +58,7 @@ function NewPatient({ backClick }) {
               id={"last-name"}
               type={"text"}
               className={"login form"}
+              onlyLetters={true}
             />
           </div>
         </div>
@@ -70,6 +72,8 @@ function NewPatient({ backClick }) {
               id={"documento"}
               type={"text"}
               className={"login form"}
+              onlyNumbers={true}
+              maxLength={8}
             />
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -107,6 +111,7 @@ function NewPatient({ backClick }) {
               id={"address"}
               type={"text"}
               className={"login form"}
+              maxLength={100}
             />
           </div>
         </div>
@@ -130,6 +135,8 @@ function NewPatient({ backClick }) {
               id={"phone"}
               type={"text"}
               className={"login form"}
+              onlyNumbers={true}
+              maxLength={11}
             />
           </div>
         </div>
@@ -137,33 +144,34 @@ function NewPatient({ backClick }) {
 
       <p>Enfermedad</p>
       <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 20,
-          display: "flex",
-          borderRadius: "10px",
+          style={{
+            backgroundColor: "white",
+            height: "100%",
+            padding: 20,
+            display: "flex",
+            borderRadius: "10px",
 
-          justifyContent: "space-around",
-        }}
+            justifyContent: "space-around",
+          }}
       >
         <div>
-          <input type="radio" id="diabetes" name="diabetes"></input>
-          <label style={{ marginLeft: 10 }}>Diabetes</label>
+          <input type="radio" id="diabetes" name="illness" value={"diabetes"} defaultChecked></input>
+          <label style={{marginLeft: 10}}>Diabetes</label>
         </div>
         <div>
-          <input type="radio" id="hipertension" name="Hipertensión"></input>
-          <label style={{ marginLeft: 10 }}>Hipertensión</label>
+          <input type="radio" id="hipertension" name="illness" value={"hipertension"}></input>
+          <label style={{marginLeft: 10}}>Hipertensión</label>
         </div>
         <div>
-          <input type="radio" id="cancer" name="cancer"></input>
-          <label style={{ marginLeft: 10 }}>Cáncer</label>
+          <input type="radio" id="cancer" name="illness" value={"cancer"}></input>
+          <label style={{marginLeft: 10}}>Cáncer</label>
         </div>
+        <label style={{marginLeft: 10}}>Diabetes</label>
       </div>
 
       <p>Tratamiento</p>
       <div
-        style={{
+          style={{
           backgroundColor: "white",
           height: "100%",
           padding: 20,
@@ -184,10 +192,12 @@ function NewPatient({ backClick }) {
             <option value="med3">medi 3</option>
           </select>
           <InputField
-            label={"gramos"}
-            id={"grame"}
+            label={"cantidad"}
+            id={"quantity"}
             type={"text"}
             className={"form"}
+            onlyNumbers={true}
+            maxLength={3}
           />
         </div>
       </div>

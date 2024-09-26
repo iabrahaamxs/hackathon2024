@@ -60,3 +60,10 @@ h1, h2, h3, h4, h5, h6 {
 .consulta-resultado p {
   opacity: 0.5;
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
