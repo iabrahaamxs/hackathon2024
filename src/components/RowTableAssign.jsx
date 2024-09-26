@@ -8,7 +8,6 @@ function RowtableAssign({
   name,
   med,
   cant,
-  lote,
   date1,
   date2,
   dispo,
