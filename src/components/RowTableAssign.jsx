@@ -1,7 +1,19 @@
 import { FaPencil, FaTrash } from "react-icons/fa6";
 import "../stylesheets/Rowtable.css"; // Asegúrate de tener un archivo CSS para este componente
+import Button from "./Button";
 
-function Rowtable({ pri, id, name, med, cant, lote, date }) {
+function RowtableAssign({
+  pri,
+  id,
+  name,
+  med,
+  cant,
+  lote,
+  date1,
+  date2,
+  dispo,
+  setModal,
+}) {
   const getPrioriClass = (pri) => {
     switch (pri) {
       case 1:
@@ -21,19 +33,20 @@ function Rowtable({ pri, id, name, med, cant, lote, date }) {
       <span className="column id-column">{id}</span>
       <span className="column name-column">{name}</span>
       <span className="column med-column">{med}</span>
-      <span className="column cant-column">{cant}und</span>
-      <span className="column lote-column">#{lote}</span>
-      <span className="column date-column">{date}</span>
+      <span className="column cant-column-assign">{cant}und</span>
+      <span className="column date-column-assign">{date1}</span>
+      <span className="column date-column-assign">{date2}</span>
       <div className="actions-column">
-        <button className="action-btn delete-btn" aria-label="Delete">
-          <FaTrash />
-        </button>
-        <button className="action-btn edit-btn" aria-label="Edit">
-          <FaPencil />
-        </button>
+        <Button
+          variant={dispo ? "primary" : "secondary"}
+          children={"Asignar"}
+          onClick={() => {
+            dispo ? setModal(true) : null;
+          }}
+        />
       </div>
     </div>
   );
 }
 
-export default Rowtable;
+export default RowtableAssign;
