@@ -8,6 +8,7 @@ import Deliver from "../components/Deliver";
 import Inventory from "../components/Inventory.jsx";
 import Patients from "../components/Patients.jsx";
 import Statistics from "../components/Statistics.jsx";
+import DashFAQ from "../components/DashFAQ.jsx";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("deliver");
@@ -89,9 +90,7 @@ export default function Dashboard() {
         {selectedOption === "patient" ? <Patients /> : null}
         {selectedOption === "report" ? <Statistics /> : null}
         {selectedOption === "box" ? <Inventory /> : null}
-        {selectedOption === "question" ? (
-          <h2>Preguntas fecuentes view</h2>
-        ) : null}
+        {selectedOption === "question" ? <DashFAQ /> : null}
       </article>
     </div>
 
