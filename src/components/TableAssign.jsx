@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Button from "./Button";
 import InputField from "./InputField";
+import Modal from "./Modal";
 import RowtableAssign from "./RowTableAssign";
 
 function TableAssign({ onClick }) {
+  const [showModal, setShowModal] = useState(false);
   const rows = [
     {
       pri: 1,
@@ -99,6 +102,27 @@ function TableAssign({ onClick }) {
       </div>
       <br />
       <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+        <Modal show={showModal} handleClose={() => setShowModal(false)}>
+          <h2>Asignar Medicamento</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            
+            <label>Cedula:</label>
+            <label>Nombre:</label>
+            <label>Medicamento:</label>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <label>Fecha de retiro: </label>
+              <InputField type="date" className="form" />
+            </div>
+          </div>
+
+          <div className={"center"}>
+            <Button
+              variant={"primary"}
+              children={"Guardar"}
+              onClick={() => setShowModal(false)}
+            />
+          </div>
+        </Modal>
         <div className="row-table" style={{ fontSize: 12, marginBottom: -25 }}>
           <div className={`priority-indicator`} style={{ width: "64%" }}></div>
           <span className="column date-column-assign">Última Entrega</span>
@@ -115,6 +139,7 @@ function TableAssign({ onClick }) {
             date1={row.date1}
             date2={row.date2}
             dispo={row.dispo}
+            setModal={setShowModal}
           />
         ))}
       </div>

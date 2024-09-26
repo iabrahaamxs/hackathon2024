@@ -12,6 +12,7 @@ function RowtableAssign({
   date1,
   date2,
   dispo,
+  setModal,
 }) {
   const getPrioriClass = (pri) => {
     switch (pri) {
@@ -39,6 +40,9 @@ function RowtableAssign({
         <Button
           variant={dispo ? "primary" : "secondary"}
           children={"Asignar"}
+          onClick={() => {
+            dispo ? setModal(true) : null;
+          }}
         />
       </div>
     </div>
