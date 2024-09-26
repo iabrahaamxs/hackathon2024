@@ -55,11 +55,12 @@ const Carousel = () => {
 
 export default function Donante() {
 
+  //DATOS DE LOS PACIENTES
+
   const dataSector = {
     'Diabetes': [{ region: 'Barrio Lindo', pacientes: 20 }, { region: 'Alambique', pacientes: 20 }, { region: 'Cardenales', pacientes: 60 }, { region: 'Los Luises', pacientes: 20 }, { region: 'Santos Luzardo', pacientes: 20 }],
     'Cancer': [{ region: 'Barrio Lindo', pacientes: 30 }, { region: 'Alambique', pacientes: 40 }, { region: 'Cardenales', pacientes: 10 }, { region: 'Los Luises', pacientes: 30 }, { region: 'Santos Luzardo', pacientes: 30 }],
     'Hipertensión': [{ region: 'Barrio Lindo', pacientes: 40 }, { region: 'Alambique', pacientes: 10 }, { region: 'Cardenales', pacientes: 50 }, { region: 'Los Luises', pacientes: 40 }, { region: 'Santos Luzardo', pacientes: 10 }],
-    // Agrega más datos según sea necesario
   };
   const dataDemografia = {
     'Diabetes': [
@@ -86,7 +87,6 @@ export default function Donante() {
       { sexo: 'F', edad: '50-60', pacientes: 20 },
       { sexo: 'M', edad: '60-70', pacientes: 25 }
     ]
-    // Agrega más datos según sea necesario
   };
 
 
@@ -118,13 +118,31 @@ export default function Donante() {
   const chartDataSector = dataSector[enfermedad].map(item => item.pacientes);
   const regions = dataSector[enfermedad].map(item => item.region);
 
+  //DATOS DEL DONANTE
+
   const name = "CARITAS";
-  const periods = ['Todas', 'Disponible', 'Espera'];
-  const [selectedPeriod, setSelectedPeriod] = useState(periods[0]);
+
+  const data = {
+    '25/06/2024': {
+      Losartan: { entregadas: 40, espera: 10, caducadas: 2 },
+      Prednisona: { entregadas: 15, espera: 15, caducadas: 5 },
+      Insulina: { entregadas: 80, espera: 55, caducadas: 18 },
+    },
+    '16/08/2024': {
+      Losartan: { entregadas: 50, espera: 10, caducadas: 3 },
+      Prednisona: { entregadas: 40, espera: 15, caducadas: 5 },
+      Insulina: { entregadas: 60, espera: 37, caducadas: 17 },
+    }
+  };
+
+  const donations = ['Todas', ...Object.keys(data)];
+
+  const [selectedDonation, setSelectedDonation] = useState(donations[0]);
   const [selectedMedicines, setSelectedMedicines] = useState([]);
 
-  const handleSelect = (period) => {
-    setSelectedPeriod(period);
+  const handleSelect = (donation) => {
+    setSelectedDonation(donation);
+   // setSelectedMedicines([]);
   };
 
   const handleMedicineChange = (medicine) => {
@@ -135,22 +153,29 @@ export default function Donante() {
     );
   };
 
-  const data = {
-    Losartan: { entregadas: 100, espera: 20, caducadas: 5 },
-    Prednisona: { entregadas: 80, espera: 30, caducadas: 10 },
-    Insulina: { entregadas: 160, espera: 74, caducadas: 35 },
+  const getTotalData = () => {
+    return Object.values(data).reduce((acc, donation) => {
+      Object.keys(donation).forEach(medicine => {
+        acc[medicine] = acc[medicine] || { entregadas: 0, espera: 0, caducadas: 0 };
+        acc[medicine].entregadas += donation[medicine].entregadas;
+        acc[medicine].espera += donation[medicine].espera;
+        acc[medicine].caducadas += donation[medicine].caducadas;
+      });
+      return acc;
+    }, {});
   };
+
+  const currentData = selectedDonation === 'Todas' ? getTotalData() : data[selectedDonation];
 
   const filteredData = selectedMedicines.length > 0
       ? selectedMedicines.reduce((acc, medicine) => {
         return {
-          entregadas: acc.entregadas + (data[medicine]?.entregadas || 0),
-          espera: acc.espera + (data[medicine]?.espera || 0),
-          caducadas: acc.caducadas + (data[medicine]?.caducadas || 0),
+          entregadas: acc.entregadas + (currentData[medicine]?.entregadas || 0),
+          espera: acc.espera + (currentData[medicine]?.espera || 0),
+          caducadas: acc.caducadas + (currentData[medicine]?.caducadas || 0),
         };
       }, { entregadas: 0, espera: 0, caducadas: 0 })
       : { entregadas: 0, espera: 0, caducadas: 0 };
-
 
   const total = filteredData.entregadas + filteredData.espera + filteredData.caducadas;
 
@@ -160,6 +185,15 @@ export default function Donante() {
     { value: filteredData.caducadas, label: 'Caducadas', color: 'red' },
   ];
 
+  const totalMedicines = Object.values(currentData).reduce((acc, medicine) => {
+    return acc + medicine.entregadas + medicine.espera + medicine.caducadas;
+  }, 0);
+
+  const totalDonations = Object.keys(currentData).length;
+
+
+  //TODO
+  //Pasar como prop el número de personas alcanzadas y la posición como donante
 
   return (
       <div>
@@ -172,8 +206,8 @@ export default function Donante() {
             <div className={'donaciones-filter'}>
               <Dropdown
                   title={"Donaciones"}
-                  options={periods}
-                  selectedOption={selectedPeriod}
+                  options={donations}
+                  selectedOption={selectedDonation}
                   onSelect={handleSelect}
                   Icon={FaCalendarAlt}
               />
@@ -186,7 +220,7 @@ export default function Donante() {
                 Icon={SlBadge}
             />
             <CardNumber
-                number={'540'}
+                number={totalMedicines}
                 descriptor={'Medicamentos donados'}
                 Icon={GiMedicines}
             />
@@ -196,19 +230,21 @@ export default function Donante() {
                 Icon={FaHandsHelping}
             />
             <CardNumber
-                number={'4'}
+                number={totalDonations}
                 descriptor={'Donaciones frecuentes'}
                 Icon={AiFillMedicineBox}/>
           </div>
           <div className={'donaciones-second-row'}>
             <div className={'card second'}>
-              <div className={'second-top'}><h3>Uso de medicamentos</h3>
+              <div className={'second-top'}>
+                <h3>Uso de medicamentos</h3>
                 <div className="checkbox-container">
-                  {Object.keys(data).map((medicine, index) => (
+                  {Object.keys(currentData).map((medicine, index) => (
                       <label key={index} className="checkbox-label">
                         <input
                             type="checkbox"
                             value={medicine}
+                            checked={selectedMedicines.includes(medicine)}
                             onChange={() => handleMedicineChange(medicine)}
                         />
                         <span className="checkbox-custom"></span>
@@ -220,18 +256,21 @@ export default function Donante() {
               <div className={'second-content'}>
                 {chartsData.map((chart, index) => (
                     <CustomPie
+                        key={index}
                         data={[
                           {id: 0, value: chart.value},
-                          {id: 1, value: total - chart.value},
+                          {id: 1, value: total > 0 ? total - chart.value : 1},
                         ]}
                         title={chart.label}
                         color={chart.color}
-                        size={250}
+                        size={300}
                     />
                 ))}
               </div>
             </div>
-            <div className={'card second'}>
+          </div>
+          <div className={'donaciones-third-row'}>
+            <div className={'card third'}>
               <div className={'second-top'}>
                 <h3>Distribución geográfica</h3>
                 <select id="enfermedad-select" value={enfermedad} onChange={handleChange} className={'select illness'}>
@@ -243,17 +282,12 @@ export default function Donante() {
               <BarChart
                   series={[{data: chartDataSector}]}
                   yAxis={[{data: regions, scaleType: 'band', barGapRatio: 1.0}]}
-                  height={250}
-                  width={600}
+                  height={300}
+                  width={800}
                   layout={'horizontal'}
                   className={'illness-sector'}
                   margin={{left: 100}}
               />
-            </div>
-          </div>
-          <div className={'donaciones-third-row'}>
-            <div className={'card third'}>
-
             </div>
             <div className={'card third'}>
               <div className={'second-top'}>
@@ -266,11 +300,11 @@ export default function Donante() {
               </div>
               <BarChart
                   series={chartDataDemografia}
-                  xAxis={[{ data: edades, scaleType: 'band', barGapRatio: 1 }]}
+                  xAxis={[{data: edades, scaleType: 'band', barGapRatio: 1}]}
                   height={300}
                   width={470}
                   className={'illness-sector'}
-                  margin={{ right: 0 }}
+                  margin={{right: 0}}
               />
             </div>
           </div>

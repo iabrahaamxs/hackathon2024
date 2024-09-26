@@ -13,8 +13,8 @@ const Dropdown = ({ title, options, selectedOption, onSelect, Icon }) => {
   return (
       <div className="dropdown">
         <button className="dropdown-button" onClick={() => setIsOpen(!isOpen)}>
-          {Icon && <div className={'icon-container'}><Icon className="icon" /></div>}
-          <div className={'labels'}>
+          {Icon && <div className={'icon-container'}><Icon className="icon-dropdown" /></div>}
+          <div className={'labels-dropdown'}>
             <span className="title">{title}</span>
             <span className="selected-option">{selectedOption}</span>
           </div>
