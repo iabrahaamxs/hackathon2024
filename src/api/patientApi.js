@@ -1,5 +1,6 @@
 import axiosManager from "./apiManager";
 
+//esperar
 const consulta = async (id) => {
   try {
     const res = await axiosManager.post("/apiurlllll", {
