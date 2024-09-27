@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputField from "./InputField";
 import Button from "./Button";
+import { FaTrash } from "react-icons/fa6";
 
 const EnfermedadComponent = ({ enfermedadesExistentes, agregarEnfermedad }) => {
   const [nuevaEnfermedad, setNuevaEnfermedad] = useState("");
@@ -61,7 +62,7 @@ const EnfermedadComponent = ({ enfermedadesExistentes, agregarEnfermedad }) => {
           Agregar
         </button> */}
 
-        <Button children={"Agregar"} variant={"primary"}/>
+        <Button children={"Agregar"} variant={"primary"} />
       </form>
 
       <div style={{ marginBottom: "20px" }}>
@@ -72,17 +73,24 @@ const EnfermedadComponent = ({ enfermedadesExistentes, agregarEnfermedad }) => {
           style={{ listStyleType: "none", paddingLeft: "0", fontSize: "16px" }}
         >
           {enfermedadesExistentes.map((enfermedad, index) => (
-            <li
-              key={index}
-              style={{
-                padding: "8px",
-                backgroundColor: "#f9f9f9",
-                marginBottom: "8px",
-                borderRadius: "5px",
-              }}
-            >
-              {enfermedad}
-            </li>
+            <div key={index} style={{ display: "flex" }}>
+              <li
+                key={index}
+                style={{
+                  padding: "8px",
+                  backgroundColor: "#f9f9f9",
+                  marginBottom: "8px",
+                  borderRadius: "5px",
+                  display:"inline-block",
+                  width:"100%"
+                }}
+              >
+                {enfermedad}
+              </li>
+              <button className="action-btn delete-btn" aria-label="Delete">
+                <FaTrash />
+              </button>
+            </div>
           ))}
         </ul>
       </div>

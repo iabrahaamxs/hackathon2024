@@ -1,7 +1,7 @@
-import { FaTrash } from "react-icons/fa6";
+import { FaPencil, FaTrash } from "react-icons/fa6";
 import "../stylesheets/Rowtable.css";
 
-function RowtableMedicine({ id, name, illness }) {
+function RowtableMedicine({ id, name, illness, updateClick }) {
   const getTagColor = (illness) => {
     switch (illness.toLowerCase()) {
       case "diabetes":
@@ -42,6 +42,13 @@ function RowtableMedicine({ id, name, illness }) {
         <div className="actions-column">
           <button className="action-btn delete-btn" aria-label="Delete">
             <FaTrash />
+          </button>
+          <button
+            className="action-btn edit-btn"
+            aria-label="Edit"
+            onClick={updateClick}
+          >
+            <FaPencil />
           </button>
         </div>
       </div>
