@@ -1,7 +1,8 @@
 import { FaPencil, FaTrash } from "react-icons/fa6";
 import Button from "./Button.jsx";
+import { FaCalendarCheck } from "react-icons/fa";
 
-function RowPatient({ priority, id, name, illness, handleClick }) {
+function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
   const getPriority = (priority) => {
     if (priority === 1) {
       return "red";
@@ -47,55 +48,22 @@ function RowPatient({ priority, id, name, illness, handleClick }) {
               margin: 10,
             }}
         ></div>
-        <span style={{width: "10%", opacity: 0.7}}>{id}</span>
-        <span style={{width: "30%", opacity: 0.7}}>{name}</span>
-        <div style={{width: "30%", opacity: 0.7}}>
+        <span style={{ width: "10%", opacity: 0.7 }}>{id}</span>
+        <span style={{ width: "30%", opacity: 0.7 }}>{name}</span>
+        <div style={{ width: "30%", opacity: 0.7 }}>
           {illness.map((ill, index) => (
-              <div key={index} style={{...tagStyle, backgroundColor: getTagColor(ill)}}>
+              <div key={index} style={{ ...tagStyle, backgroundColor: getTagColor(ill) }}>
                 {capitalizeFirstLetter(ill)}
               </div>
           ))}
         </div>
-        <div style={{width: "20%"}}>
-          <Button variant={'outline'} children={'Ver historia'} onClick={handleClick}/>
+        <div style={{ width: "20%" }}>
+          <Button variant={'outline'} children={'Ver historia'} onClick={handleClick} />
         </div>
-        <div
-            style={{
-              width: "10%",
-              opacity: 0.7,
-              display: "flex",
-              flexDirection: "row",
-              gap: 10,
-            }}
-        >
-          <i
-              style={{
-                color: "white",
-                backgroundColor: "red",
-                display: "flex",
-                width: 30,
-                height: 30,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 999,
-              }}
-          >
-            <FaTrash/>
-          </i>
-          <i
-              style={{
-                color: "white",
-                backgroundColor: "green",
-                display: "flex",
-                width: 30,
-                height: 30,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 999,
-              }}
-          >
-            <FaPencil/>
-          </i>
+        <div className="actions-column">
+          <button className="action-btn delete-btn" aria-label="Delete" onClick={() => onDelete(id)}>
+            <FaTrash />
+          </button>
         </div>
       </div>
   );
@@ -110,3 +78,4 @@ const tagStyle = {
 };
 
 export default RowPatient;
+

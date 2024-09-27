@@ -4,6 +4,7 @@ import { FaAddressCard, FaPhone, FaUser } from "react-icons/fa6";
 import InputField from "./InputField";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 function NewAdmin({ backClick }) {
   const [name, setName] = useState("");
@@ -33,7 +34,7 @@ function NewAdmin({ backClick }) {
       return;
     }
     if (phone.length !== 11) {
-      setError("El teléfono debe tener 11 digitos.");
+      setError("El teléfono debe tener 11 dígitos.");
       return;
     }
     if (!/\S+@\S+\.\S+/.test(email)) {
@@ -49,17 +50,48 @@ function NewAdmin({ backClick }) {
       return;
     }
 
-    // TODO: Lógica para guardar el nuevo administrador
-    console.log("Nuevo administrador creado:", { name, lastName, document, phone, email, password });
-    setError("");
-    // Resetear los campos después de guardar
-    setName("");
-    setLastName("");
-    setDocument("");
-    setPhone("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    const newAdmin = {
+      name,
+      lastName,
+      document,
+      phone,
+      email,
+      password,
+    };
+
+    Swal.fire({
+      title: 'Confirmar Información',
+      html: `
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Apellido:</strong> ${lastName}</p>
+        <p><strong>Documento:</strong> ${document}</p>
+        <p><strong>Teléfono:</strong> ${phone}</p>
+        <p><strong>Correo:</strong> ${email}</p>
+      `,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        console.log("Nuevo administrador creado:", newAdmin);
+        // TODO: Lógica para guardar el nuevo administrador
+        setError("");
+        Swal.fire(
+            '¡Administrador Creado!',
+            'El nuevo administrador ha sido creado exitosamente.',
+            'success'
+        ).then(() => {
+          // Limpiar los campos después de mostrar el mensaje de éxito
+          setName("");
+          setLastName("");
+          setDocument("");
+          setPhone("");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+        });
+      }
+    });
   };
 
   return (

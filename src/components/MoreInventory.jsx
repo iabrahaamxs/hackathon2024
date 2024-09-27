@@ -26,6 +26,7 @@ function MoreInventory({ title, gm, quantity, rows }) {
     }
   };
 
+
   return (
       <div className={`more-container ${isOpen ? "active" : ""}`}>
         <div
@@ -45,9 +46,9 @@ function MoreInventory({ title, gm, quantity, rows }) {
         </div>
         {isOpen && (
             <div className={"info"}>
-              {rows.map((row, index) => (
+              {rows.map((row) => (
                   <RowInventory
-                      key={index}
+                      id={row.id}
                       gm={row.gm}
                       name={row.name}
                       med={row.med}

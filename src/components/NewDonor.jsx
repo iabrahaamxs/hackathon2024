@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 import { FaUser, FaUsers, FaAddressCard, FaLock } from "react-icons/fa";
 import Button from "./Button";
 import InputField from "./InputField";
@@ -10,6 +11,7 @@ function NewDonor({ backClick }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+
 
   const donorTypes = ["ONG", "Gubernamental", "Privada", "Natural"];
 
@@ -34,15 +36,35 @@ function NewDonor({ backClick }) {
       setError("Las contraseñas no coinciden.");
       return;
     }
-    //TODO Lógica para guardar al donante
-    console.log("Nuevo donante creado:", { name, organizationType, identification, password });
-    setError("");
-    // Resetear los campos después de guardar
-    setName("");
-    setOrganizationType("");
-    setIdentification("");
-    setPassword("");
-    setConfirmPassword("");
+
+    Swal.fire({
+      title: 'Confirmar Información',
+      html: `
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Tipo de Organización:</strong> ${organizationType}</p>
+        <p><strong>Identificación:</strong> ${identification}</p>
+      `,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        // TODO Lógica para guardar al donante
+        console.log("Nuevo donante creado:", { name, organizationType, identification, password });
+        setError("");
+        // Resetear los campos después de guardar
+        setName("");
+        setOrganizationType("");
+        setIdentification("");
+        setPassword("");
+        setConfirmPassword("");
+        Swal.fire(
+            '¡Usuario Creado!',
+            'El nuevo donante ha sido creado exitosamente.',
+            'success'
+        );
+      }
+    });
   };
 
   return (
