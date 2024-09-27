@@ -6,6 +6,14 @@ import RowtableMedicine from "./RowTableMedicine";
 import "../stylesheets/Medicines.css";
 function TableMedicine() {
   const [showModal, setShowModal] = useState(false);
+  const [typeModal, setTypeModal] = useState("");
+
+  const openModal = (type) => {
+    type === "add"
+      ? setTypeModal("Insertar Medicina")
+      : setTypeModal("Actualizar Medicina");
+    setShowModal(true);
+  };
   const enfermedades = [
     "enfermedad1",
     "enfermedad2",
@@ -41,13 +49,13 @@ function TableMedicine() {
         <Button
           variant={"primary"}
           children={"Insertar medicina"}
-          onClick={() => setShowModal(true)}
+          onClick={() => openModal("add")}
         />
         <InputField type="text" className={"form"} label={"Buscar"} />
       </div>
       <br />
       <Modal show={showModal} handleClose={() => setShowModal(false)}>
-        <h2>Insertar Medicina</h2>
+        <h2>{typeModal}</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <InputField type="text" label={"Medicina"} className="form" />
 
@@ -89,7 +97,11 @@ function TableMedicine() {
       </Modal>
       <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
         {medicamentos.map((row) => (
-          <RowtableMedicine name={row.nombre} illness={row.illness} />
+          <RowtableMedicine
+            name={row.nombre}
+            illness={row.illness}
+            updateClick={openModal}
+          />
         ))}
       </div>
     </div>
