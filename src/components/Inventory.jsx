@@ -7,13 +7,87 @@ import { useState } from "react";
 import RowInventory from "./RowInventory";
 import MoreInventory from "./MoreInventory";
 import InputField from "./InputField";
+import {calculatePriority} from "../utils/utils.jsx";
 
 function Inventory() {
-  const [enfermedad, setEnfermedad] = useState("");
-  const [estado, setEstado] = useState("");
-  const [medicina, setMedicina] = useState("");
-  const [donante, setDonante] = useState("");
+
+  const statuses = [
+    { value: "all", label: "Todos" },
+    { value: 1, label: "Caducadas" },
+    { value: 2, label: "Por caducar" },
+    { value: 3, label: "Vigentes" }
+  ];
+
+
+  const inventory = [
+    {
+      title: "medicina 1",
+      rows: [
+        {
+          name: "medicina 1",
+          gm: "300g",
+          med: "123",
+          date: "12/23/34",
+          quantity: 77
+        },
+        {
+          name: "medicina 1",
+          gm: "300g",
+          med: "123",
+          date: "12/23/34",
+          quantity: 77
+        }
+      ]
+    },
+    {
+      title: "medicina 2",
+      rows: [
+        {
+          name: "medicina 2",
+          gm: "200g",
+          med: "456",
+          date: "11/22/33",
+          quantity: 50
+        },
+        {
+          name: "medicina 2",
+          gm: "200g",
+          med: "456",
+          date: "11/22/33",
+          quantity: 50
+        }
+      ]
+    },
+    {
+      title: "medicina 3",
+      rows: [
+        {
+          name: "medicina 3",
+          gm: "150g",
+          med: "789",
+          date: "10/21/32",
+          quantity: 30
+        },
+        {
+          name: "medicina 3",
+          gm: "150g",
+          med: "789",
+          date: "10/21/32",
+          quantity: 30
+        }
+      ]
+    }
+  ];
+
+  const [status, setStatus] = useState("all");
+  const [med, setMed] = useState("");
+  const [donor, setDonor] = useState("");
   const [agg, setAgg] = useState(false);
+
+  const filteredInventory = status === "all" ? inventory : inventory.filter(inv => {
+    const lowestPriority = Math.min(...inv.rows.map(row => calculatePriority(row.date)));
+    return lowestPriority === status;
+  });
 
   return (
     <>
@@ -45,25 +119,25 @@ function Inventory() {
           }}
         >
           <select
-            name="donante"
+            name="donor"
             className="select history"
-            value={donante}
-            onChange={(e) => setDonante(e.target.value)}
+            value={donor}
+            onChange={(e) => setDonor(e.target.value)}
           >
-            <option value="M">Donante 1</option>
-            <option value="F">Enfermedad 2</option>
+            <option value="M">Donor 1</option>
+            <option value="F">Illness 2</option>
           </select>
           <br />
           <br />
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <select
-              name="Medicina"
+              name="Med"
               className="select history"
-              value={medicina}
-              onChange={(e) => setMedicina(e.target.value)}
+              value={med}
+              onChange={(e) => setMed(e.target.value)}
             >
               <option value="M">Mecidina 1</option>
-              <option value="F">Enfermedad 2</option>
+              <option value="F">Illness 2</option>
             </select>
             <InputField className="form" label={"Presentación (mg)"} onlyNumbers={true} maxLength={5} />
             <InputField className="form" label={"Lote"} maxLength={10} />
@@ -143,52 +217,30 @@ function Inventory() {
               justifyContent: "space-between",
             }}
           >
-            <div className={"input"} style={{ justifyContent: "end", gap: 10 }}>
+            <div className={"input"} style={{justifyContent: "end", gap: 10}}>
               <select
-                name="enfermedad"
-                className="select history"
-                value={enfermedad}
-                onChange={(e) => setEnfermedad(e.target.value)}
+                  name="status"
+                  className="select history"
+                  value={status}
+                  onChange={(e) => setStatus(parseInt(e.target.value))}
               >
-                <option value="M">Enfermedad 1</option>
-                <option value="F">Enfermedad 2</option>
+                {statuses.map((st) => (
+                    <option key={st.value} value={st.value}>
+                      {st.label}
+                    </option>
+                ))}
               </select>
-              <select
-                name="estado"
-                className="select history"
-                value={estado}
-                onChange={(e) => setEstado(e.target.value)}
-              >
-                <option value="M">Estado 1</option>
-                <option value="F">Estado 2</option>
-              </select>
-              <Button children={"Filtrar"} variant={"primary"} />
+
+              <Button children={"Filtrar"} variant={"primary"}/>
             </div>
-            <MoreInventory
-              title={"medicina 1"}
-              gm={20}
-              cant={899}
-              infoComponent={
-                <div style={{ width: "90%", margin: "auto" }}>
-                  <RowInventory
-                    pri={1}
-                    name={"medicina 1"}
-                    gm={"300g"}
-                    med={"123"}
-                    date={"12/23/34"}
-                    cant={"77"}
-                  />
-                  <RowInventory
-                    pri={2}
-                    name={"medicina 1"}
-                    gm={"300g"}
-                    med={"123"}
-                    date={"12/23/34"}
-                    cant={"77"}
-                  />
-                </div>
-              }
-            />
+            {filteredInventory.map((inv, index) => (
+                <MoreInventory
+                    key={index}
+                    title={inv.title}
+                    quantity={inv.rows.reduce((sum, row) => sum + row.quantity, 0)}
+                    rows={inv.rows}
+                />
+            ))}
           </div>
         </>
       )}
