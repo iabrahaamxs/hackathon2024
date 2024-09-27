@@ -11,15 +11,14 @@ import { BsFillCalendarDateFill, BsGenderAmbiguous } from "react-icons/bs";
 import { GiMedicines } from "react-icons/gi";
 import '../stylesheets/Dashboard.css'
 import {MdOutlinePhoneAndroid} from "react-icons/md";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import More from "./More.jsx";
 import Table from "./Table.jsx";
 import Diagnosis from "./Diagnosis.jsx";
 import RowTreatment from "./RowTreatment.jsx";
 import Modal from "./Modal.jsx";
-
+//TODO Reiniciar los modales
 function History({ backClick }) {
-  const [inputValue, setInputValue] = useState('');
   const meds = ['Prednisona', 'Losartan', 'Insulina'];
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -42,18 +41,97 @@ function History({ backClick }) {
   const [direccion, setDireccion] = useState(pacienteDatos.direccion);
   const [telefono, setTelefono] = useState(pacienteDatos.telefono);
   const [celular, setCelular] = useState(pacienteDatos.celular);
+  const [errorPatient, setErrorPatient] = useState("");
+
+  const handleUpdatePatient = () => {
+    if (!id || !nombres || !apellidos || !sexo || !fnacimiento || !sector || !direccion || !telefono ) {
+      setErrorPatient("Todos los campos son obligatorios.");
+      return;
+    }
+    if (id.length < 6) {
+      setErrorPatient("La identificación debe tener al menos 6 caracteres.");
+      return;
+    }
+    if (nombres.length < 3) {
+      setErrorPatient("El nombre debe tener al menos 3 caracteres.");
+      return;
+    }
+    if (apellidos.length < 3) {
+      setErrorPatient("El apellido debe tener al menos 3 caracteres.");
+      return;
+    }
+    if (telefono.length !== 11) {
+      setErrorPatient("El teléfono debe tener 11 digitos.");
+      return;
+    }
+    if (telefono.length !== 11) {
+      setErrorPatient("El celular debe tener 11 digitos.");
+      return;
+    }
+
+    if (direccion.length < 10) {
+      setErrorPatient("La dirección debe tener al menos 10 caracteres.");
+      return;
+    }
+
+    // TODO: Lógica para actualizar los datos
+    console.log("Datos actualizados:", { id, nombres, apellidos, sexo, fnacimiento, sector, direccion, telefono, celular});
+    setErrorPatient("");
+  };
 
   const treatmentsData = [
-      { med: 'Losartan', quantity: '30', date: '26/09/2024'},
-      { med: 'Prednisona', quantity: '30', date: '26/09/2024'},
-      { med: 'Xanax', quantity: '60', date: '26/09/2024'},
-      { med: 'Insulina', quantity: '20', date: '26/09/2024'}]
+      { treatmentId: "1", med: 'Losartan', quantity: '30', date: '26/09/2024'},
+      { treatmentId: "2", med: 'Prednisona', quantity: '30', date: '26/09/2024'},
+      { treatmentId: "3", med: 'Xanax', quantity: '60', date: '26/09/2024'},
+      { treatmentId: "4", med: 'Insulina', quantity: '20', date: '26/09/2024'}]
 
   const [showNewTreatment, setShowNewTreatment] = useState(false);
 
   const handleOpenTreatment = () => setShowNewTreatment(true);
   const handleCloseTreatment = () => setShowNewTreatment(false);
 
+  const handleDeleteTreatment = (treatmentId) => {
+    console.log(`Eliminar tratamiento con id: ${treatmentId}`);
+    // TODO Lógica para eliminar
+  };
+
+  const [inputMed, setInputMed] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [errorMed, setErrorMed] = useState("");
+
+
+  const handleChangeMed = (e) => {
+    setInputMed(e.target.value);
+  };
+
+  const handleStartDateChange = (e) => {
+    setStartDate(e.target.value);
+  };
+
+  const handleQuantityChange = (e) => {
+    setQuantity(e.target.value);
+  };
+
+  const handleSaveMed = () => {
+    if (!inputMed || !startDate || !quantity) {
+      setErrorMed("Todos los campos son obligatorios.");
+      return;
+    }
+    if (inputMed.length < 3) {
+      setErrorMed("El nombre del medicamento debe tener al menos 3 caracteres.");
+      return;
+    }
+    if (quantity <= 0) {
+      setErrorMed("La cantidad mensual debe ser mayor que 0.");
+      return;
+    }
+
+    // TODO: Lógica para guardar el nuevo tratamiento
+    console.log("Nuevo tratamiento agregado:", { inputMed, startDate, quantity });
+    setErrorMed("");
+    handleCloseTreatment();
+  };
 
   const initialDiagnosisData = [
     {illness:'Diabetes', classification: 'Estadio I', notes:'Heriditaria', treatment:''},
@@ -76,12 +154,22 @@ function History({ backClick }) {
   const [classification, setClassification] = useState('-');
   const [notes, setNotes] = useState('');
   const [treatment, setTreatment] = useState('');
+  const [errorDiagnosis, setErrorDiagnosis] = useState("");
+  const handleSaveDiagnosis = () => {
+    if (!illness) {
+      setErrorDiagnosis("El nombre de la enfermedad es obligatorio.");
+      return;
+    }
 
-  const handleSave = () => {
-    onSave({ illness, classification, notes, treatment });
-    handleClose();
+    if (illness.length < 3 ) {
+      setErrorDiagnosis("El nombre de la enfermedad debe tener por lo menos 3 carácteres.");
+      return;
+    }
+
+    // TODO: Lógica para guardar el nuevo diagnóstico
+    console.log("Nuevo diagnóstico agregado:", { illness, classification, notes, treatment });
+    handleCloseDiagnosis();
   };
-
 
   const initialAntecedentesData = {
     encamado: false, diabetes: true, dislipidemia: false, obesidad: true,
@@ -103,6 +191,11 @@ function History({ backClick }) {
       ...antecedentesData,
       [field]: value,
     });
+  };
+
+  const handleUpdateAntecedentes = () => {
+    // TODO: Lógica para actualizar los antecedentes
+    console.log("Antecedentes actualizados:", antecedentesData);
   };
 
   const dataEntregas = [
@@ -262,8 +355,9 @@ function History({ backClick }) {
             </div>
           </div>
           <div className={'update'}>
-            <Button children={'Actualizar'} variant={'primary'}/>
+            <Button children={'Actualizar'} variant={'primary'} onClick={handleUpdatePatient} />
           </div>
+          {errorPatient && <div style={{ color: "red", textAlign: "center" }}>{errorPatient}</div>}
         </div>
 
         <p>Tratamientos</p>
@@ -274,6 +368,8 @@ function History({ backClick }) {
                   date={item.date}
                   quantity={item.quantity}
                   renovate={item.renovate}
+                  treatmentId={item.treatmentId}
+                  onDelete={handleDeleteTreatment}
               />
           ))}
           <div className={'center'}>
@@ -285,16 +381,33 @@ function History({ backClick }) {
         </div>
         <Modal show={showNewTreatment} handleClose={handleCloseTreatment}>
           <h2>Agregar Nuevo Tratamiento</h2>
-          <InputField type="text" label={'Medicamento'} value={inputValue}
-                      onChange={handleChange}
-                      suggestions={meds}
-                      onlyAlphanumeric={true}
-                      maxLength={50}
+          <InputField
+              type="text"
+              label={"Medicamento"}
+              value={inputMed}
+              onChange={handleChangeMed}
+              suggestions={meds}
+              onlyAlphanumeric={true}
+              maxLength={50}
           />
-          <InputField type="date" label={'Fecha de inicio'}/>
-          <InputField type="number" label={'Cantidad mensual'} onlyNumbers={true} maxLength={3}/>
-          <div className={'center'}><Button variant={'primary'} children={'Guardar'} onClick={handleCloseTreatment}/>
+          <InputField
+              type="date"
+              label={"Fecha de inicio"}
+              value={startDate}
+              onChange={handleStartDateChange}
+          />
+          <InputField
+              type="number"
+              label={"Cantidad mensual"}
+              value={quantity}
+              onChange={handleQuantityChange}
+              onlyNumbers={true}
+              maxLength={3}
+          />
+          <div className={'center'}>
+            <Button variant={'primary'} children={'Guardar'} onClick={handleSaveMed} />
           </div>
+          {errorMed && <div style={{ color: "red", textAlign: "center" }}>{errorMed}</div>}
         </Modal>
 
         <p>Diagnósticos actuales</p>
@@ -321,22 +434,42 @@ function History({ backClick }) {
       </div>
         <Modal show={showNewDiagnosis} handleClose={handleCloseDiagnosis}>
           <h2>Agregar Nuevo Diagnóstico</h2>
-          <InputField label="Enfermedad" value={illness} onChange={(e) => setIllness(e.target.value)} onlyLetters={true} maxLength={30}/>
+          <InputField
+              label="Enfermedad"
+              value={illness}
+              onChange={(e) => setIllness(e.target.value)}
+              onlyLetters={true}
+              maxLength={30}
+          />
           <div className="input-row">
-            <select name="classification" className="select history" value={classification}
-                    onChange={(e) => setClassification(e.target.value)}>
+            <select
+                name="classification"
+                className="select history"
+                value={classification}
+                onChange={(e) => setClassification(e.target.value)}
+            >
               <option value="-">-</option>
               <option value="Estadio I">Estadio I</option>
               <option value="Estadio II">Estadio II</option>
               <option value="Estadio III">Estadio III</option>
             </select>
-            <InputField label="Observaciones" value={notes} onChange={(e) => setNotes(e.target.value)}/>
+            <InputField
+                label="Observaciones"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+            />
           </div>
           <div className="input-full-width">
-            <InputField label="Tratamiento" value={treatment} onChange={(e) => setTreatment(e.target.value)}/>
+            <InputField
+                label="Tratamiento"
+                value={treatment}
+                onChange={(e) => setTreatment(e.target.value)}
+            />
           </div>
-          <div className={'center'}><Button variant={'primary'} children={'Guardar'} onClick={handleCloseTreatment}/>
+          <div className={'center'}>
+            <Button variant={'primary'} children={'Guardar'} onClick={handleSaveDiagnosis} />
           </div>
+          {errorDiagnosis && <div style={{ color: "red", textAlign: "center" }}>{errorDiagnosis}</div>}
         </Modal>
 
         <p>Antecedentes</p>
@@ -369,7 +502,7 @@ function History({ backClick }) {
             />
           </div>
           <div className={'update'}>
-            <Button children={'Actualizar'} variant={'primary'}/>
+            <Button children={'Actualizar'} variant={'primary'} onClick={handleUpdateAntecedentes}/>
           </div>
         </div>
 
@@ -378,12 +511,6 @@ function History({ backClick }) {
             infoComponent={<div style={{width: '90%', margin: 'auto'}}><Table data={dataEntregas}/></div>}
         />
 
-        <More
-            title={'Información adicional'}
-            infoComponent={<img style={{width: '500px'}}
-                                src={'https://i.etsystatic.com/36842711/r/il/fe5889/4888519418/il_570xN.4888519418_azww.jpg'}/>}
-        />
-        
       </div>
   );
 }
