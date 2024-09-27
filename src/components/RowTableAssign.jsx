@@ -1,18 +1,7 @@
 import "../stylesheets/Rowtable.css";
 import Button from "./Button";
 
-function RowtableAssign({
-                          treatmentId,
-                          priority,
-                          id,
-                          name,
-                          med,
-                          quantity,
-                          date1,
-                          date2,
-                          available,
-                          setModal,
-                        }) {
+function RowtableAssign({ treatmentId, priority, id, name, med, quantity, date1, date2, available, setModal,}) {
   const getPrioriClass = (priority) => {
     switch (priority) {
       case 1:

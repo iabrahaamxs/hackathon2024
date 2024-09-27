@@ -11,6 +11,13 @@ function Patients() {
     setPage(page);
   };
 
+  const handleClickHistory = (page, id) => {
+    setPage(page);
+    console.log(id);
+    //TODO Lógicar para buscar la historia
+  };
+
+
   const [filter, setFilter] = useState([]);
   const illnesses = ['diabetes', 'hipertension', 'asma'];
   const patients = [
@@ -89,7 +96,7 @@ function Patients() {
                           name={patient.name}
                           priority={patient.priority}
                           illness={patient.illness}
-                          handleClick={() => handleClick("history")}
+                          handleClick={() => handleClickHistory("history", patient.id)}
                       />
                   ))}
                 </div>

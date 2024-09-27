@@ -18,7 +18,51 @@ import Diagnosis from "./Diagnosis.jsx";
 import RowTreatment from "./RowTreatment.jsx";
 import Modal from "./Modal.jsx";
 //TODO Reiniciar los modales
+
+const combinedData = {
+  pacienteDatos: {
+    id: '12352242',
+    nombres: 'Jose María',
+    apellidos: 'Pérez Ortega',
+    sexo: 'Masculino',
+    fnacimiento: '1973-04-03',
+    sector: 'Los Luises',
+    direccion: 'Casa imaginaria',
+    telefono: '02567654567',
+    celular: '04162425353'
+  },
+  treatmentsData: [
+    { treatmentId: "1", med: 'Losartan', quantity: '30', date: '26/09/2024' },
+    { treatmentId: "2", med: 'Prednisona', quantity: '30', date: '26/09/2024' },
+    { treatmentId: "3", med: 'Xanax', quantity: '60', date: '26/09/2024' },
+    { treatmentId: "4", med: 'Insulina', quantity: '20', date: '26/09/2024' }
+  ],
+  initialDiagnosisData: [
+    { illness: 'Diabetes', classification: 'Estadio I', notes: 'Heriditaria', treatment: '' },
+    { illness: 'Hipertensión', classification: 'Estadio II', notes: '', treatment: '' }
+  ],
+  initialAntecedentesData: {
+    encamado: false,
+    diabetes: true,
+    dislipidemia: false,
+    obesidad: true,
+    erc: false,
+    iam: false,
+    acv: false,
+    fumador: false,
+    alergias: 'Maní',
+    observaciones: ''
+  },
+  dataEntregas: [
+    { Medicamento: 'Losartan', Cantidad: '30', Entregado: '26/09/2024' },
+    { Medicamento: 'Prednisona', Cantidad: '30', Entregado: '26/09/2024' },
+    { Medicamento: 'Xanax', Cantidad: '60', Entregado: '26/09/2024' },
+    { Medicamento: 'Insulina', Cantidad: '20', Entregado: '26/09/2024' }
+  ]
+};
+
 function History({ backClick }) {
+  const [inputValue, setInputValue] = useState('');
   const meds = ['Prednisona', 'Losartan', 'Insulina'];
   const handleChange = (e) => {
     setInputValue(e.target.value);
