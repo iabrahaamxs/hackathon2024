@@ -1,7 +1,7 @@
 import Button from "./Button";
 import { calculatePriority } from "../utils/utils";
 
-function RowInventory({ gm, name, med, quantity, date }) {
+function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
   const priority = calculatePriority(date);
 
   const getPrioriClass = (priority) => {
@@ -15,6 +15,11 @@ function RowInventory({ gm, name, med, quantity, date }) {
       default:
         return "";
     }
+  };
+
+  const handleDelete = (id) => {
+    console.log(`Eliminar medicamento con id: ${id}`);
+    // TODO Lógica para eliminar
   };
 
   return (
@@ -37,7 +42,7 @@ function RowInventory({ gm, name, med, quantity, date }) {
       </span>
         <div style={{ width: "15%" }} className="actions-column">
           {priority === 1 ? (
-              <Button variant={"primary"} children={"Devolver"} />
+              <Button variant={"primary"} children={"Devolver"} onClick={() => handleDelete(id)} />
           ) : null}
         </div>
       </div>
