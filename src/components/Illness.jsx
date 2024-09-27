@@ -1,6 +1,15 @@
 import Button from "./Button";
+import EnfermedadComponent from "./EnfermedadComponent";
 
 function Illness({ clickBack }) {
+  const enfermedades = [
+    "Alergia",
+    "Asma",
+    "Diabetes",
+    "Hipertensión",
+    "Cáncer",
+    "Depresión",
+  ];
   return (
     <>
       <div
@@ -20,6 +29,16 @@ function Illness({ clickBack }) {
         />
       </div>
       <br />
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: 10,
+          borderRadius: "10px",
+        }}
+      >
+        <EnfermedadComponent enfermedadesExistentes={enfermedades} />
+        
+      </div>
     </>
   );
 }
