@@ -1,9 +1,11 @@
+import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import Button from "./Button";
 import InputField from "./InputField";
 import Rowtable from "./RowTable";
 
 function TableDeliver({ onClick }) {
-  const treatments = [
+  const [treatments, setTreatments] = useState([
     {
       treatmentId: "1",
       priority: 1,
@@ -44,16 +46,52 @@ function TableDeliver({ onClick }) {
       lote: 222,
       date: "27/09/24"
     }
-  ];
+  ]);
 
   const handleDelete = (treatmentId) => {
-    console.log(`Eliminar tratamiento con id: ${treatmentId}`);
-    // TODO Lógica para eliminar
+    const treatment = treatments.find((t) => t.treatmentId === treatmentId);
+    Swal.fire({
+      title: `¿Estás seguro de que deseas eliminar el tratamiento de ${treatment.name}?`,
+      text: "No podrás revertir esto",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, bórralo',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setTreatments((prevTreatments) => prevTreatments.filter((t) => t.treatmentId !== treatmentId));
+        console.log(`Eliminar tratamiento con id: ${treatmentId}`);
+        // TODO Lógica para eliminar en el backend
+        Swal.fire(
+            '¡Eliminado!',
+            `Tratamiento de ${treatment.name} eliminado con éxito.`,
+            'success'
+        );
+      }
+    });
   };
 
   const handleCheck = (treatmentId) => {
-    console.log(`Entregar tratamiento con id: ${treatmentId}`);
-    // TODO Lógica para marcar como entregado
+    const treatment = treatments.find((t) => t.treatmentId === treatmentId);
+    Swal.fire({
+      title: `¿Estás seguro de que deseas marcar como entregado el tratamiento de ${treatment.name}?`,
+      text: "Esta acción no se puede deshacer",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, marcar como entregado',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setTreatments((prevTreatments) => prevTreatments.filter((t) => t.treatmentId !== treatmentId));
+        console.log(`Entregar tratamiento con id: ${treatmentId}`);
+        // TODO Lógica para marcar como entregado en el backend
+        Swal.fire(
+            '¡Entregado!',
+            `Tratamiento de ${treatment.name} marcado como entregado.`,
+            'success'
+        );
+      }
+    });
   };
 
   return (
@@ -104,4 +142,3 @@ function TableDeliver({ onClick }) {
 }
 
 export default TableDeliver;
-

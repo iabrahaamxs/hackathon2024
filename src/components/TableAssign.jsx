@@ -1,15 +1,15 @@
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import Button from "./Button";
 import InputField from "./InputField";
+import RowtableAssign from "./RowtableAssign";
 import Modal from "./Modal";
-import RowtableAssign from "./RowTableAssign";
 
 function TableAssign({ onClick }) {
-  //TODO RESOLVER PROBLEMA CON LA FECHA (el Modal se abre con la fecha del primer elemento que se haya abierto)
   const [showModal, setShowModal] = useState(false);
   const [selectedTreatment, setSelectedTreatment] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const rows = [
+  const [rows, setRows] = useState([
     {
       treatmentId: "1",
       priority: 1,
@@ -82,7 +82,14 @@ function TableAssign({ onClick }) {
       date2: "02/10/24",
       available: true,
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    if (!showModal) {
+      setSelectedTreatment(null);
+      setSelectedDate(null);
+    }
+  }, [showModal]);
 
   const formatDate = (dateString) => {
     const [day, month, year] = dateString.split('/');
@@ -96,19 +103,32 @@ function TableAssign({ onClick }) {
     setShowModal(true);
   };
 
-
   const handleSave = () => {
-    const updatedTreatment = {
-      ...selectedTreatment,
-      date2: selectedDate,
-    };
-    console.log('Guardar tratamiento:', updatedTreatment);
-    //TODO Agregar lógica para guardar asignación
-    setShowModal(false);
+    Swal.fire({
+      title: 'Confirmar Asignación',
+      text: `¿Estás seguro de que deseas asignar el tratamiento a ${selectedTreatment.name}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, asignar',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedTreatment = {
+          ...selectedTreatment,
+          date2: selectedDate,
+        };
+        console.log('Guardar tratamiento:', updatedTreatment);
+        // TODO Agregar lógica para guardar asignación en el backend
+        setRows((prevRows) => prevRows.filter((row) => row.treatmentId !== selectedTreatment.treatmentId));
+        setShowModal(false);
+        Swal.fire(
+            '¡Asignado!',
+            `Tratamiento asignado a ${selectedTreatment.name} con éxito.`,
+            'success'
+        );
+      }
+    });
   };
-
-
-
 
   return (
       <div
@@ -182,7 +202,7 @@ function TableAssign({ onClick }) {
                   date1={row.date1}
                   date2={row.date2}
                   available={row.available}
-                  setModal={() => handleAssign(row.treatmentId)}
+                  setModal={handleAssign}
               />
           ))}
         </div>
@@ -191,4 +211,3 @@ function TableAssign({ onClick }) {
 }
 
 export default TableAssign;
-

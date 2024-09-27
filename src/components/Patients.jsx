@@ -3,9 +3,17 @@ import Button from "./Button";
 import InputField from "./InputField";
 import RowPatient from "./RowPatient.jsx";
 import History from "./History.jsx";
+import Swal from "sweetalert2";
 
 function Patients() {
   const [page, setPage] = useState("patients");
+  const [filter, setFilter] = useState([]);
+  const illnesses = ['diabetes', 'hipertension', 'asma'];
+  const [patients, setPatients] = useState([
+    { id: '14234123', priority: 1, name: 'José Luis Rodríguez López', illness: ['diabetes', 'hipertension'] },
+    { id: '14234124', priority: 2, name: 'María García', illness: ['asma'] },
+    { id: '14234125', priority: 3, name: 'Carlos Pérez', illness: ['diabetes'] }
+  ]);
 
   const handleClick = (page) => {
     setPage(page);
@@ -14,17 +22,8 @@ function Patients() {
   const handleClickHistory = (page, id) => {
     setPage(page);
     console.log(id);
-    //TODO Lógicar para buscar la historia
+    // TODO: Lógica para buscar la historia
   };
-
-
-  const [filter, setFilter] = useState([]);
-  const illnesses = ['diabetes', 'hipertension', 'asma'];
-  const patients = [
-    { id: '14234123', priority: 1, name: 'José Luis Rodríguez López', illness: ['diabetes', 'hipertension'] },
-    { id: '14234124', priority: 2, name: 'María García', illness: ['asma'] },
-    { id: '14234125', priority: 3, name: 'Carlos Pérez', illness: ['diabetes'] }
-  ];
 
   const handleCheckboxChange = (condition) => {
     setFilter((prevFilter) =>
@@ -32,6 +31,28 @@ function Patients() {
             ? prevFilter.filter((ill) => ill !== condition)
             : [...prevFilter, condition]
     );
+  };
+
+  const handleDeletePatient = (id) => {
+    const patient = patients.find((p) => p.id === id);
+    Swal.fire({
+      title: `¿Estás seguro de que deseas eliminar a ${patient.name}?`,
+      text: "No podrás revertir esto",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, bórralo',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setPatients((prevPatients) => prevPatients.filter((patient) => patient.id !== id));
+        console.log(`Paciente eliminado: ${patient.name}`);
+        Swal.fire(
+            '¡Eliminado!',
+            `Paciente ${patient.name} eliminado con éxito.`,
+            'success'
+        );
+      }
+    });
   };
 
   const filteredPatients = patients.filter((patient) =>
@@ -97,6 +118,7 @@ function Patients() {
                           priority={patient.priority}
                           illness={patient.illness}
                           handleClick={() => handleClickHistory("history", patient.id)}
+                          onDelete={handleDeletePatient}
                       />
                   ))}
                 </div>

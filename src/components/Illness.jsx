@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from 'sweetalert2';
 import Button from "./Button";
 import EnfermedadComponent from "./EnfermedadComponent";
 
@@ -15,44 +16,56 @@ function Illness({ clickBack }) {
   const [eliminaciones, setEliminaciones] = useState([]);
 
   const agregarEnfermedad = (nuevaEnfermedad) => {
-    const nuevaId = enfermedades.length + 1;
-    const nueva = { id: nuevaId, nombre: nuevaEnfermedad };
-    setEnfermedades([...enfermedades, nueva]);
-    console.log(`Enfermedad agregada: ${nuevaId} - ${nuevaEnfermedad}`);
-    //TODO Lógica para insertar la enfermedad
-    setMensaje(`Enfermedad agregada: ${nuevaId} - ${nuevaEnfermedad}`);
-    setTimeout(() => setMensaje(""), 3000); // Limpiar mensaje después de 3 segundos
+    Swal.fire({
+      title: 'Confirmar Inserción',
+      text: `¿Estás seguro de que deseas agregar la enfermedad ${nuevaEnfermedad}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, agregar',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const nuevaId = enfermedades.length + 1;
+        const nueva = { id: nuevaId, nombre: nuevaEnfermedad };
+        setEnfermedades([...enfermedades, nueva]);
+        console.log(`Enfermedad agregada: ${nuevaId} - ${nuevaEnfermedad}`);
+        //TODO Lógica para insertar la enfermedad
+        Swal.fire({
+          title: '¡Agregado!',
+          text: `Enfermedad agregada: ${nuevaId} - ${nuevaEnfermedad}`,
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      }
+    });
   };
 
   const eliminarEnfermedad = (id) => {
     const enfermedad = enfermedades.find((e) => e.id === id);
-    setEliminaciones((prevEliminaciones) => [...prevEliminaciones, enfermedad]);
-    setEnfermedades(enfermedades.filter((e) => e.id !== id));
-    console.log(`Enfermedad eliminada: ${enfermedad.id} - ${enfermedad.nombre}`);
-    //TODO Lógica para eliminar la enfermedad
-    setMensaje(
-        <>
-          Enfermedad eliminada: {enfermedad.id} - {enfermedad.nombre}
-          {/* <button
-              onClick={() => revertirEliminacion(enfermedad.id)}
-              style={{
-                marginLeft: "10px",
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                padding: "5px 10px",
-              }}
-          >
-            Revertir
-          </button> */}
-        </>
-    );
+    Swal.fire({
+      title: `¿Estás seguro de que deseas eliminar ${enfermedad.nombre}?`,
+      text: "No podrás revertir esto",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, bórralo',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setEliminaciones((prevEliminaciones) => [...prevEliminaciones, enfermedad]);
+        setEnfermedades(enfermedades.filter((e) => e.id !== id));
+        console.log(`Enfermedad eliminada: ${enfermedad.id} - ${enfermedad.nombre}`);
+        //TODO Lógica para eliminar la enfermedad
+        Swal.fire(
+            '¡Eliminado!',
+            `Enfermedad eliminada: ${enfermedad.id} - ${enfermedad.nombre}`,
+            'success'
+        );
+      }
+    });
   };
 
   const revertirEliminacion = (id) => {
-    //TODO QUE EL MALDITO MMGVO BOTÓN DE REVERTIR FUNCIONE (Abraham, si ves este mensaje elimina las groserías)
     const enfermedad = eliminaciones.find((e) => e.id === id);
     if (enfermedad) {
       setEnfermedades((prevEnfermedades) => [...prevEnfermedades, enfermedad]);
@@ -60,8 +73,13 @@ function Illness({ clickBack }) {
           prevEliminaciones.filter((e) => e.id !== id)
       );
       console.log(`Eliminación revertida: ${enfermedad.id} - ${enfermedad.nombre}`);
-      setMensaje(`Eliminación revertida: ${enfermedad.id} - ${enfermedad.nombre}`);
-      setTimeout(() => setMensaje(""), 3000); // Limpiar mensaje después de 3 segundos
+      Swal.fire({
+        title: '¡Revertido!',
+        text: `Eliminación revertida: ${enfermedad.id} - ${enfermedad.nombre}`,
+        icon: 'success',
+        timer: 3000,
+        showConfirmButton: false
+      });
     }
   };
 
@@ -84,20 +102,6 @@ function Illness({ clickBack }) {
           />
         </div>
         <br />
-        {mensaje && (
-            <div
-                style={{
-                  backgroundColor: "#d4edda",
-                  color: "#155724",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  marginBottom: "10px",
-                  textAlign: "center",
-                }}
-            >
-              {mensaje}
-            </div>
-        )}
         <div
             style={{
               backgroundColor: "white",

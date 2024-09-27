@@ -37,4 +37,3 @@ function RowtableAssign({ treatmentId, priority, id, name, med, quantity, date1,
 }
 
 export default RowtableAssign;
-
