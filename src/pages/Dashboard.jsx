@@ -1,5 +1,5 @@
 //import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BtnOption from "../components/BtnOption";
 import "../stylesheets/Panel.css";
 import { useNavigate } from "react-router-dom";
@@ -10,18 +10,51 @@ import Patients from "../components/Patients.jsx";
 import Statistics from "../components/Statistics.jsx";
 import DashFAQ from "../components/DashFAQ.jsx";
 import Items from "../components/Items.jsx";
+import { LocalStorage } from "../utils/LocalStorage.js";
+import { AdminApi } from "../api/adminApi.js";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("deliver");
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const navigate = useNavigate();
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
 
     if (option === "logout") {
+      LocalStorage.Delete("token");
       navigate("/");
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const jwt = LocalStorage.Get("token");
+      if (!jwt) {
+        navigate("/");
+        return;
+      }
+
+      try {
+        const res = await AdminApi.getUser(jwt);
+
+        if (res.ok) {
+          setIsAuthorized(true);
+        } else {
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Error verificando token:", error);
+        navigate("/");
+      }
+    };
+
+    fetchData();
+  });
+
+  if (!isAuthorized) {
+    return null;
+  }
 
   return (
     <div className="dashboard-container">
