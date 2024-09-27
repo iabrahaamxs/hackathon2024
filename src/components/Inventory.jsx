@@ -74,17 +74,19 @@ function Inventory() {
       title: "medicina 1",
       rows: [
         {
+          id: 6,
           name: "medicina 1",
           gm: "300g",
           med: "123",
-          date: "12/23/34",
+          date: "2024/08/15",
           quantity: 77
         },
         {
+          id: 5,
           name: "medicina 1",
           gm: "300g",
           med: "123",
-          date: "12/23/34",
+          date: "2024/12/15",
           quantity: 77
         }
       ]
@@ -93,17 +95,19 @@ function Inventory() {
       title: "medicina 2",
       rows: [
         {
+          id: 1,
           name: "medicina 2",
           gm: "200g",
           med: "456",
-          date: "11/22/33",
+          date: "2025/08/15",
           quantity: 50
         },
         {
+          id: 2,
           name: "medicina 2",
           gm: "200g",
           med: "456",
-          date: "11/22/33",
+          date: "2024/12/15",
           quantity: 50
         }
       ]
@@ -112,17 +116,19 @@ function Inventory() {
       title: "medicina 3",
       rows: [
         {
+          id: 2,
           name: "medicina 3",
           gm: "150g",
           med: "789",
-          date: "10/21/32",
+          date: "2025/08/15",
           quantity: 30
         },
         {
+          id: 3,
           name: "medicina 3",
           gm: "150g",
           med: "789",
-          date: "10/21/32",
+          date: "2025/08/15",
           quantity: 30
         }
       ]
@@ -136,6 +142,48 @@ function Inventory() {
     const lowestPriority = Math.min(...inv.rows.map(row => calculatePriority(row.date)));
     return lowestPriority === status;
   });
+
+  const [errors, setErrors] = useState({});
+
+  const validateField = (name, value) => {
+    let error = "";
+    if (!value) {
+      error = "Este campo es obligatorio";
+    } 
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+  };
+
+  const handleSave = () => {
+    // Validar todos los campos antes de guardar
+    let valid = true;
+    medicinesList.forEach((medicine, index) => {
+      if (!medicine.med || !medicine.presentation || !medicine.lote || !medicine.expirationDate || !medicine.quantity) {
+        valid = false;
+        validateField(`medicine-${index}-med`, medicine.med);
+        validateField(`medicine-${index}-presentation`, medicine.presentation);
+        validateField(`medicine-${index}-lote`, medicine.lote);
+        validateField(`medicine-${index}-expirationDate`, medicine.expirationDate);
+        validateField(`medicine-${index}-quantity`, medicine.quantity);
+      }
+    });
+
+    if (!donor) {
+      valid = false;
+      validateField("donor", donor);
+    }
+
+    if (valid) {
+      // Datos válidos, enviar al servidor
+      const dataToSend = {
+        donor,
+        medicinesList
+      };
+      console.log("Datos válidos, enviar al servidor:", dataToSend);
+      // TODO: Lógica para enviar los datos al servidor
+    } else {
+      console.log("Hay errores en el formulario");
+    }
+  };
 
   return (
     <>
@@ -166,64 +214,105 @@ function Inventory() {
                 borderRadius: "10px",
               }}
           >
-            <select
-                name="donor"
-                className="select history"
-                value={donor}
-                onChange={(e) => setDonor(e.target.value)}
-            >
-              {donors.map((donor) => (
-                  <option key={donor.value} value={donor.value}>
-                    {donor.label}
-                  </option>
-              ))}
-            </select>
+            <div style={{position: "relative"}}>
+              <select
+                  name="donor"
+                  className="select history"
+                  value={donor}
+                  onChange={(e) => {
+                    setDonor(e.target.value);
+                    validateField("donor", e.target.value);
+                  }}
+              >
+                {donors.map((donor) => (
+                    <option key={donor.value} value={donor.value}>
+                      {donor.label}
+                    </option>
+                ))}
+              </select>
+              {errors.donor && <span className="error">{errors.donor}</span>}
+            </div>
             <br/>
             <br/>
             {medicinesList.map((medicine, index) => (
                 <div key={index} style={{display: "flex", gap: 10, alignItems: "center"}}>
-                  <select
-                      name="Med"
-                      className="select history"
-                      value={medicine.med}
-                      onChange={(e) => handleMedicineChange(index, "med", e.target.value)}
-                  >
-                    {medicines.map((med) => (
-                        <option key={med.value} value={med.value}>
-                          {med.label}
-                        </option>
-                    ))}
-                  </select>
-                  <InputField
-                      className="form"
-                      label={"Presentación (gr)"}
-                      onlyNumbers={true}
-                      maxLength={5}
-                      value={medicine.presentation}
-                      onChange={(e) => handleMedicineChange(index, "presentation", e.target.value)}
-                  />
-                  <InputField
-                      className="form"
-                      label={"Lote"}
-                      maxLength={10}
-                      value={medicine.lote}
-                      onChange={(e) => handleMedicineChange(index, "lote", e.target.value)}
-                  />
-                  <InputField
-                      className="form"
-                      type="date"
-                      label={"Fecha Vencimiento"}
-                      value={medicine.expirationDate}
-                      onChange={(e) => handleMedicineChange(index, "expirationDate", e.target.value)}
-                  />
-                  <InputField
-                      className="form"
-                      label={"Cantidad"}
-                      onlyNumbers={true}
-                      maxLength={5}
-                      value={medicine.quantity}
-                      onChange={(e) => handleMedicineChange(index, "quantity", e.target.value)}
-                  />
+                  <div style={{position: "relative", flex: 1}}>
+                    <select
+                        name="Med"
+                        className="select history"
+                        value={medicine.med}
+                        onChange={(e) => {
+                          handleMedicineChange(index, "med", e.target.value);
+                          validateField(`medicine-${index}-med`, e.target.value);
+                        }}
+                    >
+                      {medicines.map((med) => (
+                          <option key={med.value} value={med.value}>
+                            {med.label}
+                          </option>
+                      ))}
+                    </select>
+                    {errors[`medicine-${index}-med`] &&
+                        <span className="error">{errors[`medicine-${index}-med`]}</span>}
+                  </div>
+                  <div style={{position: "relative", flex: 1}}>
+                    <InputField
+                        className="form"
+                        label={"Presentación (gr)"}
+                        onlyNumbers={true}
+                        maxLength={5}
+                        value={medicine.presentation}
+                        onChange={(e) => {
+                          handleMedicineChange(index, "presentation", e.target.value);
+                          validateField(`medicine-${index}-presentation`, e.target.value);
+                        }}
+                    />
+                    {errors[`medicine-${index}-presentation`] &&
+                        <span className="error">{errors[`medicine-${index}-presentation`]}</span>}
+                  </div>
+                  <div style={{position: "relative", flex: 1}}>
+                    <InputField
+                        className="form"
+                        label={"Lote"}
+                        maxLength={10}
+                        value={medicine.lote}
+                        onChange={(e) => {
+                          handleMedicineChange(index, "lote", e.target.value);
+                          validateField(`medicine-${index}-lote`, e.target.value);
+                        }}
+                    />
+                    {errors[`medicine-${index}-lote`] &&
+                        <span className="error">{errors[`medicine-${index}-lote`]}</span>}
+                  </div>
+                  <div style={{position: "relative", flex: 1}}>
+                    <InputField
+                        className="form"
+                        type="date"
+                        label={"Fecha Vencimiento"}
+                        value={medicine.expirationDate}
+                        onChange={(e) => {
+                          handleMedicineChange(index, "expirationDate", e.target.value);
+                          validateField(`medicine-${index}-expirationDate`, e.target.value);
+                        }}
+                    />
+                    {errors[`medicine-${index}-expirationDate`] &&
+                        <span className="error">{errors[`medicine-${index}-expirationDate`]}</span>}
+                  </div>
+                  <div style={{position: "relative", flex: 1}}>
+                    <InputField
+                        className="form"
+                        label={"Cantidad"}
+                        onlyNumbers={true}
+                        maxLength={5}
+                        value={medicine.quantity}
+                        onChange={(e) => {
+                          handleMedicineChange(index, "quantity", e.target.value);
+                          validateField(`medicine-${index}-quantity`, e.target.value);
+                        }}
+                    />
+                    {errors[`medicine-${index}-quantity`] &&
+                        <span className="error">{errors[`medicine-${index}-quantity`]}</span>}
+                  </div>
                   <button
                       className="action-btn delete-btn"
                       aria-label="Delete"
@@ -261,7 +350,7 @@ function Inventory() {
                   marginBottom: 20,
                 }}
             >
-              <Button children={"Guardar donativo"} variant={"primary"}/>
+              <Button children={"Guardar donativo"} variant={"primary"} onClick={handleSave}/>
             </div>
           </div>
       ) : (

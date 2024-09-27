@@ -120,3 +120,11 @@
 }
 
 
+.error {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(2px);
+}

@@ -1,6 +1,6 @@
 import { FaPencil, FaTrash } from "react-icons/fa6";
 
-function RowTreatment({ med, quantity, date, renovate }) {
+function RowTreatment({ med, quantity, date, onDelete, treatmentId }) {
   return (
       <div
           className="shadow"
@@ -20,40 +20,13 @@ function RowTreatment({ med, quantity, date, renovate }) {
         <div
             style={{
               width: "10%",
-              opacity: 0.7,
               display: "flex",
-              flexDirection: "row",
-              gap: 10,
+              justifyContent: "end"
             }}
         >
-          <i
-              style={{
-                color: "white",
-                backgroundColor: "red",
-                display: "flex",
-                width: 30,
-                height: 30,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 999,
-              }}
-          >
+          <button className="action-btn delete-btn" aria-label="Delete" onClick={() => onDelete(treatmentId)}>
             <FaTrash/>
-          </i>
-          <i
-              style={{
-                color: "white",
-                backgroundColor: "green",
-                display: "flex",
-                width: 30,
-                height: 30,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 999,
-              }}
-          >
-            <FaPencil/>
-          </i>
+          </button>
         </div>
       </div>
   );

@@ -10,6 +10,7 @@ import Button from "./Button";
 import { BsFillCalendarDateFill, BsGenderAmbiguous } from "react-icons/bs";
 import { GiMedicines } from "react-icons/gi";
 import {useState} from "react";
+import Swal from "sweetalert2";
 
 function NewPatient({ backClick }) {
   const [error, setError] = useState("");
@@ -28,9 +29,10 @@ function NewPatient({ backClick }) {
   const [illness, setIllness] = useState("diabetes");
   const [med, setMed] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [priority, setPriority] = useState("")
 
   const handleSave = () => {
-    if (!name || !lastName || !documento || !birthdate || !sector || !address || !sex || !phone || !illness || !med || !quantity) {
+    if (!name || !lastName || !documento || !phone || !priority) {
       setError("Todos los campos son obligatorios.");
       return;
     }
@@ -43,37 +45,54 @@ function NewPatient({ backClick }) {
       return;
     }
     if (documento.length < 6) {
-      setError("El documento debe tener al menos 6 caracteres.");
-      return;
-    }
-    if (address.length < 10) {
-      setError("La dirección debe tener al menos 10 caracteres.");
+      setError("La identificación debe tener al menos 6 caracteres.");
       return;
     }
     if (phone.length !== 11) {
-      setError("El teléfono debe tener 11 digitos.");
+      setError("El teléfono debe tener 11 dígitos.");
       return;
     }
 
-    const newPatient = {
+    const newAdmin = {
       name,
       lastName,
       documento,
-      birthdate,
-      sector,
-      address,
-      sex,
       phone,
-      illness,
-      treatment: {
-        med,
-        quantity,
-      },
+      priority,
     };
 
-    console.log('Guardar paciente:', newPatient);
-    //TODO Lógica para guardar
-    setError("");
+    Swal.fire({
+      title: 'Confirmar Información',
+      html: `
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Apellido:</strong> ${lastName}</p>
+        <p><strong>Documento:</strong> ${documento}</p>
+        <p><strong>Teléfono:</strong> ${phone}</p>
+        <p><strong>Prioridad:</strong> ${priority}</p>
+      `,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        console.log("Nuevo administrador creado:", newAdmin);
+        // TODO: Lógica para guardar el nuevo administrador
+        setError("");
+        Swal.fire(
+            '¡Administrador Creado!',
+            'El nuevo administrador ha sido creado exitosamente.',
+            'success'
+        ).then(() => {
+          // Limpiar los campos después de mostrar el mensaje de éxito
+          setName("");
+          setLastName("");
+          setDocument("");
+          setPhone("");
+          setConfirmPassword("");
+          setPriority("");
+        });
+      }
+    });
   };
 
 
@@ -93,20 +112,29 @@ function NewPatient({ backClick }) {
       </div>
       <p>Usuario</p>
       <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 20,
-          display: "flex",
-          flexDirection: "column",
-          gap: 20,
-          borderRadius: "10px",
-        }}
+          style={{
+            backgroundColor: "white",
+            height: "100%",
+            padding: 20,
+            display: "flex",
+            flexDirection: "column",
+            gap: 20,
+            borderRadius: "10px",
+          }}
       >
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUser />
+        <div style={{display: "flex", justifyContent: "center", gap: 30}}>
+        <div style={{display: "flex", alignItems: "center"}}>
+          <select name="select" className="select" value={priority} onChange={(e) => setPriority(e.target.value)}>
+            <option value="0">Seleccionar prioridad</option>
+            <option value="1">Alta</option>
+            <option value="2">Media</option>
+            <option value="3">Baja</option>
+          </select>
+        </div></div>
+        <div style={{display: "flex", justifyContent: "center", gap: 30}}>
+          <div style={{display: "flex", alignItems: "center"}}>
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaUser/>
             </i>
             <InputField
                 label={"Nombres"}
@@ -118,9 +146,9 @@ function NewPatient({ backClick }) {
                 onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUser />
+          <div style={{display: "flex", alignItems: "center"}}>
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaUser/>
             </i>
             <InputField
                 label={"Apellidos"}
@@ -133,10 +161,10 @@ function NewPatient({ backClick }) {
             />
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaAddressCard />
+        <div style={{display: "flex", justifyContent: "center", gap: 30}}>
+          <div style={{display: "flex", alignItems: "center"}}>
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaAddressCard/>
             </i>
             <InputField
                 label={"Identificación"}
@@ -149,9 +177,9 @@ function NewPatient({ backClick }) {
                 onChange={(e) => setDocumento(e.target.value)}
             />
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <BsFillCalendarDateFill />
+          <div style={{display: "flex", alignItems: "center"}}>
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <BsFillCalendarDateFill/>
             </i>
             <InputField
                 label={"Fecha de nacimiento"}
@@ -163,7 +191,7 @@ function NewPatient({ backClick }) {
             />
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
+        <div style={{display: "flex", justifyContent: "center", gap: 30}}>
           <div style={{display: "flex", alignItems: "center"}}>
             <i style={{fontSize: 24, marginRight: 10}}>
               <FaLocationDot/>
@@ -192,7 +220,7 @@ function NewPatient({ backClick }) {
             />
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
+        <div style={{display: "flex", justifyContent: "center", gap: 30}}>
           <div style={{display: "flex", alignItems: "center"}}>
             <i style={{fontSize: 24, marginRight: 10}}>
               <BsGenderAmbiguous/>

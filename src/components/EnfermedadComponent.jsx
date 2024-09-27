@@ -3,99 +3,94 @@ import InputField from "./InputField";
 import Button from "./Button";
 import { FaTrash } from "react-icons/fa6";
 
-const EnfermedadComponent = ({ enfermedadesExistentes, agregarEnfermedad }) => {
+const EnfermedadComponent = ({ enfermedadesExistentes, agregarEnfermedad, eliminarEnfermedad }) => {
   const [nuevaEnfermedad, setNuevaEnfermedad] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (nuevaEnfermedad.trim()) {
-      agregarEnfermedad(nuevaEnfermedad);
-      setNuevaEnfermedad(""); // Limpiar el input después de agregar
+    if (nuevaEnfermedad.trim().length < 3) {
+      setError("La enfermedad debe tener al menos 3 caracteres.");
+      return;
     }
+    agregarEnfermedad(nuevaEnfermedad);
+    setNuevaEnfermedad(""); // Limpiar el input después de agregar
+    setError(""); // Limpiar el mensaje de error
   };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        maxWidth: "400px",
-        margin: "auto",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-        Crear enfermedad
-      </h2>
-
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+      <div
+          style={{
+            padding: "20px",
+            maxWidth: "400px",
+            margin: "auto",
+            fontFamily: "Arial, sans-serif",
+          }}
       >
-        {/* <input
-          type="text"
-          id="nuevaEnfermedad"
-          value={nuevaEnfermedad}
-          onChange={(e) => setNuevaEnfermedad(e.target.value)}
-          placeholder="Ingresar enfermedad"
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        /> */}
-        <InputField label={"Ingresar enfermedad"} className="form" />
+        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+          Crear enfermedad
+        </h2>
 
-        {/* <button
-          type="submit"
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            transition: "background-color 0.3s ease",
-          }}
+        <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
         >
-          Agregar
-        </button> */}
-
-        <Button children={"Agregar"} variant={"primary"} />
-      </form>
-
-      <div style={{ marginBottom: "20px" }}>
-        <h3 style={{ fontSize: "18px", marginBottom: "10px" }}>
-          Enfermedades en sistema:
-        </h3>
-        <ul
-          style={{ listStyleType: "none", paddingLeft: "0", fontSize: "16px" }}
-        >
-          {enfermedadesExistentes.map((enfermedad, index) => (
-            <div key={index} style={{ display: "flex" }}>
-              <li
-                key={index}
-                style={{
-                  padding: "8px",
-                  backgroundColor: "#f9f9f9",
-                  marginBottom: "8px",
-                  borderRadius: "5px",
-                  display:"inline-block",
-                  width:"100%"
-                }}
+          <InputField
+              label={"Ingresar enfermedad"}
+              className="form"
+              value={nuevaEnfermedad}
+              onChange={(e) => setNuevaEnfermedad(e.target.value)}
+          />
+          {error && (
+              <div
+                  style={{
+                    color: "red",
+                    marginBottom: "10px",
+                    textAlign: "center",
+                  }}
               >
-                {enfermedad}
-              </li>
-              <button className="action-btn delete-btn" aria-label="Delete">
-                <FaTrash />
-              </button>
-            </div>
-          ))}
-        </ul>
+                {error}
+              </div>
+          )}
+          <Button children={"Agregar"} variant={"primary"} />
+        </form>
+
+        <div style={{ marginBottom: "20px" }}>
+          <h3 style={{ fontSize: "18px", marginBottom: "10px" }}>
+            Enfermedades en sistema:
+          </h3>
+          <ul
+              style={{ listStyleType: "none", paddingLeft: "0", fontSize: "16px" }}
+          >
+            {enfermedadesExistentes.map((enfermedad) => (
+                <div key={enfermedad.id} style={{ display: "flex" }}>
+                  <li
+                      style={{
+                        padding: "8px",
+                        backgroundColor: "#f9f9f9",
+                        marginBottom: "8px",
+                        borderRadius: "5px",
+                        display: "inline-block",
+                        width: "100%",
+                      }}
+                  >
+                    {enfermedad.nombre}
+                  </li>
+                  <button
+                      className="action-btn delete-btn"
+                      aria-label="Delete"
+                      onClick={() => eliminarEnfermedad(enfermedad.id)}
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
   );
 };
 
 export default EnfermedadComponent;
+
+
