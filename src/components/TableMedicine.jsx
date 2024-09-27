@@ -3,8 +3,15 @@ import Button from "./Button";
 import InputField from "./InputField";
 import Modal from "./Modal";
 import RowtableMedicine from "./RowTableMedicine";
+import "../stylesheets/Medicines.css";
 function TableMedicine() {
   const [showModal, setShowModal] = useState(false);
+  const enfermedades = [
+    "enfermedad1",
+    "enfermedad2",
+    "enfermedad3",
+    "enfermedad4",
+  ];
   const medicamentos = [
     {
       nombre: "Paracetamol",
@@ -43,6 +50,33 @@ function TableMedicine() {
         <h2>Insertar Medicina</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <InputField type="text" label={"Medicina"} className="form" />
+
+          <label className="form-label">Enfermedad asociada:</label>
+        </div>
+        <div className="radio-group">
+          {enfermedades.map((e, index) => (
+            <label
+              key={index}
+              className="checkbox-label"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "20px",
+              }}
+            >
+              <input
+                type="checkbox"
+                value={e}
+                //checked={filter.includes(condition)}
+                //onChange={() => handleCheckboxChange(condition)}
+              />
+              <span
+                className="checkbox-custom"
+                style={{ marginLeft: "5px" }}
+              ></span>
+              {e}
+            </label>
+          ))}
         </div>
 
         <div className={"center"}>
