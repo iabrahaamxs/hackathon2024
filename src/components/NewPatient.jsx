@@ -9,8 +9,14 @@ import InputField from "./InputField";
 import Button from "./Button";
 import { BsFillCalendarDateFill, BsGenderAmbiguous } from "react-icons/bs";
 import { GiMedicines } from "react-icons/gi";
+import {useState} from "react";
 
 function NewPatient({ backClick }) {
+  const sectores = ['Barrio Lindo', 'Alambique', 'Santos Luzardo', 'Cardenales', 'Los Luises'];
+  const [sector, setSector] = useState();
+  const meds = ['Prednisona', 'Losartan', 'Insulina'];
+
+
   return (
     <div>
       <div
@@ -89,29 +95,30 @@ function NewPatient({ backClick }) {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaLocationDot />
+          <div style={{display: "flex", alignItems: "center"}}>
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaLocationDot/>
             </i>
-            <select name="select" className="select ">
-              <option value="value0">
-                Seleccionar sector
-              </option>
-              <option value="value1">Value 1</option>
-              <option value="value2">Value 2</option>
-              <option value="value3">Value 3</option>
+            <select name="select" className="select" value={sector}
+                    onChange={(e) => setSector(e.target.value)}>
+              <option value="0">Seleccionar sector</option>
+              {sectores.map((sector, index) => (
+                  <option key={index} value={sector}>
+                    {sector}
+                  </option>
+              ))}
             </select>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaHouse />
+          <div style={{display: "flex", alignItems: "center"}}>
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <FaHouse/>
             </i>
             <InputField
-              label={"Dirección"}
-              id={"address"}
-              type={"text"}
-              className={"login form"}
-              maxLength={100}
+                label={"Dirección"}
+                id={"address"}
+                type={"text"}
+                className={"login form"}
+                maxLength={100}
             />
           </div>
         </div>
@@ -120,10 +127,10 @@ function NewPatient({ backClick }) {
             <i style={{ fontSize: 24, marginRight: 10 }}>
               <BsGenderAmbiguous />
             </i>
-            <select name="gender" className="select">
-              <option value="gender0">Seleccionar género</option>
-              <option value="gender1">Masculino</option>
-              <option value="gender2">Femenino</option>
+            <select name="sex" className="select">
+              <option value="0">Sexo</option>
+              <option value="m">Masculino</option>
+              <option value="f">Femenino</option>
             </select>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -148,67 +155,69 @@ function NewPatient({ backClick }) {
             backgroundColor: "white",
             height: "100%",
             padding: 20,
-            display: "flex",
             borderRadius: "10px",
-
-            justifyContent: "space-around",
           }}
       >
-        <div>
-          <input type="radio" id="diabetes" name="illness" value={"diabetes"} defaultChecked></input>
-          <label style={{marginLeft: 10}}>Diabetes</label>
+        <div style={{display: "flex", justifyContent: "space-around",}}>
+          <div>
+            <input type="radio" id="diabetes" name="illness" value={"diabetes"} defaultChecked></input>
+            <label style={{marginLeft: 10}}>Diabetes</label>
+          </div>
+          <div>
+            <input type="radio" id="hipertension" name="illness" value={"hipertension"}></input>
+            <label style={{marginLeft: 10}}>Hipertensión</label>
+          </div>
+          <div>
+            <input type="radio" id="cancer" name="illness" value={"cancer"}></input>
+            <label style={{marginLeft: 10}}>Cáncer</label>
+          </div>
         </div>
-        <div>
-          <input type="radio" id="hipertension" name="illness" value={"hipertension"}></input>
-          <label style={{marginLeft: 10}}>Hipertensión</label>
+        <div className={'center'}><p style={{padding: 0, margin: "15px 0 -10px 0"}}>Seleccione una. Luego podrá registrar más.</p></div>
         </div>
-        <div>
-          <input type="radio" id="cancer" name="illness" value={"cancer"}></input>
-          <label style={{marginLeft: 10}}>Cáncer</label>
-        </div>
-        <label style={{marginLeft: 10}}>Diabetes</label>
-      </div>
 
       <p>Tratamiento</p>
       <div
           style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 20,
-          display: "flex",
-          borderRadius: "10px",
-
-          justifyContent: "space-around",
-        }}
+            backgroundColor: "white",
+            height: "100%",
+            padding: 20,
+            borderRadius: "10px"
+          }}
       >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <i style={{ fontSize: 24, marginRight: 10 }}>
-            <GiMedicines />
-          </i>
-          <select name="select" className="select " style={{ marginRight: 10 }}>
-            <option value="med0">Seleccionar tratamiento</option>
-            <option value="med1">medi 1</option>
-            <option value="med2">medi 2</option>
-            <option value="med3">medi 3</option>
-          </select>
-          <InputField
-            label={"cantidad"}
-            id={"quantity"}
-            type={"text"}
-            className={"form"}
-            onlyNumbers={true}
-            maxLength={3}
-          />
+        <div style={{display: "flex", justifyContent: "space-around"}}>
+          <div style={{display: "flex", alignItems: "center"}}>
+            <i style={{fontSize: 24, marginRight: 10}}>
+              <GiMedicines/>
+            </i>
+            <select name="select" className="select " style={{marginRight: 10}}>
+              <option value="0">Seleccionar medicamento</option>
+              {meds.map((med, index) => (
+                  <option key={index} value={med}>
+                    {med}
+                  </option>
+              ))}
+            </select>
+            <InputField
+                label={"cantidad"}
+                id={"quantity"}
+                type={"text"}
+                className={"form"}
+                onlyNumbers={true}
+                maxLength={3}
+            />
+          </div>
         </div>
+        <div className={'center'}><p style={{padding: 0, margin: "15px 0 -10px 0"}}>Ingrese un tratamiento. Luego podrá
+          crear más.</p></div>
       </div>
 
-      <br />
+      <br/>
 
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
       >
         <Button children="Cancelar" onClick={() => backClick("create")} />
         <Button children="Guardar" variant={"primary"} />

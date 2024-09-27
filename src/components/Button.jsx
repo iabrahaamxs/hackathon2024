@@ -1,22 +1,34 @@
 import React from 'react';
 import '../stylesheets/Button.css';
 
-const Button = ({ variant, onClick, children }) => {
+const Button = ({ variant, onClick, children, disabled = false }) => {
   const getClassNames = () => {
+    let classNames = 'button';
     switch (variant) {
       case 'primary':
-        return 'button button-primary';
+        classNames += ' button-primary';
+        break;
       case 'secondary':
-        return 'button button-secondary';
+        classNames += ' button-secondary';
+        break;
       case 'outline':
-        return 'button button-outline';
+        classNames += ' button-outline';
+        break;
       default:
-        return 'button';
+        break;
     }
+    if (disabled) {
+      classNames += ' button-disabled';
+    }
+    return classNames;
   };
 
   return (
-      <button className={getClassNames()} onClick={onClick}>
+      <button
+          className={getClassNames()}
+          onClick={disabled ? null : onClick}
+          disabled={disabled}
+      >
         {children}
       </button>
   );

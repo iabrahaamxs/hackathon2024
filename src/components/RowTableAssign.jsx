@@ -1,26 +1,25 @@
-import { FaPencil, FaTrash } from "react-icons/fa6";
-import "../stylesheets/Rowtable.css"; // Asegúrate de tener un archivo CSS para este componente
+import "../stylesheets/Rowtable.css";
 import Button from "./Button";
 
 function RowtableAssign({
-  pri,
+  priority,
   id,
   name,
   med,
-  cant,
+  quantity,
   date1,
   date2,
-  dispo,
+  available,
   setModal,
 }) {
-  const getPrioriClass = (pri) => {
-    switch (pri) {
+  const getPrioriClass = (priority) => {
+    switch (priority) {
       case 1:
-        return "priority-red";
+        return "priorityority-red";
       case 2:
-        return "priority-yellow";
+        return "priorityority-yellow";
       case 3:
-        return "priority-green";
+        return "priorityority-green";
       default:
         return "";
     }
@@ -28,20 +27,21 @@ function RowtableAssign({
 
   return (
     <div className="row-table shadow">
-      <div className={`priority-indicator ${getPrioriClass(pri)}`}></div>
+      <div className={`priorityority-indicator ${getPrioriClass(priority)}`}></div>
       <span className="column id-column">{id}</span>
       <span className="column name-column">{name}</span>
       <span className="column med-column">{med}</span>
-      <span className="column cant-column-assign">{cant}und</span>
+      <span className="column quantity-column-assign">{quantity}und</span>
       <span className="column date-column-assign">{date1}</span>
       <span className="column date-column-assign">{date2}</span>
       <div className="actions-column">
         <Button
-          variant={dispo ? "primary" : "secondary"}
+          variant={available ? "primary" : "secondary"}
           children={"Asignar"}
           onClick={() => {
-            dispo ? setModal(true) : null;
+            available ? setModal(true) : null;
           }}
+          disabled={!available}
         />
       </div>
     </div>
