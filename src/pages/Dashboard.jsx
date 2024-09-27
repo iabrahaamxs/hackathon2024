@@ -9,6 +9,7 @@ import Inventory from "../components/Inventory.jsx";
 import Patients from "../components/Patients.jsx";
 import Statistics from "../components/Statistics.jsx";
 import DashFAQ from "../components/DashFAQ.jsx";
+import Items from "../components/Items.jsx";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("deliver");
@@ -51,15 +52,21 @@ export default function Dashboard() {
           handleClick={handleOptionClick}
         />
         <BtnOption
+          text="Reportes y estadísticas"
+          iconName="report"
+          selected={selectedOption === "report"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
           text="Inventario"
           iconName="box"
           selected={selectedOption === "box"}
           handleClick={handleOptionClick}
         />
         <BtnOption
-          text="Reportes y estadísticas"
-          iconName="report"
-          selected={selectedOption === "report"}
+          text="Items"
+          iconName="item"
+          selected={selectedOption === "item"}
           handleClick={handleOptionClick}
         />
         <BtnOption
@@ -91,6 +98,7 @@ export default function Dashboard() {
         {selectedOption === "report" ? <Statistics /> : null}
         {selectedOption === "box" ? <Inventory /> : null}
         {selectedOption === "question" ? <DashFAQ /> : null}
+        {selectedOption === "item" ? <Items /> : null}
       </article>
     </div>
 

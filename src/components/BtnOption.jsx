@@ -1,6 +1,6 @@
 import { FaHandHoldingHeart } from "react-icons/fa6";
 import { FaUserPlus } from "react-icons/fa6";
-import { FaFileMedical } from "react-icons/fa";
+import { FaBookMedical, FaFileMedical, FaFileMedicalAlt } from "react-icons/fa";
 import { BsBox2HeartFill } from "react-icons/bs";
 import { BiSolidReport } from "react-icons/bi";
 import { RiQuestionnaireFill } from "react-icons/ri";
@@ -12,7 +12,8 @@ function BtnOption({ text, iconName, selected, handleClick }) {
     user: <FaUserPlus />,
     patient: <FaFileMedical />,
     box: <BsBox2HeartFill />,
-    report: <BiSolidReport />,
+    item: <FaBookMedical />,
+    report: <FaFileMedicalAlt />,
     question: <RiQuestionnaireFill />,
     logout: <MdLogout />,
   };
