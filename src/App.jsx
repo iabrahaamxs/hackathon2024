@@ -4,6 +4,7 @@ import Consulta from "./pages/Consulta.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Donante from "./pages/Donante.jsx";
+import UpdatePassword from "./pages/UpdatePassword.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/consulta" element={<Consulta />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/donante" element={<Donante />} />
+        <Route path="/actualizar" element={<UpdatePassword />} />
       </Routes>
     </BrowserRouter>
   );
