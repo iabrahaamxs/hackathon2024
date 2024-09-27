@@ -2,50 +2,50 @@ import "../stylesheets/Rowtable.css";
 import Button from "./Button";
 
 function RowtableAssign({
-  priority,
-  id,
-  name,
-  med,
-  quantity,
-  date1,
-  date2,
-  available,
-  setModal,
-}) {
+                          treatmentId,
+                          priority,
+                          id,
+                          name,
+                          med,
+                          quantity,
+                          date1,
+                          date2,
+                          available,
+                          setModal,
+                        }) {
   const getPrioriClass = (priority) => {
     switch (priority) {
       case 1:
-        return "priorityority-red";
+        return "priority-red";
       case 2:
-        return "priorityority-yellow";
+        return "priority-yellow";
       case 3:
-        return "priorityority-green";
+        return "priority-green";
       default:
         return "";
     }
   };
 
   return (
-    <div className="row-table shadow">
-      <div className={`priorityority-indicator ${getPrioriClass(priority)}`}></div>
-      <span className="column id-column">{id}</span>
-      <span className="column name-column">{name}</span>
-      <span className="column med-column">{med}</span>
-      <span className="column quantity-column-assign">{quantity}und</span>
-      <span className="column date-column-assign">{date1}</span>
-      <span className="column date-column-assign">{date2}</span>
-      <div className="actions-column">
-        <Button
-          variant={available ? "primary" : "secondary"}
-          children={"Asignar"}
-          onClick={() => {
-            available ? setModal(true) : null;
-          }}
-          disabled={!available}
-        />
+      <div className="row-table shadow">
+        <div className={`priority-indicator ${getPrioriClass(priority)}`}></div>
+        <span className="column id-column">{id}</span>
+        <span className="column name-column">{name}</span>
+        <span className="column med-column">{med}</span>
+        <span className="column quantity-column-assign">{quantity} und</span>
+        <span className="column date-column-assign">{date1}</span>
+        <span className="column date-column-assign">{date2}</span>
+        <div className="actions-column">
+          <Button
+              variant={available ? "primary" : "secondary"}
+              children={"Asignar"}
+              onClick={() => setModal(treatmentId)}
+              disabled={!available}
+          />
+        </div>
       </div>
-    </div>
   );
 }
 
 export default RowtableAssign;
+
