@@ -3,6 +3,44 @@ import InputField from "./InputField";
 import Rowtable from "./RowTable";
 
 function TableDeliver({ onClick }) {
+  const treatments = [
+    {
+      priority: 1,
+      id: "1234567",
+      name: "Marcos Perez Gimenedz",
+      med: "Medicamentoddddd 2",
+      quantity: "20",
+      lote: 222,
+      date: "27/09/24"
+    },
+    {
+      priority: 2,
+      id: "1234567",
+      name: "Marcos Perez Gimenez",
+      med: "Medicamento 2",
+      quantity: "60",
+      lote: 22332,
+      date: "27/09/24"
+    },
+    {
+      priority: 3,
+      id: "1234567",
+      name: "Maria Jose Rodriguez",
+      med: "Medicamento 55",
+      quantity: "30",
+      lote: 272,
+      date: "27/09/24"
+    },
+    {
+      priority: 2,
+      id: "1234567",
+      name: "Marcos Perez Gimenez",
+      med: "Medicamento 2",
+      quantity: "60",
+      lote: 222,
+      date: "27/09/24"
+    }
+  ];
   return (
     <div
       style={{
@@ -30,42 +68,18 @@ function TableDeliver({ onClick }) {
       </div>
       <br />
       <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-        <Rowtable
-          pri={1}
-          id={"1234567"}
-          name={"Marcos Perez Gimenedz"}
-          med={"Medicamentoddddd 2"}
-          cant={"20"}
-          lote={222}
-          date={"27/09/24"}
-        />
-        <Rowtable
-          pri={2}
-          id={"1234567"}
-          name={"Marcos Perez Gimenez"}
-          med={"Medicamento 2"}
-          cant={"60"}
-          lote={22332}
-          date={"27/09/24"}
-        />
-        <Rowtable
-          pri={3}
-          id={"1234567"}
-          cant={"30"}
-          name={"Maria Jose Rodriguez"}
-          med={"Medicamento 55"}
-          lote={272}
-          date={"27/09/24"}
-        />
-        <Rowtable
-          pri={2}
-          id={"1234567"}
-          cant={"60"}
-          name={"Marcos Perez Gimenez"}
-          med={"Medicamento 2"}
-          lote={222}
-          date={"27/09/24"}
-        />
+        {treatments.map((treatment, index) => (
+            <Rowtable
+                key={index}
+                priority={treatment.priority}
+                id={treatment.id}
+                name={treatment.name}
+                med={treatment.med}
+                quantity={treatment.quantity}
+                lote={treatment.lote}
+                date={treatment.date}
+            />
+        ))}
       </div>
     </div>
   );
