@@ -17,49 +17,8 @@ import Table from "./Table.jsx";
 import Diagnosis from "./Diagnosis.jsx";
 import RowTreatment from "./RowTreatment.jsx";
 import Modal from "./Modal.jsx";
+import Swal from "sweetalert2";
 //TODO Reiniciar los modales
-
-const combinedData = {
-  pacienteDatos: {
-    id: '12352242',
-    nombres: 'Jose María',
-    apellidos: 'Pérez Ortega',
-    sexo: 'Masculino',
-    fnacimiento: '1973-04-03',
-    sector: 'Los Luises',
-    direccion: 'Casa imaginaria',
-    telefono: '02567654567',
-    celular: '04162425353'
-  },
-  treatmentsData: [
-    { treatmentId: "1", med: 'Losartan', quantity: '30', date: '26/09/2024' },
-    { treatmentId: "2", med: 'Prednisona', quantity: '30', date: '26/09/2024' },
-    { treatmentId: "3", med: 'Xanax', quantity: '60', date: '26/09/2024' },
-    { treatmentId: "4", med: 'Insulina', quantity: '20', date: '26/09/2024' }
-  ],
-  initialDiagnosisData: [
-    { illness: 'Diabetes', classification: 'Estadio I', notes: 'Heriditaria', treatment: '' },
-    { illness: 'Hipertensión', classification: 'Estadio II', notes: '', treatment: '' }
-  ],
-  initialAntecedentesData: {
-    encamado: false,
-    diabetes: true,
-    dislipidemia: false,
-    obesidad: true,
-    erc: false,
-    iam: false,
-    acv: false,
-    fumador: false,
-    alergias: 'Maní',
-    observaciones: ''
-  },
-  dataEntregas: [
-    { Medicamento: 'Losartan', Cantidad: '30', Entregado: '26/09/2024' },
-    { Medicamento: 'Prednisona', Cantidad: '30', Entregado: '26/09/2024' },
-    { Medicamento: 'Xanax', Cantidad: '60', Entregado: '26/09/2024' },
-    { Medicamento: 'Insulina', Cantidad: '20', Entregado: '26/09/2024' }
-  ]
-};
 
 function History({ backClick }) {
   const [inputValue, setInputValue] = useState('');
@@ -88,7 +47,7 @@ function History({ backClick }) {
   const [errorPatient, setErrorPatient] = useState("");
 
   const handleUpdatePatient = () => {
-    if (!id || !nombres || !apellidos || !sexo || !fnacimiento || !sector || !direccion || !telefono ) {
+    if (!id || !nombres || !apellidos || !sexo || !fnacimiento || !sector || !direccion || !telefono) {
       setErrorPatient("Todos los campos son obligatorios.");
       return;
     }
@@ -105,29 +64,43 @@ function History({ backClick }) {
       return;
     }
     if (telefono.length !== 11) {
-      setErrorPatient("El teléfono debe tener 11 digitos.");
+      setErrorPatient("El teléfono debe tener 11 dígitos.");
       return;
     }
-    if (telefono.length !== 11) {
-      setErrorPatient("El celular debe tener 11 digitos.");
-      return;
-    }
-
     if (direccion.length < 10) {
       setErrorPatient("La dirección debe tener al menos 10 caracteres.");
       return;
     }
 
-    // TODO: Lógica para actualizar los datos
-    console.log("Datos actualizados:", { id, nombres, apellidos, sexo, fnacimiento, sector, direccion, telefono, celular});
-    setErrorPatient("");
+    Swal.fire({
+      title: 'Confirmar Actualización',
+      text: "¿Estás seguro de que deseas actualizar los datos del paciente?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // TODO: Lógica para actualizar los datos
+        console.log("Datos actualizados:", { id, nombres, apellidos, sexo, fnacimiento, sector, direccion, telefono, celular });
+        setErrorPatient("");
+
+        Swal.fire(
+            'Actualizado!',
+            'Los datos del paciente han sido actualizados exitosamente.',
+            'success'
+        );
+      }
+    });
   };
 
-  const treatmentsData = [
+  const [treatmentsData, setTreatmentsData] = useState([
       { treatmentId: "1", med: 'Losartan', quantity: '30', date: '26/09/2024'},
       { treatmentId: "2", med: 'Prednisona', quantity: '30', date: '26/09/2024'},
       { treatmentId: "3", med: 'Xanax', quantity: '60', date: '26/09/2024'},
-      { treatmentId: "4", med: 'Insulina', quantity: '20', date: '26/09/2024'}]
+      { treatmentId: "4", med: 'Insulina', quantity: '20', date: '26/09/2024'}]);
 
   const [showNewTreatment, setShowNewTreatment] = useState(false);
 
@@ -135,9 +108,28 @@ function History({ backClick }) {
   const handleCloseTreatment = () => setShowNewTreatment(false);
 
   const handleDeleteTreatment = (treatmentId) => {
-    console.log(`Eliminar tratamiento con id: ${treatmentId}`);
-    // TODO Lógica para eliminar
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esto",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Tratamiento eliminado: " + treatmentId)
+        //TODO Lógica para eliminar el tratamiento
+        setTreatmentsData(prevData => prevData.filter(item => item.treatmentId !== treatmentId));
+        Swal.fire(
+            'Eliminado',
+            'El tratamiento ha sido eliminado.',
+            'success'
+        );ha
+      }
+    });
   };
+
 
   const [inputMed, setInputMed] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -171,24 +163,46 @@ function History({ backClick }) {
       return;
     }
 
-    // TODO: Lógica para guardar el nuevo tratamiento
-    console.log("Nuevo tratamiento agregado:", { inputMed, startDate, quantity });
-    setErrorMed("");
-    handleCloseTreatment();
+    Swal.fire({
+      title: 'Confirmar Guardado',
+      text: "¿Estás seguro de que deseas guardar el nuevo tratamiento?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // TODO: Lógica para guardar el nuevo tratamiento
+        console.log("Nuevo tratamiento agregado:", { inputMed, startDate, quantity });
+        setErrorMed("");
+        handleCloseTreatment();
+
+        Swal.fire(
+            'Guardado!',
+            'El nuevo tratamiento ha sido guardado exitosamente.',
+            'success'
+        );
+      }
+    });
   };
 
+
   const initialDiagnosisData = [
-    {illness:'Diabetes', classification: 'Estadio I', notes:'Heriditaria', treatment:''},
-    {illness:'Hipertensión', classification: 'Estadio II', notes:'', treatment:''},
+    {id: 1, illness:'Diabetes', classification: 'Estadio I', notes:'Heriditaria', treatment:''},
+    {id: 2, illness:'Hipertensión', classification: 'Estadio II', notes:'', treatment:''},
   ]
 
   const [diagnosisData, setDiagnosisData] = useState(initialDiagnosisData);
 
-  const handleDiagnosisChange = (index, field, value) => {
-    const newDiagnosisData = [...diagnosisData];
-    newDiagnosisData[index][field] = value;
+  const handleDiagnosisChange = (id, field, value) => {
+    const newDiagnosisData = diagnosisData.map(item =>
+        item.id === id ? { ...item, [field]: value } : item
+    );
     setDiagnosisData(newDiagnosisData);
   };
+
 
   const [showNewDiagnosis, setShowNewDiagnosis] = useState(false);
 
@@ -199,21 +213,91 @@ function History({ backClick }) {
   const [notes, setNotes] = useState('');
   const [treatment, setTreatment] = useState('');
   const [errorDiagnosis, setErrorDiagnosis] = useState("");
+
   const handleSaveDiagnosis = () => {
     if (!illness) {
       setErrorDiagnosis("El nombre de la enfermedad es obligatorio.");
       return;
     }
 
-    if (illness.length < 3 ) {
-      setErrorDiagnosis("El nombre de la enfermedad debe tener por lo menos 3 carácteres.");
+    if (illness.length < 3) {
+      setErrorDiagnosis("El nombre de la enfermedad debe tener por lo menos 3 caracteres.");
       return;
     }
 
-    // TODO: Lógica para guardar el nuevo diagnóstico
-    console.log("Nuevo diagnóstico agregado:", { illness, classification, notes, treatment });
-    handleCloseDiagnosis();
+    Swal.fire({
+      title: 'Confirmar Guardado',
+      text: "¿Estás seguro de que deseas guardar el nuevo diagnóstico?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // TODO: Lógica para guardar el nuevo diagnóstico
+        console.log("Nuevo diagnóstico agregado:", { illness, classification, notes, treatment });
+        handleCloseDiagnosis();
+
+        Swal.fire(
+            'Guardado!',
+            'El nuevo diagnóstico ha sido guardado exitosamente.',
+            'success'
+        );
+      }
+    });
   };
+
+  const handleDiagnosisUpdate = (id) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas actualizar este diagnóstico?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, actualizar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        const updatedDiagnosis = diagnosisData.find(item => item.id === id);
+        //TODO Lógica para actualizar diagnóstico
+        console.log('Diagnóstico actualizado:', updatedDiagnosis);
+
+        Swal.fire(
+            'Actualizado',
+            'El diagnóstico ha sido actualizado.',
+            'success'
+        );
+      }
+    });
+  };
+
+  const handleDiagnosisDelete = (id) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esto",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Lógica para eliminar el diagnóstico del estado
+        setDiagnosisData(prevData => prevData.filter(item => item.id !== id));
+
+        // Mensaje de confirmación después de eliminar
+        Swal.fire(
+            'Eliminado',
+            'El diagnóstico ha sido eliminado.',
+            'success'
+        );
+      }
+    });
+  };
+
 
   const initialAntecedentesData = {
     encamado: false, diabetes: true, dislipidemia: false, obesidad: true,
@@ -238,9 +322,28 @@ function History({ backClick }) {
   };
 
   const handleUpdateAntecedentes = () => {
-    // TODO: Lógica para actualizar los antecedentes
-    console.log("Antecedentes actualizados:", antecedentesData);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas actualizar los antecedentes?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, actualizar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //TODO Lógica para actualizar antecedentes
+        console.log("Antecedentes actualizados:", antecedentesData);
+
+        Swal.fire(
+            'Actualizado',
+            'Los antecedentes han sido actualizados.',
+            'success'
+        );
+      }
+    });
   };
+
 
   const dataEntregas = [
     { Medicamento: 'Losartan', Cantidad: '30', Entregado: '26/09/2024'},
@@ -456,19 +559,22 @@ function History({ backClick }) {
 
         <p>Diagnósticos actuales</p>
         <div className={'section'}>
-          {diagnosisData.map((item, index) => (
-              <Diagnosis
-                  key={index}
-                  illness={item.illness}
-                  classification={item.classification}
-                  notes={item.notes}
-                  treatment={item.treatment}
-                  onIllnessChange={(e) => handleDiagnosisChange(index, 'illness', e.target.value)}
-                  onClassificationChange={(e) => handleDiagnosisChange(index, 'classification', e.target.value)}
-                  onNotesChange={(e) => handleDiagnosisChange(index, 'notes', e.target.value)}
-                  onTreatmentChange={(e) => handleDiagnosisChange(index, 'treatment', e.target.value)}
-              />
-          ))}
+            {diagnosisData.map((item, index) => (
+                <Diagnosis
+                    key={item.id}
+                    id={item.id}
+                    illness={item.illness}
+                    classification={item.classification}
+                    notes={item.notes}
+                    treatment={item.treatment}
+                    onIllnessChange={(e) => handleDiagnosisChange(index, 'illness', e.target.value)}
+                    onClassificationChange={(e) => handleDiagnosisChange(index, 'classification', e.target.value)}
+                    onNotesChange={(e) => handleDiagnosisChange(index, 'notes', e.target.value)}
+                    onTreatmentChange={(e) => handleDiagnosisChange(index, 'treatment', e.target.value)}
+                    onUpdate={() => handleDiagnosisUpdate(item.id)}
+                    onDelete={() => handleDiagnosisDelete(item.id)}
+                />
+            ))}
           <div className={'center'}>
             <Button
                 children={'Agregar diagnóstico'}

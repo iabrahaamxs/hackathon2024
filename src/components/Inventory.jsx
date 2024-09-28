@@ -4,13 +4,12 @@ import Button from "./Button";
 import { BsFillCalendarDateFill } from "react-icons/bs";
 import { FaCircleRadiation, FaPlus, FaTrash } from "react-icons/fa6";
 import { useState } from "react";
-import RowInventory from "./RowInventory";
 import MoreInventory from "./MoreInventory";
 import InputField from "./InputField";
-import {calculatePriority} from "../utils/utils.jsx";
+import { calculatePriority } from "../utils/utils.jsx";
+import Swal from "sweetalert2";
 
 function Inventory() {
-
   const donors = [
     { value: "D1", label: "Donor 1" },
     { value: "D2", label: "Donor 2" }
@@ -33,6 +32,7 @@ function Inventory() {
       quantity: ""
     }
   ]);
+
   const addMedicine = () => {
     setMedicinesList([
       ...medicinesList,
@@ -60,7 +60,6 @@ function Inventory() {
     }
   };
 
-
   const statuses = [
     { value: "all", label: "Todos" },
     { value: 1, label: "Caducadas" },
@@ -68,8 +67,7 @@ function Inventory() {
     { value: 3, label: "Vigentes" }
   ];
 
-
-  const inventory = [
+  const initialInventory = [
     {
       title: "medicina 1",
       rows: [
@@ -86,7 +84,7 @@ function Inventory() {
           name: "medicina 1",
           gm: "300g",
           med: "123",
-          date: "2024/12/15",
+          date: "2024/09/15",
           quantity: 77
         }
       ]
@@ -136,6 +134,8 @@ function Inventory() {
   ];
 
   const [status, setStatus] = useState("all");
+  const [inventory, setInventory] = useState(initialInventory);
+  const [errors, setErrors] = useState({});
   const [agg, setAgg] = useState(false);
 
   const filteredInventory = status === "all" ? inventory : inventory.filter(inv => {
@@ -143,13 +143,15 @@ function Inventory() {
     return lowestPriority === status;
   });
 
-  const [errors, setErrors] = useState({});
+  const handleDeleteMore = (title) => {
+    setInventory(prevInventory => prevInventory.filter(more => more.title !== title));
+  };
 
   const validateField = (name, value) => {
     let error = "";
     if (!value) {
       error = "Este campo es obligatorio";
-    } 
+    }
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
   };
 
@@ -167,98 +169,122 @@ function Inventory() {
       }
     });
 
-    if (!donor) {
-      valid = false;
-      validateField("donor", donor);
-    }
-
     if (valid) {
-      // Datos válidos, enviar al servidor
-      const dataToSend = {
-        donor,
-        medicinesList
-      };
-      console.log("Datos válidos, enviar al servidor:", dataToSend);
-      // TODO: Lógica para enviar los datos al servidor
+      // Mostrar datos ingresados por el usuario
+      const medicineDetails = medicinesList.map((medicine, index) => `
+        <strong>Medicina ${index + 1}:</strong><br>
+        Medicamento: ${medicine.med}<br>
+        Presentación: ${medicine.presentation}<br>
+        Lote: ${medicine.lote}<br>
+        Fecha de Expiración: ${medicine.expirationDate}<br>
+        Cantidad: ${medicine.quantity}<br>
+      `).join('<br>');
+
+      Swal.fire({
+        title: 'Confirmar Guardado',
+        html: `
+          <p>¿Estás seguro de que deseas guardar los siguientes datos?</p>
+          ${medicineDetails}
+        `,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, guardar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Lógica para guardar los datos
+          Swal.fire(
+              'Guardado!',
+              'Los datos han sido guardados exitosamente.',
+              'success'
+          );
+        }
+      });
     } else {
-      console.log("Hay errores en el formulario");
+      Swal.fire(
+          'Error',
+          'Por favor, completa todos los campos requeridos.',
+          'error'
+      );
     }
   };
 
   return (
-    <>
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: 10,
-          display: "flex",
-          borderRadius: "10px",
-          justifyContent: "space-between",
-        }}
-      >
-        <h3>Inventario</h3>
-        <Button
-          children={agg ? "Volver" : "Agregar donativo"}
-          variant="primary"
-          onClick={() => setAgg(!agg)}
-        />
-      </div>
-      <br />
-      {agg ? (
-          <div
-              style={{
-                backgroundColor: "white",
-                padding: 10,
-                display: "flex",
-                flexDirection: "column",
-                borderRadius: "10px",
-              }}
-          >
-            <div style={{position: "relative"}}>
-              <select
-                  name="donor"
-                  className="select history"
-                  value={donor}
-                  onChange={(e) => {
-                    setDonor(e.target.value);
-                    validateField("donor", e.target.value);
-                  }}
-              >
-                {donors.map((donor) => (
-                    <option key={donor.value} value={donor.value}>
-                      {donor.label}
-                    </option>
-                ))}
-              </select>
-              {errors.donor && <span className="error">{errors.donor}</span>}
-            </div>
-            <br/>
-            <br/>
-            {medicinesList.map((medicine, index) => (
-                <div key={index} style={{display: "flex", gap: 10, alignItems: "center"}}>
-                  <div style={{position: "relative", flex: 1}}>
-                    <select
-                        name="Med"
-                        className="select history"
-                        value={medicine.med}
-                        onChange={(e) => {
-                          handleMedicineChange(index, "med", e.target.value);
-                          validateField(`medicine-${index}-med`, e.target.value);
-                        }}
-                    >
-                      {medicines.map((med) => (
-                          <option key={med.value} value={med.value}>
-                            {med.label}
-                          </option>
-                      ))}
-                    </select>
-                    {errors[`medicine-${index}-med`] &&
-                        <span className="error">{errors[`medicine-${index}-med`]}</span>}
-                  </div>
-                  <div style={{position: "relative", flex: 1}}>
-                    <InputField
-                        className="form"
-                        label={"Presentación (gr)"}
+      <>
+        <div
+            style={{
+              backgroundColor: "white",
+              padding: 10,
+              display: "flex",
+              borderRadius: "10px",
+              justifyContent: "space-between",
+            }}
+        >
+          <h3>Inventario</h3>
+          <Button
+              children={agg ? "Volver" : "Agregar donativo"}
+              variant="primary"
+              onClick={() => setAgg(!agg)}
+          />
+        </div>
+        <br />
+        {agg ? (
+            <div
+                style={{
+                  backgroundColor: "white",
+                  padding: 10,
+                  display: "flex",
+                  flexDirection: "column",
+                  borderRadius: "10px",
+                }}
+            >
+              <div style={{ position: "relative" }}>
+                <select
+                    name="donor"
+                    className="select history"
+                    value={donor}
+                    onChange={(e) => {
+                      setDonor(e.target.value);
+                      validateField("donor", e.target.value);
+                    }}
+                >
+                  {donors.map((donor) => (
+                      <option key={donor.value} value={donor.value}>
+                        {donor.label}
+                      </option>
+                  ))}
+                </select>
+                {errors.donor && <span className="error">{errors.donor}</span>}
+              </div>
+              <br />
+              <br />
+              {medicinesList.map((medicine, index) => (
+                  <div key={index} style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                    <div style={{ position: "relative", flex: 1 }}>
+                      <select
+                          name="Med"
+                          className="select history"
+                          value={medicine.med}
+                          onChange={(e) => {
+                            handleMedicineChange(index, "med", e.target.value);
+                            validateField(`medicine-${index}-med`, e.target.value);
+                          }}
+                      >
+                        {medicines.map((med) => (
+                            <option key={med.value} value={med.value}>
+                              {med.label}
+                            </option>
+                        ))}
+                      </select>
+                      {errors[`medicine-${index}-med`] && <span className="error">{errors[`medicine-${index}-med`]}</span>}
+                    </div>
+
+                    <div style={{ position: "relative", flex: 1 }}>
+                      <InputField
+                          className="form"
+                          label={"Presentación (gr)"}
                         onlyNumbers={true}
                         maxLength={5}
                         value={medicine.presentation}
@@ -391,6 +417,7 @@ function Inventory() {
                 }}
             >
               <div className={"input"} style={{justifyContent: "end", gap: 10}}>
+                //TODO Arreglar filtro o eliminarlo del front
                 <select
                     name="status"
                     className="select history"
@@ -412,6 +439,7 @@ function Inventory() {
                       title={inv.title}
                       quantity={inv.rows.reduce((sum, row) => sum + row.quantity, 0)}
                       rows={inv.rows}
+                      onDeleteMore={() => handleDeleteMore(inv.title)}
                   />
               ))}
             </div>
