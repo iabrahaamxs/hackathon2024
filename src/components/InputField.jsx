@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../stylesheets/InputField.css';
 
-const InputField = ({ id, label, value, type = 'text', className = '', onChange, suggestions, onlyNumbers = false, onlyAlphanumeric = false, onlyLetters = false, validateEmail = false, maxLength, helperText }) => {
+const InputField = ({ id, label, value, type = 'text', className = '', onChange, suggestions = [], onlyNumbers = false, onlyAlphanumeric = false, onlyLetters = false, validateEmail = false, maxLength, helperText, disabled = false }) => {
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState(value);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    setUserInput(value);
+  }, [value]);
 
   const handleChange = (e) => {
     let userInput = e.currentTarget.value;
@@ -26,7 +30,7 @@ const InputField = ({ id, label, value, type = 'text', className = '', onChange,
       userInput = userInput.replace(/\s{2,}/g, ' '); // Reemplaza dos o más espacios seguidos con un solo espacio
     }
 
-// Validación de correo electrónico
+    // Validación de correo electrónico
     if (validateEmail) {
       userInput = userInput.replace(/[^a-zA-Z0-9@._-]/g, '');
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -36,7 +40,6 @@ const InputField = ({ id, label, value, type = 'text', className = '', onChange,
         setError('');
       }
     }
-
 
     // Validación de longitud máxima
     if (maxLength !== undefined && userInput.length > maxLength) {
@@ -70,6 +73,7 @@ const InputField = ({ id, label, value, type = 'text', className = '', onChange,
             value={userInput}
             onChange={handleChange}
             maxLength={maxLength} // Esto también limita el largo del input en el DOM
+            disabled={disabled} // Añadido para manejar inputs deshabilitados
         />
         <label htmlFor={id}>{label}</label>
         {helperText && <small className="helper-text">{helperText}</small>}

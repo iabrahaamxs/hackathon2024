@@ -1,9 +1,7 @@
 import React from 'react';
 import '../stylesheets/Table.css';
 
-const Table = ({ data }) => {
-  const headers = Object.keys(data[0]);
-
+const Table = ({ data, headers }) => {
   const renderEstado = (estado) => {
     const circleClass = estado === 'Disponible' ? 'status-disponible' : 'status-espera';
     return (
@@ -19,8 +17,8 @@ const Table = ({ data }) => {
         <table className="table">
           <thead>
           <tr>
-            {headers.map((header) => (
-                <th key={header}>{header}</th>
+            {headers.map((header, index) => (
+                <th key={index}>{header}</th>
             ))}
           </tr>
           </thead>
