@@ -1,4 +1,5 @@
 import Button from "./Button";
+import Swal from "sweetalert2";
 import { calculatePriority } from "../utils/utils";
 
 function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
@@ -18,8 +19,25 @@ function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
   };
 
   const handleDelete = (id) => {
-    console.log(`Eliminar medicamento con id: ${id}`);
-    // TODO Lógica para eliminar
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esto",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //TODO Lógica para eliminar
+        onDelete(id);
+        Swal.fire(
+            'Eliminado!',
+            'El medicamento ha sido eliminado.',
+            'success'
+        );
+      }
+    });
   };
 
   return (

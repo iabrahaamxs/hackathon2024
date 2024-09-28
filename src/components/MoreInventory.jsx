@@ -6,12 +6,17 @@ import { calculatePriority } from "../utils/utils";
 
 function MoreInventory({ title, gm, quantity, rows }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [inventoryRows, setInventoryRows] = useState(rows);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
-  const priority = Math.min(...rows.map(row => calculatePriority(row.date)));
+  const handleDelete = (id) => {
+    setInventoryRows(inventoryRows.filter(row => row.id !== id));
+  };
+
+  const priority = Math.min(...inventoryRows.map(row => calculatePriority(row.date)));
 
   const getPrioriClass = (priority) => {
     switch (priority) {
@@ -26,34 +31,37 @@ function MoreInventory({ title, gm, quantity, rows }) {
     }
   };
 
-
   return (
       <div className={`more-container ${isOpen ? "active" : ""}`}>
         <div
-            style={{opacity: 0.6, gap: 50}}
+            style={{ opacity: 0.6, gap: 50 }}
             className={`title ${isOpen ? "active" : ""}`}
             onClick={handleClick}
         >
-        <div style={{display: "flex", alignItems: "center"}}><div className={`priority-indicator ${getPrioriClass(priority)}`}></div>
-          <h4 className={"title-text"}>{title}</h4></div>
-          <div style={{width: "50%"}}></div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div className={`priority-indicator ${getPrioriClass(priority)}`}></div>
+            <h4 className={"title-text"}>{title}</h4>
+          </div>
+          <div style={{ width: "50%" }}></div>
           <h4>{quantity} unidades</h4>
           {isOpen ? (
-              <FaAngleUp className="arrow"/>
+              <FaAngleUp className="arrow" />
           ) : (
-              <FaAngleDown className="arrow"/>
+              <FaAngleDown className="arrow" />
           )}
         </div>
         {isOpen && (
             <div className={"info"}>
-              {rows.map((row) => (
+              {inventoryRows.map((row) => (
                   <RowInventory
+                      key={row.id}
                       id={row.id}
                       gm={row.gm}
                       name={row.name}
                       med={row.med}
                       date={row.date}
                       quantity={row.quantity}
+                      onDelete={handleDelete}
                   />
               ))}
             </div>
