@@ -17,11 +17,11 @@ const getMedicines = async (jwt) => {
   }
 };
 
-const createMedicine = async (jwt, name) => {
+const createMedicine = async (jwt, name, illnesses) => {
   try {
     const res = await axiosManager.post(
       "/api/catalog/medicine/",
-      { name },
+      { name, illnesses },
       {
         headers: {
           Authorization: `Bearer ${jwt}`,

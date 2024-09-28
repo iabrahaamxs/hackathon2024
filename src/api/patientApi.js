@@ -13,6 +13,24 @@ const consulta = async (id) => {
   }
 };
 
+const getpatients = async (jwt) => {
+  try {
+    const res = await axiosManager.get("/api/patient/", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error getpatients" });
+    }
+
+    return { ok: false };
+  }
+};
+
 export const PatientApi = {
   consulta,
+  getpatients,
 };
