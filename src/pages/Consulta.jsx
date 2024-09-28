@@ -2,6 +2,48 @@ import '../stylesheets/Home.css'
 import Button from "../components/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import Table from "../components/Table.jsx"
+import React from "react";
+
+const Donante = () => {
+  const navigate = useNavigate();
+
+  const name = "Caritas";
+
+  const data = [
+    { name: 'Insulina', patients: 5 },
+    { name: 'Metformina', patients: 8 },
+    { name: 'Losartan', patients: 12 },
+    { name: 'Prednisona', patients: 4 },
+    { name: 'Xanax', patients: 6 },
+    { name: 'Aspirina', patients: 10 },
+    { name: 'Ibuprofeno', patients: 15 },
+    { name: 'Paracetamol', patients: 20 },
+    { name: 'Amoxicilina', patients: 7 },
+    { name: 'Omeprazol', patients: 9 }
+  ];
+
+  // Ordenar los medicamentos por la cantidad de pacientes y seleccionar los 5 con mayor cantidad
+  const topMeds = data.sort((a, b) => b.patients - a.patients).slice(0, 5);
+
+  const headers = ["Medicamento", "Pacientes que lo necesitan"];
+
+  return (
+      <div className={'consulta-resultado'}>
+        <h3>¡Hola, {name}!</h3>
+        <p>Te mostramos los tratamientos más necesitados por la comunidad.</p>
+        <Table data={topMeds} headers={headers} />
+        <p>¡Gracias por ayudarnos a llevar salud a los más necesitados!.</p>
+        <div className={"center"}>
+          <Button
+              variant={"primary"}
+              children={"Volver"}
+              onClick={() => navigate('/')}
+          />
+        </div>
+      </div>
+  );
+}
+
 
 const Resultado = () => {
 
@@ -34,7 +76,7 @@ const Resultado = () => {
   );
 }
 
-export default function Consulta() {
+export default function Consulta(page) {
   const navigate = useNavigate();
   return (
       <div className={'home'}>
@@ -59,8 +101,7 @@ export default function Consulta() {
             /></div>
         </div>
         <div className={'container faq'}>
-          <Resultado/>
-        </div>
+          {page === "paciente" ? <Resultado /> : <Donante />}        </div>
       </div>
   );
 }
