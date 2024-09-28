@@ -101,13 +101,13 @@ function TableMedicine() {
         <Button
           variant={"primary"}
           children={"Insertar medicina"}
-          onClick={() => openModal("add")}
+          onClick={() => setShowModal(true)}
         />
         <InputField type="text" className={"form"} label={"Buscar"} />
       </div>
       <br />
       <Modal show={showModal} handleClose={() => setShowModal(false)}>
-        <h2>{typeModal}</h2>
+        <h2>Insertar Medicina</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <InputField
             type="text"
@@ -154,11 +154,7 @@ function TableMedicine() {
       </Modal>
       <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
         {medicamentos.map((row) => (
-          <RowtableMedicine
-            name={row.nombre}
-            illness={row.illness}
-            updateClick={openModal}
-          />
+          <RowtableMedicine name={row.nombre} illness={row.illness} />
         ))}
       </div>
     </div>
