@@ -64,11 +64,25 @@ const createPatient = async (jwt, data) => {
 };
 
 //url, datos, devuelve
-const createDonor = async (jwt, data) => {
+const createDonor = async (jwt, first_names, donor_type, document, email) => {
   try {
     const res = await axiosManager.post(
-      "/api/login",
-      { data }, // se supone que son los datos del donor, poner individual
+      "/api/user",
+      {
+        is_superuser: false,
+        first_name: "",
+        last_name: "",
+        is_staff: false,
+        is_active: true,
+        first_names,
+        last_names: "",
+        email,
+        document,
+        phone_number1: "",
+        phone_number2: "",
+        donor_type,
+        is_admin: false,
+      },
       {
         headers: {
           Authorization: `Bearer ${jwt}`,

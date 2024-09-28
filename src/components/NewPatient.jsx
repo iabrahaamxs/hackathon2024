@@ -116,6 +116,8 @@ function NewPatient({ backClick }) {
       }
       try {
         const res = await MedicineApi.getMedicines(jwt); //llamando a las medicinas
+        console.log(res);
+
         const enfer = await IllnessApi.getIllness(jwt); //llamando a las enfer
         setMeds(res.data);
         setEnfermedades(enfer);
@@ -349,7 +351,7 @@ function NewPatient({ backClick }) {
               <option value="0">Seleccionar medicamento</option>
               {meds.map((med, index) => (
                 <option key={index} value={med}>
-                  {med}
+                  {med.name}
                 </option>
               ))}
             </select>
