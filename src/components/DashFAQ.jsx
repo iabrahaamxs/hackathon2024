@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import Modal from "./Modal";
 import InputField from "./InputField";
 import QuestionAdmin from "./QuestionAdmin";
 import "../stylesheets/InputField.css";
+import { useNavigate } from "react-router-dom";
+import { LocalStorage } from "../utils/LocalStorage";
+import { FaqApi } from "../api/FaqApi";
 
 function DashFAQ() {
   const [openQuestionIndex, setOpenQuestionIndex] = useState(null);
@@ -21,13 +24,28 @@ function DashFAQ() {
     setShowModal(true);
   };
 
-  const questions = [
-    { question: "Pregunta 1", answer: "Respuesta 1", view: true },
-    { question: "Pregunta 2", answer: "Respuesta 2", view: false },
-    { question: "Pregunta 3", answer: "Respuesta 3", view: true },
-    { question: "Pregunta 4", answer: "Respuesta 4", view: true },
-    { question: "Pregunta 5", answer: "Respuesta 5", view: false },
-  ];
+  const [questions, setQuestions] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const jwt = LocalStorage.Get("token");
+      if (!jwt) {
+        navigate("/");
+        return;
+      }
+      try {
+        const faq = await FaqApi.getFaq(jwt); //llamando a las faq
+        setQuestions(faq);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <div
