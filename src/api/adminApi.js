@@ -1,10 +1,10 @@
 import { LocalStorage } from "../utils/LocalStorage";
 import axiosManager from "./apiManager";
 
-const login = async (email, password) => {
+const login = async (document, password) => {
   try {
     const res = await axiosManager.post("/api/login", {
-      email,
+      document,
       password,
     });
 

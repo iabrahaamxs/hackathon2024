@@ -42,11 +42,10 @@ const Login = () => {
       } else if (contrasena.length < 6) {
         setError("La contraseña debe tener al menos 6 caracteres.");
       } else {
-        // Aquí puedes manejar la lógica de inicio de sesión
-      }
-      console.log("Iniciar sesión con:", { documento, contrasena });
+        console.log("Iniciar sesión con:", { documento, contrasena });
 
-      clickLogin();
+        clickLogin();
+      }
     };
 
     return (
@@ -57,8 +56,8 @@ const Login = () => {
             id={"documento"}
             type={"text"}
             className={"login"}
-            onlyNumbers={true}
-            maxLength={8}
+            //onlyNumbers={true}
+            //maxLength={8}
             value={documento}
             onChange={handleInputChange}
         />
@@ -91,19 +90,19 @@ const Login = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleDocumentoChange = (e) => {
+    const handleInputChange = (e) => {
       setDocumento(e.target.value);
       setError(""); // Limpiar el mensaje de error al cambiar el input
     };
 
     const handleButtonClick = () => {
       if (documento.length < 6) {
-        setError("El documento debe tener al menos 6 dígitos.");
+        setError("El documento debe tener al menos 6 caracteres.");
       } else {
         // Aquí puedes manejar la lógica de búsqueda
         console.log("Buscar documento:", documento);
-        //TODO Búsqueda de paciente o donante
-        // Simulación de verificación de donante
+
+        // Simulación de verificación de donante o paciente
         const esDonante = verificarDonante(documento);
         const esPaciente = verificarPaciente(documento);
 
@@ -123,6 +122,7 @@ const Login = () => {
       return donantes.includes(doc);
     };
 
+    // Función simulada para verificar si el documento pertenece a un paciente
     const verificarPaciente = (doc) => {
       const pacientes = ["789012", "345678", "901234"]; // Ejemplo de documentos de pacientes
       return pacientes.includes(doc);
@@ -140,17 +140,18 @@ const Login = () => {
               //maxLength={11}
               helperText={"Ingrese su RIF sin guiones"}
               value={documento}
-              onChange={handleDocumentoChange}
+              onChange={handleInputChange}
           />
           {error && <div className="error-message">{error}</div>}
           <div className={"center"}>
             <Button variant={"primary"} onClick={handleButtonClick}>
-              Buscar
+              Consultar
             </Button>
           </div>
         </div>
     );
   };
+
 
   const tabs = [
     { label: "Consultar", content: <Consultar /> },
@@ -167,33 +168,33 @@ const Login = () => {
 export default function Home() {
   const navigate = useNavigate();
   return (
-    <div className={"home"}>
-      <div className={"welcome"}>
-        <h1>Llevando salud a los más necesitados</h1>
-        <div className={"center"}>
-          <img
-            src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
-            alt=""
-          />
+      <div className={"home"}>
+        <div className={"welcome"}>
+          <h1>Llevando salud a los más necesitados</h1>
+          <div className={"center"}>
+            <img
+                src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
+                alt="Logo de Farmacia"
+            />
+          </div>
+          <div className={"center"}>
+            <Button
+                variant={"primary"}
+                children={"Nosotros"}
+                onClick={() => navigate("/nosotros")}
+            />
+          </div>
+          <div className={"center"}>
+            <Button
+                variant={"primary"}
+                children={"Preguntas frecuentes"}
+                onClick={() => navigate("/preguntas-frecuentes")}
+            />
+          </div>
         </div>
-        <div className={"center"}>
-          <Button
-            variant={"primary"}
-            children={"Nosotros"}
-            onClick={() => navigate("/nosotros")}
-          />
-        </div>
-        <div className={"center"}>
-          <Button
-            variant={"primary"}
-            children={"Preguntas frecuentes"}
-            onClick={() => navigate("/preguntas-frecuentes")}
-          />
+        <div className={"container"}>
+          <Login/>
         </div>
       </div>
-      <div className={"container"}>
-        <Login />
-      </div>
-    </div>
   );
 }
