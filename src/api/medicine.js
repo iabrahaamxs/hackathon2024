@@ -7,10 +7,10 @@ const getMedicines = async (jwt) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
-    return res;
+    return res.data;
   } catch (error) {
     if (error) {
-      console.log({ error: "error getUser" });
+      console.log({ error: "error getMedicinesapi" });
     }
 
     return { ok: false };
