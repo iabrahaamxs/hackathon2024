@@ -3,8 +3,8 @@ import Tabs from "../components/Tabs.jsx";
 import InputField from "../components/InputField.jsx";
 import Button from "../components/Button.jsx";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { AdminApi } from "../api/adminApi.js";
+import React, { useState, useEffect } from "react";
 
 const Login = () => {
   const Ingresar = () => {
@@ -12,6 +12,19 @@ const Login = () => {
     const [contrasena, setContrasena] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+
+    useEffect(() => {
+      const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+          handleButtonClick();
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyPress);
+      return () => {
+        window.removeEventListener("keydown", handleKeyPress);
+      };
+    }, [documento, contrasena]);
 
     const handleInputChange = (e) => {
       setDocumento(e.target.value);
@@ -49,39 +62,39 @@ const Login = () => {
     };
 
     return (
-      <div>
-        <h4>Documento</h4>
-        <InputField
-            label={"Ingrese su cédula"}
-            id={"documento"}
-            type={"text"}
-            className={"login"}
-            //onlyNumbers={true}
-            //maxLength={8}
-            value={documento}
-            onChange={handleInputChange}
-        />
-        <h4>Contraseña</h4>
-        <InputField
-          label={"Ingrese su contraseña"}
-          id={"contrasena"}
-          type={"password"}
-          className={"login"}
-          maxLength={16}
-          value={contrasena}
-          onChange={handleContrasenaChange}
-        />
-        {error && <div className="error-message">{error}</div>}
-        <div className={"center"}>
-          <Button
-            variant={"primary"}
-            onClick={handleButtonClick}
-            disabled={isLoading}
-          >
-            {isLoading ? "Cargando..." : "Iniciar sesión"}
-          </Button>
+        <div>
+          <h4>Documento</h4>
+          <InputField
+              label={"Ingrese su cédula"}
+              id={"documento"}
+              type={"text"}
+              className={"login"}
+              //onlyNumbers={true}
+              //maxLength={8}
+              value={documento}
+              onChange={handleInputChange}
+          />
+          <h4>Contraseña</h4>
+          <InputField
+              label={"Ingrese su contraseña"}
+              id={"contrasena"}
+              type={"password"}
+              className={"login"}
+              maxLength={16}
+              value={contrasena}
+              onChange={handleContrasenaChange}
+          />
+          {error && <div className="error-message">{error}</div>}
+          <div className={"center"}>
+            <Button
+                variant={"primary"}
+                onClick={handleButtonClick}
+                disabled={isLoading}
+            >
+              {isLoading ? "Cargando..." : "Iniciar sesión"}
+            </Button>
+          </div>
         </div>
-      </div>
     );
   };
 
@@ -89,6 +102,19 @@ const Login = () => {
     const [documento, setDocumento] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+          handleButtonClick();
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyPress);
+      return () => {
+        window.removeEventListener("keydown", handleKeyPress);
+      };
+    }, [documento]);
 
     const handleInputChange = (e) => {
       setDocumento(e.target.value);
@@ -136,8 +162,8 @@ const Login = () => {
               id={"documento"}
               type={"text"}
               className={"login"}
-              //onlyAlphanumeric={true}
-              //maxLength={11}
+              onlyAlphanumeric={true}
+              maxLength={11}
               helperText={"Ingrese su RIF sin guiones"}
               value={documento}
               onChange={handleInputChange}
@@ -151,7 +177,6 @@ const Login = () => {
         </div>
     );
   };
-
 
   const tabs = [
     { label: "Consultar", content: <Consultar /> },

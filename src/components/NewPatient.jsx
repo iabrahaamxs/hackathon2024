@@ -15,6 +15,7 @@ import { MedicineApi } from "../api/medicine";
 import { LocalStorage } from "../utils/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { IllnessApi } from "../api/illness";
+import "../stylesheets/Form.css"
 
 function NewPatient({ backClick }) {
   const navigate = useNavigate();
@@ -130,270 +131,227 @@ function NewPatient({ backClick }) {
   }, []);
 
   return (
-    <div>
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 10,
-          display: "flex",
-          borderRadius: "10px",
-        }}
-      >
-        <h2>Crear nuevo paciente</h2>
-      </div>
-      <p>Usuario</p>
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 20,
-          display: "flex",
-          flexDirection: "column",
-          gap: 20,
-          borderRadius: "10px",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <select
-              name="select"
-              className="select"
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-            >
-              <option value="0">Seleccionar prioridad</option>
-              <option value="1">Alta</option>
-              <option value="2">Media</option>
-              <option value="3">Baja</option>
-            </select>
-          </div>
+      <div>
+        <div className="header-container">
+          <h2>Crear nuevo paciente</h2>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUser />
-            </i>
-            <InputField
-              label={"Nombres"}
-              id={"name"}
-              type={"text"}
-              className={"login form"}
-              onlyLetters={true}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUser />
-            </i>
-            <InputField
-              label={"Apellidos"}
-              id={"last-name"}
-              type={"text"}
-              className={"login form"}
-              onlyLetters={true}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaAddressCard />
-            </i>
-            <InputField
-              label={"Identificación"}
-              id={"documento"}
-              type={"text"}
-              className={"login form"}
-              onlyNumbers={true}
-              maxLength={8}
-              value={documento}
-              onChange={(e) => setDocumento(e.target.value)}
-            />
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <BsFillCalendarDateFill />
-            </i>
-            <InputField
-              label={"Fecha de nacimiento"}
-              id={"birthdate"}
-              type={"date"}
-              className={"login form"}
-              value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)}
-            />
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaLocationDot />
-            </i>
-            <select
-              name="select"
-              className="select"
-              value={sector}
-              onChange={(e) => setSector(e.target.value)}
-            >
-              <option value="0">Seleccionar sector</option>
-              {sectores.map((sector, index) => (
-                <option key={index} value={sector}>
-                  {sector}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaHouse />
-            </i>
-            <InputField
-              label={"Dirección"}
-              id={"address"}
-              type={"text"}
-              className={"login form"}
-              maxLength={100}
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <BsGenderAmbiguous />
-            </i>
-            <select
-              name="sex"
-              className="select"
-              value={sex}
-              onChange={(e) => setSex(e.target.value)}
-            >
-              <option value="0">Sexo</option>
-              <option value="m">Masculino</option>
-              <option value="f">Femenino</option>
-            </select>
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaPhone />
-            </i>
-            <InputField
-              label={"Teléfono"}
-              id={"phone"}
-              type={"text"}
-              className={"login form"}
-              onlyNumbers={true}
-              maxLength={11}
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-
-      <p>Enfermedad</p>
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 20,
-          borderRadius: "10px",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          {enfermedades.map((e) => (
-            <div key={e.id}>
-              <input
-                type="radio"
-                id={e.name}
-                name="illness"
-                value={e.name}
-                checked={illness === e.name}
-                onChange={(e) => setIllness(e.target.value)}
-              />
-              <label style={{ marginLeft: 10 }}>{e.name}</label>
+        <p>Usuario</p>
+        <div className="form-container">
+          <div className="form-row">
+            <div className="form-group">
+              <select
+                  name="select"
+                  className="select"
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
+              >
+                <option value="0">Seleccionar prioridad</option>
+                <option value="1">Alta</option>
+                <option value="2">Media</option>
+                <option value="3">Baja</option>
+              </select>
             </div>
-          ))}
-        </div>
-        <div className={"center"}>
-          <p style={{ padding: 0, margin: "15px 0 -10px 0" }}>
-            Seleccione una. Luego podrá registrar más.
-          </p>
-        </div>
-      </div>
-
-      <p>Tratamiento</p>
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 20,
-          borderRadius: "10px",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <GiMedicines />
-            </i>
-            <select
-              name="select"
-              className="select"
-              value={med}
-              onChange={(e) => setMed(e.target.value)}
-            >
-              <option value="0">Seleccionar medicamento</option>
-              {meds.map((med, index) => (
-                <option key={index} value={med}>
-                  {med.name}
-                </option>
-              ))}
-            </select>
-            <InputField
-              label={"cantidad"}
-              id={"quantity"}
-              type={"text"}
-              className={"form"}
-              onlyNumbers={true}
-              maxLength={3}
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <FaUser/>
+              </i>
+              <InputField
+                  label={"Nombres"}
+                  id={"name"}
+                  type={"text"}
+                  className={"login form"}
+                  onlyLetters={true}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <i className="icon">
+                <FaUser/>
+              </i>
+              <InputField
+                  label={"Apellidos"}
+                  id={"last-name"}
+                  type={"text"}
+                  className={"login form"}
+                  onlyLetters={true}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <FaAddressCard/>
+              </i>
+              <InputField
+                  label={"Identificación"}
+                  id={"documento"}
+                  type={"text"}
+                  className={"login form"}
+                  onlyNumbers={true}
+                  maxLength={8}
+                  value={documento}
+                  onChange={(e) => setDocumento(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <i className="icon">
+                <BsFillCalendarDateFill/>
+              </i>
+              <InputField
+                  label={"Fecha de nacimiento"}
+                  id={"birthdate"}
+                  type={"date"}
+                  className={"login form"}
+                  value={birthdate}
+                  onChange={(e) => setBirthdate(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <FaLocationDot/>
+              </i>
+              <select
+                  name="select"
+                  className="select"
+                  value={sector}
+                  onChange={(e) => setSector(e.target.value)}
+              >
+                <option value="0">Seleccionar sector</option>
+                {sectores.map((sector, index) => (
+                    <option key={index} value={sector}>
+                      {sector}
+                    </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <i className="icon">
+                <FaHouse/>
+              </i>
+              <InputField
+                  label={"Dirección"}
+                  id={"address"}
+                  type={"text"}
+                  className={"login form"}
+                  maxLength={100}
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <BsGenderAmbiguous/>
+              </i>
+              <select
+                  name="sex"
+                  className="select"
+                  value={sex}
+                  onChange={(e) => setSex(e.target.value)}
+              >
+                <option value="0">Sexo</option>
+                <option value="m">Masculino</option>
+                <option value="f">Femenino</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <i className="icon">
+                <FaPhone/>
+              </i>
+              <InputField
+                  label={"Teléfono"}
+                  id={"phone"}
+                  type={"text"}
+                  className={"login form"}
+                  onlyNumbers={true}
+                  maxLength={11}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
           </div>
         </div>
-        <div className={"center"}>
-          <p style={{ padding: 0, margin: "15px 0 -10px 0" }}>
-            Ingrese un tratamiento. Luego podrá crear más.
-          </p>
+
+        <p>Enfermedad</p>
+        <div className="illness-container">
+          <div className="illness-options">
+            {enfermedades.map((e) => (
+                <div key={e.id} className="illness-option">
+                  <input
+                      type="radio"
+                      id={e.name}
+                      name="illness"
+                      value={e.name}
+                      checked={illness === e.name}
+                      onChange={(e) => setIllness(e.target.value)}
+                  />
+                  <label htmlFor={e.name}>{e.name}</label>
+                </div>
+            ))}
+          </div>
+          <div className="center">
+            <p className="note">Seleccione una. Luego podrá registrar más.</p>
+          </div>
+        </div>
+
+        <p>Tratamiento</p>
+        <div className="treatment-container">
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <GiMedicines/>
+              </i>
+              <select
+                  name="select"
+                  className="select"
+                  value={med}
+                  onChange={(e) => setMed(e.target.value)}
+              >
+                <option value="0">Seleccionar medicamento</option>
+                {meds.map((med, index) => (
+                    <option key={index} value={med}>
+                      {med.name}
+                    </option>
+                ))}
+              </select>
+              <InputField
+                  label={"cantidad"}
+                  id={"quantity"}
+                  type={"text"}
+                  className={"form"}
+                  onlyNumbers={true}
+                  maxLength={3}
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="center">
+            <p className="note">Ingrese un tratamiento. Luego podrá crear más.</p>
+          </div>
+        </div>
+
+        <br/>
+
+        {error && (
+            <div className="error-message">
+              {error}
+            </div>
+        )}
+
+        <div className="button-container">
+          <Button children="Cancelar" onClick={() => backClick("create")}/>
+          <Button children="Guardar" variant={"primary"} onClick={handleSave}/>
         </div>
       </div>
-
-      <br />
-
-      {error && (
-        <div
-          style={{ textAlign: "center", color: "red", marginBottom: "10px" }}
-        >
-          {error}
-        </div>
-      )}
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Button children="Cancelar" onClick={() => backClick("create")} />
-        <Button children="Guardar" variant={"primary"} onClick={handleSave} />
-      </div>
-    </div>
   );
 }
 

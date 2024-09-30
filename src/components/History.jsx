@@ -362,17 +362,17 @@ function History({ backClick }) {
 
   return (
       <div>
-        <div className={'section header'}>
+        <div className="section header">
           <h2>Historia médica</h2>
           <Button children="Volver" onClick={() => backClick("patients")} variant={'outline'} />
         </div>
 
         <p>Datos del paciente</p>
-        <div className={'section'}>
-          <div className={'row'}>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <FaAddressCard/>
+        <div className="section">
+          <div className="row">
+            <div className="input">
+              <i className="icon">
+                <FaAddressCard />
               </i>
               <InputField
                   label={"Identificación"}
@@ -385,9 +385,9 @@ function History({ backClick }) {
                   maxLength={8}
               />
             </div>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <FaUser/>
+            <div className="input">
+              <i className="icon">
+                <FaUser />
               </i>
               <InputField
                   label={"Nombre"}
@@ -400,9 +400,9 @@ function History({ backClick }) {
                   maxLength={30}
               />
             </div>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <FaUser/>
+            <div className="input">
+              <i className="icon">
+                <FaUser />
               </i>
               <InputField
                   label={"Apellido"}
@@ -416,19 +416,19 @@ function History({ backClick }) {
               />
             </div>
           </div>
-          <div className={'row'}>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <BsGenderAmbiguous/>
+          <div className="row">
+            <div className="input">
+              <i className="icon">
+                <BsGenderAmbiguous />
               </i>
               <select name="gender" className="select history" value={sexo} onChange={(e) => setSexo(e.target.value)}>
                 <option value="M">Masculino</option>
                 <option value="F">Femenino</option>
               </select>
             </div>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <BsFillCalendarDateFill/>
+            <div className="input">
+              <i className="icon">
+                <BsFillCalendarDateFill />
               </i>
               <InputField
                   label={"Fecha de nacimiento"}
@@ -440,13 +440,12 @@ function History({ backClick }) {
               />
             </div>
           </div>
-          <div className={'row'}>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <FaLocationDot/>
+          <div className="row">
+            <div className="input">
+              <i className="icon">
+                <FaLocationDot />
               </i>
-              <select name="select" className="select history" value={sector}
-                      onChange={(e) => setSector(e.target.value)}>
+              <select name="select" className="select history" value={sector} onChange={(e) => setSector(e.target.value)}>
                 {sectores.map((sector, index) => (
                     <option key={index} value={sector}>
                       {sector}
@@ -454,9 +453,9 @@ function History({ backClick }) {
                 ))}
               </select>
             </div>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <FaHouse/>
+            <div className="input">
+              <i className="icon">
+                <FaHouse />
               </i>
               <InputField
                   label={"Dirección"}
@@ -469,10 +468,10 @@ function History({ backClick }) {
               />
             </div>
           </div>
-          <div className={'row'}>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <FaPhone/>
+          <div className="row">
+            <div className="input">
+              <i className="icon">
+                <FaPhone />
               </i>
               <InputField
                   label={"Teléfono"}
@@ -485,9 +484,9 @@ function History({ backClick }) {
                   maxLength={11}
               />
             </div>
-            <div className={'input'}>
-              <i style={{fontSize: 24, marginRight: 10}}>
-                <MdOutlinePhoneAndroid/>
+            <div className="input">
+              <i className="icon">
+                <MdOutlinePhoneAndroid />
               </i>
               <InputField
                   label={"Celular"}
@@ -501,10 +500,10 @@ function History({ backClick }) {
               />
             </div>
           </div>
-          <div className={'update'}>
+          <div className="update">
             <Button children={'Actualizar'} variant={'primary'} onClick={handleUpdatePatient} />
           </div>
-          {errorPatient && <div style={{ color: "red", textAlign: "center" }}>{errorPatient}</div>}
+          {errorPatient && <div className="error-message">{errorPatient}</div>}
         </div>
 
         <p>Tratamientos</p>

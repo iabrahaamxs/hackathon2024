@@ -1,0 +1,115 @@
+.header-container {
+  background-color: white;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  border-radius: 10px;
+}
+
+.form-container {
+  background-color: white;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.form-row.single {
+  justify-content: flex-end;
+}
+
+.password-confirm {
+  margin-right: 78px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.select {
+  /* Aquí puedes añadir estilos adicionales para el select si es necesario */
+}
+
+.illness-container {
+  background-color: white;
+  height: 100%;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.illness-options {
+  display: flex;
+  justify-content: space-around;
+}
+
+.illness-option {
+  display: flex;
+  align-items: center;
+}
+
+.illness-option label {
+  margin-left: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.note {
+  padding: 0;
+  margin: 15px 0 -10px 0;
+}
+
+.treatment-container {
+  background-color: white;
+  height: 100%;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.center {
+  align-self: center;
+}
+
+.right {
+  justify-content: right;
+  margin-right: 30px;
+  position: relative;
+  right: 54px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
