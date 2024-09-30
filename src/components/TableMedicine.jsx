@@ -1,163 +1,189 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Swal from "sweetalert2";
 import Button from "./Button";
 import InputField from "./InputField";
 import Modal from "./Modal";
 import RowtableMedicine from "./RowTableMedicine";
 import "../stylesheets/Medicines.css";
-import { useNavigate } from "react-router-dom";
-import { LocalStorage } from "../utils/LocalStorage";
-import { IllnessApi } from "../api/illness";
-import { MedicineApi } from "../api/medicine";
+
 function TableMedicine() {
   const [showModal, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState("");
-  const [nueva, setNueva] = useState("");
-  const [selectedIllnesses, setSelectedIllnesses] = useState([]);
+  const [selectedMedicine, setSelectedMedicine] = useState({ id: null, nombre: "", illness: [] });
+  const [medicamentos, setMedicamentos] = useState([
+    { id: 1, nombre: "Paracetamol", illness: ["diabetes", "hipertension"] },
+    { id: 2, nombre: "Ibuprofeno", illness: ["diabetes"] },
+    { id: 3, nombre: "Amoxicilina", illness: ["diabetes", "C", "D"] },
+  ]);
 
-  const openModal = (type) => {
-    type === "add"
-      ? setTypeModal("Insertar Medicina")
-      : setTypeModal("Actualizar Medicina");
+  const openModal = (type, medicine = { id: null, nombre: "", illness: [] }) => {
+    setTypeModal(type === "add" ? "Insertar Medicina" : "Actualizar Medicina");
+    setSelectedMedicine(medicine);
     setShowModal(true);
   };
-  const [enfermedades, setEnfermedades] = useState([]);
-  const medicamentos = [
-    {
-      nombre: "Paracetamol",
-      illness: ["diabetes", "hipertension"],
-    },
-    { nombre: "Ibuprofeno", illness: ["diabetes"] },
-    { nombre: "Amoxicilina", illness: ["diabetes", "C", "D"] },
+
+  const enfermedades = [
+    "enfermedad1",
+    "enfermedad2",
+    "enfermedad3",
+    "enfermedad4",
   ];
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const jwt = LocalStorage.Get("token");
-      if (!jwt) {
-        navigate("/");
-        return;
-      }
-      try {
-        const enfer = await IllnessApi.getIllness(jwt); //llamando a las enfer
-        console.log(enfer);
-
-        setEnfermedades(enfer);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-  const handleCheckboxChange = (e) => {
-    const { value, checked } = e.target;
-
-    if (checked) {
-      // Si está marcado, agregar al array
-      setSelectedIllnesses((prev) => [...prev, value]);
-    } else {
-      // Si está desmarcado, eliminar del array
-      setSelectedIllnesses((prev) =>
-        prev.filter((illness) => illness !== value)
-      );
-    }
+  const handleCheckboxChange = (illness) => {
+    setSelectedMedicine((prev) => {
+      const newIllness = prev.illness.includes(illness)
+          ? prev.illness.filter((i) => i !== illness)
+          : [...prev.illness, illness];
+      return { ...prev, illness: newIllness };
+    });
   };
 
-  const handleGuardar = async () => {
-    setShowModal(false);
+  const handleSave = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas guardar esta medicina?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (typeModal === "Insertar Medicina") {
+          setMedicamentos((prev) => [...prev, selectedMedicine]);
+          console.log("Medicina agregada:", selectedMedicine);
+          Swal.fire(
+              'Guardado',
+              'La medicina ha sido agregada exitosamente.',
+              'success'
+          );
+        } else {
+          setMedicamentos((prev) =>
+              prev.map((med) =>
+                  med.id === selectedMedicine.id ? selectedMedicine : med
+              )
+          );
+          console.log("Medicina actualizada:", selectedMedicine);
+          Swal.fire(
+              'Actualizado',
+              'La medicina ha sido actualizada exitosamente.',
+              'success'
+          );
+        }
+        setShowModal(false);
+      }
+    });
+  };
 
-    const jwt = LocalStorage.Get("token");
-    if (!jwt) {
-      return;
-    }
-
-    const res = await MedicineApi.createMedicine(jwt, nueva, selectedIllnesses);
-    console.log(res);
-
-    setNueva("");
-    setSelectedIllnesses([]);
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas eliminar esta medicina?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Eliminando medicina con id:", id);
+        setMedicamentos((prev) => prev.filter((med) => med.id !== id));
+        Swal.fire(
+            'Eliminado',
+            'La medicina ha sido eliminada exitosamente.',
+            'success'
+        );
+      }
+    });
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#fff",
-        borderRadius: "10px",
-        justifyContent: "center",
-        gap: 20,
-        height: "100%",
-        padding: 20,
-      }}
-    >
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            justifyContent: "center",
+            gap: 20,
+            height: "100%",
+            padding: 20,
+          }}
       >
-        <Button
-          variant={"primary"}
-          children={"Insertar medicina"}
-          onClick={() => setShowModal(true)}
-        />
-        <InputField type="text" className={"form"} label={"Buscar"} />
-      </div>
-      <br />
-      <Modal show={showModal} handleClose={() => setShowModal(false)}>
-        <h2>Insertar Medicina</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <InputField
-            type="text"
-            label={"Medicina"}
-            className="form"
-            value={nueva}
-            onChange={(e) => setNueva(e.target.value)}
+        <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+        >
+          <Button
+              variant={"primary"}
+              children={"Insertar medicina"}
+              onClick={() => openModal("add")}
           />
-
-          <label className="form-label">Enfermedad asociada:</label>
+          <InputField type="text" className={"form"} label={"Buscar"} />
         </div>
-        <div className="radio-group">
-          {enfermedades.map((e, index) => (
-            <label
-              key={index}
-              className="checkbox-label"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "20px",
-              }}
-            >
-              <input
-                type="checkbox"
-                value={e.id}
-                onChange={handleCheckboxChange}
+        <br />
+        <Modal show={showModal} handleClose={() => setShowModal(false)}>
+          <h2>{typeModal}</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <InputField
+                type="text"
+                label={"Medicina"}
+                className="form"
+                value={selectedMedicine.nombre}
+                onChange={(e) =>
+                    setSelectedMedicine({ ...selectedMedicine, nombre: e.target.value })
+                }
+            />
+
+            <label className="form-label">Enfermedad asociada:</label>
+          </div>
+          <div className="radio-group">
+            {enfermedades.map((e, index) => (
+                <label
+                    key={index}
+                    className="checkbox-label"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "20px",
+                    }}
+                >
+                  <input
+                      type="checkbox"
+                      value={e}
+                      checked={selectedMedicine.illness.includes(e)}
+                      onChange={() => handleCheckboxChange(e)}
+                  />
+                  <span
+                      className="checkbox-custom"
+                      style={{ marginLeft: "5px" }}
+                  ></span>
+                  {e}
+                </label>
+            ))}
+          </div>
+
+          <div className={"center"}>
+            <Button
+                variant={"primary"}
+                children={"Guardar"}
+                onClick={handleSave}
+            />
+          </div>
+        </Modal>
+        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+          {medicamentos.map((row) => (
+              <RowtableMedicine
+                  key={row.id}
+                  name={row.nombre}
+                  illness={row.illness}
+                  updateClick={() => openModal("update", row)}
+                  deleteClick={() => handleDelete(row.id)}
               />
-              <span
-                className="checkbox-custom"
-                style={{ marginLeft: "5px" }}
-              ></span>
-              {e.name}
-            </label>
           ))}
         </div>
-
-        <div className={"center"}>
-          <Button
-            variant={"primary"}
-            children={"Guardar"}
-            onClick={handleGuardar}
-          />
-        </div>
-      </Modal>
-      <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-        {medicamentos.map((row) => (
-          <RowtableMedicine name={row.nombre} illness={row.illness} />
-        ))}
       </div>
-    </div>
   );
 }
 
