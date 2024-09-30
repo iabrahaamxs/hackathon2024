@@ -41,9 +41,11 @@ function Deliver() {
   };
 
   const handleSearchPatient = () => {
+    //TODO Buscar al paciente en la BD
     const patient = patients.find(p => p.cedula === cedula);
     if (patient) {
       setPatientName(patient.name);
+      //TODO Buscar medicinas del paciente
       setMeds(patient.meds.map(med => med.name));
       setIsMedDisabled(false);
       setIsDateDisabled(true);
@@ -69,6 +71,7 @@ function Deliver() {
       if (patient) {
         const med = patient.meds.find(m => m.name === inputMed);
         if (med) {
+          //TODO Buscar última entrega
           const lastDeliveryDate = new Date(med.lastDelivery);
           const currentDate = new Date();
           const diffTime = Math.abs(currentDate - lastDeliveryDate);
@@ -94,7 +97,7 @@ function Deliver() {
 
   const handleSaveMed = () => {
     if (!inputMed || !startDate || !quantity || !cedula || patientName === "Paciente no encontrado") {
-      setErrorMed("Todos los campos son obligatorios y el paciente debe ser válido.");
+      setErrorMed("Todos los campos son obligatorios.");
       return;
     }
     if (inputMed.length < 3) {
@@ -103,6 +106,10 @@ function Deliver() {
     }
     if (quantity <= 0) {
       setErrorMed("La cantidad mensual debe ser mayor que 0.");
+      return;
+    }
+    if (!meds.includes(inputMed)) {
+      setErrorMed("El medicamento ingresado no está asociado con el paciente.");
       return;
     }
 

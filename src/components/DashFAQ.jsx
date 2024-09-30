@@ -14,6 +14,8 @@ function DashFAQ() {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [questionInput, setQuestionInput] = useState("");
+  const [answerInput, setAnswerInput] = useState("");
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
 
@@ -58,9 +60,13 @@ function DashFAQ() {
     if (type === "add") {
       setTitleModal("Agregar pregunta frecuente");
       setSelectedQuestion(null);
+      setQuestionInput("");
+      setAnswerInput("");
     } else {
       setTitleModal("Actualizar pregunta frecuente");
       setSelectedQuestion(question);
+      setQuestionInput(question.question);
+      setAnswerInput(question.answer);
     }
     setShowModal(true);
   };
@@ -82,12 +88,14 @@ function DashFAQ() {
         const jwt = LocalStorage.Get("token");
         if (selectedQuestion) {
           //TODO Actualizar pregunta
+          console.log("Actualizando pregunta:", { ...selectedQuestion, question: questionInput, answer: answerInput });
         } else {
           const newQuestion = {
-            question: document.querySelector('.form').value,
-            answer: document.querySelector('.textarea').value
+            question: questionInput,
+            answer: answerInput
           };
           //TODO Crear nueva pregunta
+          console.log("Creando nueva pregunta:", newQuestion);
         }
 
         Swal.fire(
@@ -196,16 +204,16 @@ function DashFAQ() {
                   type="text"
                   label="Pregunta"
                   className="form"
-                  value={selectedQuestion ? selectedQuestion.question : ""}
-                  onChange={(e) => setSelectedQuestion({ ...selectedQuestion, question: e.target.value })}
+                  value={questionInput}
+                  onChange={(e) => setQuestionInput(e.target.value)}
               />
               <label htmlFor="myTextarea">Respuesta</label>
               <textarea
                   className="textarea"
                   rows="4"
                   cols="80"
-                  value={selectedQuestion ? selectedQuestion.answer : ""}
-                  onChange={(e) => setSelectedQuestion({ ...selectedQuestion, answer: e.target.value })}
+                  value={answerInput}
+                  onChange={(e) => setAnswerInput(e.target.value)}
               ></textarea>
               <Button variant={"primary"} children={"Guardar"} onClick={handleSave} />
             </div>

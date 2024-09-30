@@ -96,155 +96,101 @@ function NewDonor({ backClick }) {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 10,
-          display: "flex",
-          borderRadius: "10px",
-        }}
-      >
-        <h2>Crear nuevo donante</h2>
-      </div>
-      <br />
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          padding: 20,
-          display: "flex",
-          flexDirection: "column",
-          gap: 20,
-          borderRadius: "10px",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
-          >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUser />
-            </i>
-            <InputField
-              label={"Nombre"}
-              id={"name"}
-              type={"text"}
-              className={"login form"}
-              onlyLetters={true}
-              maxLength={50}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
-          >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaUsers />
-            </i>
-            <select
-              className="select"
-              value={organizationType}
-              onChange={(e) => setOrganizationType(e.target.value)}
-            >
-              <option value="">Tipo de organización</option>
-              {donorTypes.map((type, index) => (
-                <option key={index} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
-          >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaAddressCard />
-            </i>
-            <InputField
-              label={"Identificación"}
-              id={"rif"}
-              type={"text"}
-              className={"login form"}
-              onlyAlphanumeric={true}
-              maxLength={11}
-              value={identification}
-              onChange={(e) => setIdentification(e.target.value)}
-            />
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "center",
-            }}
-          >
-            <i style={{ fontSize: 24, marginRight: 10 }}>
-              <FaLock />
-            </i>
-            <InputField
-              label={"Correo"}
-              id={"email"}
-              type={"email"}
-              className={"login form"}
-              maxLength={16}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          {/* <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  alignSelf: "center",
-                }}
-            >
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <FaLock />
+      <div>
+        <div className="header-container">
+          <h2>Crear nuevo donante</h2>
+        </div>
+        <br/>
+        <div className="form-container">
+          <div className="form-column">
+            <div className="form-group center">
+              <i className="icon">
+                <FaUser/>
               </i>
               <InputField
-                  label={"Confirmar contraseña"}
-                  id={"confirmPassword"}
-                  type={"password"}
+                  label={"Nombre"}
+                  id={"name"}
+                  type={"text"}
+                  className={"login form"}
+                  onlyLetters={true}
+                  maxLength={50}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="form-group center">
+              <i className="icon">
+                <FaUsers/>
+              </i>
+              <select
+                  className="select"
+                  value={organizationType}
+                  onChange={(e) => setOrganizationType(e.target.value)}
+              >
+                <option value="">Tipo de organización</option>
+                {donorTypes.map((type, index) => (
+                    <option key={index} value={type}>
+                      {type}
+                    </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group center">
+              <i className="icon">
+                <FaAddressCard/>
+              </i>
+              <InputField
+                  label={"Identificación"}
+                  id={"rif"}
+                  type={"text"}
+                  className={"login form"}
+                  onlyAlphanumeric={true}
+                  maxLength={11}
+                  value={identification}
+                  onChange={(e) => setIdentification(e.target.value)}
+              />
+            </div>
+            <div className="form-group center">
+              <i className="icon">
+                <FaLock/>
+              </i>
+              <InputField
+                  label={"Correo"}
+                  id={"email"}
+                  type={"email"}
                   className={"login form"}
                   maxLength={16}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
               />
-            </div> */}
+            </div>
+            {/* <div className="form-group center">
+        <i className="icon">
+          <FaLock />
+        </i>
+        <InputField
+          label={"Confirmar contraseña"}
+          id={"confirmPassword"}
+          type={"password"}
+          className={"login form"}
+          maxLength={16}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </div> */}
+          </div>
+          {error && (
+              <div className="error-message">{error}</div>
+          )}
         </div>
-        {error && (
-          <div style={{ color: "red", textAlign: "center" }}>{error}</div>
-        )}
+        <br/>
+        <div className="button-container">
+          <Button children="Cancelar" onClick={() => backClick("create")}/>
+          <Button children="Guardar" variant={"primary"} onClick={handleSave}/>
+        </div>
       </div>
-
-      <br />
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Button children="Cancelar" onClick={() => backClick("create")} />
-        <Button children="Guardar" variant={"primary"} onClick={handleSave} />
-      </div>
-    </div>
-  );
+  )
+      ;
 }
 
 export default NewDonor;

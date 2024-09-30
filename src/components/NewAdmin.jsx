@@ -96,33 +96,15 @@ function NewAdmin({ backClick }) {
 
   return (
       <div>
-        <div
-            style={{
-              backgroundColor: "white",
-              height: "100%",
-              padding: 10,
-              display: "flex",
-              borderRadius: "10px",
-            }}
-        >
+        <div className="header-container">
           <h2>Crear nuevo administrador</h2>
         </div>
-        <br />
-        <div
-            style={{
-              backgroundColor: "white",
-              height: "100%",
-              padding: 20,
-              display: "flex",
-              flexDirection: "column",
-              gap: 20,
-              borderRadius: "10px",
-            }}
-        >
-          <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <FaUser />
+        <br/>
+        <div className="form-container">
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <FaUser/>
               </i>
               <InputField
                   label={"Nombres"}
@@ -136,9 +118,9 @@ function NewAdmin({ backClick }) {
                   error={error && !name ? error : ""}
               />
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <FaUser />
+            <div className="form-group">
+              <i className="icon">
+                <FaUser/>
               </i>
               <InputField
                   label={"Apellidos"}
@@ -153,10 +135,10 @@ function NewAdmin({ backClick }) {
               />
             </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <FaAddressCard />
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <FaAddressCard/>
               </i>
               <InputField
                   label={"Identificación"}
@@ -170,9 +152,9 @@ function NewAdmin({ backClick }) {
                   error={error && !document ? error : ""}
               />
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <FaPhone />
+            <div className="form-group">
+              <i className="icon">
+                <FaPhone/>
               </i>
               <InputField
                   label={"Teléfono"}
@@ -187,11 +169,10 @@ function NewAdmin({ backClick }) {
               />
             </div>
           </div>
-
-          <div style={{ display: "flex", justifyContent: "center", gap: 30 }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <MdEmail />
+          <div className="form-row">
+            <div className="form-group">
+              <i className="icon">
+                <MdEmail/>
               </i>
               <InputField
                   label={"Correo"}
@@ -204,9 +185,9 @@ function NewAdmin({ backClick }) {
                   error={error && !email ? error : ""}
               />
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <FaLock />
+            <div className="form-group">
+              <i className="icon">
+                <FaLock/>
               </i>
               <InputField
                   label={"Contraseña"}
@@ -220,16 +201,16 @@ function NewAdmin({ backClick }) {
               />
             </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "right", marginRight: 30 }}>
-            <div style={{ display: "flex", alignItems: "center", position: "relative", right: 54 }}>
-              <i style={{ fontSize: 24, marginRight: 10 }}>
-                <FaLock />
+          <div className="form-row single">
+            <div className="form-group">
+              <i className="icon">
+                <FaLock/>
               </i>
               <InputField
                   label={"Confirmar contraseña"}
                   id={"confirmPassword"}
                   type={"password"}
-                  className={"login form"}
+                  className={"login form password-confirm"}
                   maxLength={16}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -237,21 +218,16 @@ function NewAdmin({ backClick }) {
               />
             </div>
           </div>
+          <br/>
+          <div className="button-container">
+            <Button children="Cancelar" onClick={() => backClick("create")}/>
+            <Button children="Guardar" variant={"primary"} onClick={handleSave}/>
+          </div>
+          {error && <div className="error-message">{error}</div>}
         </div>
-
-        <br />
-
-        <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-        >
-          <Button children="Cancelar" onClick={() => backClick("create")} />
-          <Button children="Guardar" variant={"primary"} onClick={handleSave} />
-        </div>
-        {error && <div style={{ color: "red", textAlign: "center" }}>{error}</div>}
+        <br/>
       </div>
+
   );
 }
 
