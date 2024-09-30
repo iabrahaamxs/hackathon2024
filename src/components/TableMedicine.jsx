@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 import Button from "./Button";
 import InputField from "./InputField";
 import Modal from "./Modal";
@@ -38,23 +39,62 @@ function TableMedicine() {
   };
 
   const handleSave = () => {
-    if (typeModal === "Insertar Medicina") {
-      setMedicamentos((prev) => [...prev, selectedMedicine]);
-      console.log("Medicina agregada:", selectedMedicine);
-    } else {
-      setMedicamentos((prev) =>
-          prev.map((med) =>
-              med.id === selectedMedicine.id ? selectedMedicine : med
-          )
-      );
-      console.log("Medicina actualizada:", selectedMedicine);
-    }
-    setShowModal(false);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas guardar esta medicina?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (typeModal === "Insertar Medicina") {
+          setMedicamentos((prev) => [...prev, selectedMedicine]);
+          console.log("Medicina agregada:", selectedMedicine);
+          Swal.fire(
+              'Guardado',
+              'La medicina ha sido agregada exitosamente.',
+              'success'
+          );
+        } else {
+          setMedicamentos((prev) =>
+              prev.map((med) =>
+                  med.id === selectedMedicine.id ? selectedMedicine : med
+              )
+          );
+          console.log("Medicina actualizada:", selectedMedicine);
+          Swal.fire(
+              'Actualizado',
+              'La medicina ha sido actualizada exitosamente.',
+              'success'
+          );
+        }
+        setShowModal(false);
+      }
+    });
   };
 
   const handleDelete = (id) => {
-    console.log("Eliminando medicina con id:", id);
-    setMedicamentos((prev) => prev.filter((med) => med.id !== id));
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Deseas eliminar esta medicina?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Eliminando medicina con id:", id);
+        setMedicamentos((prev) => prev.filter((med) => med.id !== id));
+        Swal.fire(
+            'Eliminado',
+            'La medicina ha sido eliminada exitosamente.',
+            'success'
+        );
+      }
+    });
   };
 
   return (
