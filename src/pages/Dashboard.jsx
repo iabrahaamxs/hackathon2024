@@ -21,10 +21,15 @@ export default function Dashboard() {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
 
+    if (option === "password") {
+      navigate("/actualizar")
+    }
+
     if (option === "logout") {
       LocalStorage.Delete("token");
       navigate("/");
     }
+
   };
 
   useEffect(() => {
@@ -107,6 +112,12 @@ export default function Dashboard() {
           iconName="question"
           selected={selectedOption === "question"}
           handleClick={handleOptionClick}
+        />
+        <BtnOption
+            text="Cambiar contraseña"
+            iconName="password"
+            selected={selectedOption === "password"}
+            handleClick={handleOptionClick}
         />
         <BtnOption
           text="Cerrar sesión"

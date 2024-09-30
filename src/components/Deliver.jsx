@@ -11,9 +11,10 @@ function Deliver() {
   const [patientName, setPatientName] = useState("");
   const [errorMed, setErrorMed] = useState("");
   const [meds, setMeds] = useState([]);
-  const [isDateDisabled, setIsDateDisabled] = useState(false);
-  const [isQuantityDisabled, setIsQuantityDisabled] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isMedDisabled, setIsMedDisabled] = useState(true)
+  const [isDateDisabled, setIsDateDisabled] = useState(true);
+  const [isQuantityDisabled, setIsQuantityDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const patients = [
     { id: 1, cedula: '12345678', name: 'Juan Pérez', age: 45, gender: 'M', illness: 'Diabetes', meds: [{ name: 'Insulina', lastDelivery: '2024-08-30' }, { name: 'Metformina', lastDelivery: '2024-09-01' }] },
@@ -44,12 +45,19 @@ function Deliver() {
     if (patient) {
       setPatientName(patient.name);
       setMeds(patient.meds.map(med => med.name));
+      setIsMedDisabled(false);
+      setIsDateDisabled(true);
+      setIsQuantityDisabled(true);
+      setIsButtonDisabled(true);
+      setInputMed("");
+      setStartDate("");
+      setQuantity("");
     } else {
       setPatientName("Paciente no encontrado");
       setMeds([]);
-      setIsDateDisabled(false);
-      setIsQuantityDisabled(false);
-      setIsButtonDisabled(false);
+      setIsDateDisabled(true);
+      setIsQuantityDisabled(true);
+      setIsButtonDisabled(true);
       setStartDate("");
       setErrorMed("");
     }
@@ -170,6 +178,7 @@ function Deliver() {
                   suggestions={meds}
                   onlyAlphanumeric={true}
                   maxLength={50}
+                  disabled={isMedDisabled}
               />
               <InputField
                   type="date"
