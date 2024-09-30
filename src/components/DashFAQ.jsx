@@ -7,7 +7,7 @@ import "../stylesheets/InputField.css";
 import { useNavigate } from "react-router-dom";
 import { LocalStorage } from "../utils/LocalStorage";
 import { FaqApi } from "../api/FaqApi";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 function DashFAQ() {
   const [openQuestionIndex, setOpenQuestionIndex] = useState(null);
@@ -25,14 +25,14 @@ function DashFAQ() {
 
   const handleQuestionDelete = async (index) => {
     const result = await Swal.fire({
-      title: '¿Estás seguro?',
+      title: "¿Estás seguro?",
       text: "¿Quieres eliminar esta pregunta?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
     });
 
     if (result.isConfirmed) {
@@ -40,18 +40,18 @@ function DashFAQ() {
         const jwt = LocalStorage.Get("token");
         //TODO Eliminar pregunta
 
-        Swal.fire(
-            '¡Eliminado!',
-            'La pregunta ha sido eliminada.',
-            'success'
-        );
+        Swal.fire("¡Eliminado!", "La pregunta ha sido eliminada.", "success");
 
         // Recargar las preguntas
         const faq = await FaqApi.getFaq(jwt);
         setQuestions(faq);
       } catch (error) {
         console.error("Error:", error);
-        Swal.fire('Error', 'Hubo un problema al eliminar la pregunta.', 'error');
+        Swal.fire(
+          "Error",
+          "Hubo un problema al eliminar la pregunta.",
+          "error"
+        );
       }
     }
   };
@@ -73,14 +73,16 @@ function DashFAQ() {
 
   const handleSave = async () => {
     const result = await Swal.fire({
-      title: '¿Estás seguro?',
-      text: selectedQuestion ? "¿Quieres actualizar esta pregunta?" : "¿Quieres agregar esta pregunta?",
-      icon: 'warning',
+      title: "¿Estás seguro?",
+      text: selectedQuestion
+        ? "¿Quieres actualizar esta pregunta?"
+        : "¿Quieres agregar esta pregunta?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, guardar',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, guardar",
+      cancelButtonText: "Cancelar",
     });
 
     if (result.isConfirmed) {
@@ -88,20 +90,22 @@ function DashFAQ() {
         const jwt = LocalStorage.Get("token");
         if (selectedQuestion) {
           //TODO Actualizar pregunta
-          console.log("Actualizando pregunta:", { ...selectedQuestion, question: questionInput, answer: answerInput });
-        } else {
-          const newQuestion = {
+          console.log("Actualizando pregunta aca:", {
+            ...selectedQuestion,
             question: questionInput,
-            answer: answerInput
-          };
+            answer: answerInput,
+          });
+        } else {
           //TODO Crear nueva pregunta
-          console.log("Creando nueva pregunta:", newQuestion);
+          await FaqApi.createFaq(jwt, questionInput, answerInput);
         }
 
         Swal.fire(
-            '¡Guardado!',
-            selectedQuestion ? 'La pregunta ha sido actualizada.' : 'La pregunta ha sido agregada.',
-            'success'
+          "¡Guardado!",
+          selectedQuestion
+            ? "La pregunta ha sido actualizada."
+            : "La pregunta ha sido agregada.",
+          "success"
         );
 
         setShowModal(false);
@@ -110,31 +114,44 @@ function DashFAQ() {
         setQuestions(faq);
       } catch (error) {
         console.error("Error:", error);
-        Swal.fire('Error', 'Hubo un problema al guardar la pregunta.', 'error');
+        Swal.fire("Error", "Hubo un problema al guardar la pregunta.", "error");
       }
     }
   };
 
-  const toggleVisibility = async (id, currentView) => {
+  const toggleVisibility = async (id, currentView, ques, ans) => {
     const result = await Swal.fire({
-      title: '¿Estás seguro?',
-      text: currentView ? "¿Quieres ocultar esta pregunta?" : "¿Quieres hacer visible esta pregunta?",
-      icon: 'warning',
+      title: "¿Estás seguro?",
+      text: currentView
+        ? "¿Quieres ocultar esta pregunta?"
+        : "¿Quieres hacer visible esta pregunta?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, cambiar',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, cambiar",
+      cancelButtonText: "Cancelar",
     });
 
     if (result.isConfirmed) {
       try {
         const jwt = LocalStorage.Get("token");
         //TODO cambiar estado de la pregunta
+        const datos = {
+          id,
+          currentView,
+          ques,
+          ans,
+        };
+        console.log("todos los datos:", datos);
+
+        //await FaqApi.updateFaqVisible(jwt, id, ques, ans, currentView);
         Swal.fire(
-            '¡Actualizado!',
-            currentView ? 'La pregunta ha sido ocultada.' : 'La pregunta es ahora visible.',
-            'success'
+          "¡Actualizado!",
+          currentView
+            ? "La pregunta ha sido ocultada."
+            : "La pregunta es ahora visible.",
+          "success"
         );
 
         // Recargar las preguntas
@@ -142,7 +159,11 @@ function DashFAQ() {
         setQuestions(faq);
       } catch (error) {
         console.error("Error:", error);
-        Swal.fire('Error', 'Hubo un problema al actualizar la visibilidad de la pregunta.', 'error');
+        Swal.fire(
+          "Error",
+          "Hubo un problema al actualizar la visibilidad de la pregunta.",
+          "error"
+        );
       }
     }
   };
@@ -155,7 +176,7 @@ function DashFAQ() {
         return;
       }
       try {
-        const faq = await FaqApi.getFaq(jwt); //llamando a las faq
+        const faq = await FaqApi.getFaq(); //llamando a las faq
         setQuestions(faq);
       } catch (error) {
         console.error("Error:", error);
@@ -166,76 +187,80 @@ function DashFAQ() {
   }, [navigate]);
 
   return (
-      <>
-        <div
-            style={{
-              backgroundColor: "white",
-              padding: 10,
-              display: "flex",
-              borderRadius: "10px",
-              justifyContent: "space-between",
-            }}
+    <>
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: 10,
+          display: "flex",
+          borderRadius: "10px",
+          justifyContent: "space-between",
+        }}
+      >
+        <h3>Preguntas frecuentes</h3>
+        <Button
+          variant={"primary"}
+          children={"Agregar pregunta"}
+          onClick={() => clickShowModal("add")}
+        />
+      </div>
+      <br />
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: 10,
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: "10px",
+        }}
+      >
+        <Modal
+          show={showModal}
+          style={{ display: "flex", padding: 30 }}
+          handleClose={() => setShowModal(false)}
         >
-          <h3>Preguntas frecuentes</h3>
-          <Button
+          <div style={{ display: "grid", gap: 15 }}>
+            <h2>{titleModal}</h2>
+            <InputField
+              type="text"
+              label="Pregunta"
+              className="form"
+              value={questionInput}
+              onChange={(e) => setQuestionInput(e.target.value)}
+            />
+            <label htmlFor="myTextarea">Respuesta</label>
+            <textarea
+              className="textarea"
+              rows="4"
+              cols="80"
+              value={answerInput}
+              onChange={(e) => setAnswerInput(e.target.value)}
+            ></textarea>
+            <Button
               variant={"primary"}
-              children={"Agregar pregunta"}
-              onClick={() => clickShowModal("add")}
-          />
-        </div>
-        <br />
-        <div
-            style={{
-              backgroundColor: "white",
-              padding: 10,
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: "10px",
-            }}
-        >
-          <Modal
-              show={showModal}
-              style={{ display: "flex", padding: 30 }}
-              handleClose={() => setShowModal(false)}
-          >
-            <div style={{ display: "grid", gap: 15 }}>
-              <h2>{titleModal}</h2>
-              <InputField
-                  type="text"
-                  label="Pregunta"
-                  className="form"
-                  value={questionInput}
-                  onChange={(e) => setQuestionInput(e.target.value)}
-              />
-              <label htmlFor="myTextarea">Respuesta</label>
-              <textarea
-                  className="textarea"
-                  rows="4"
-                  cols="80"
-                  value={answerInput}
-                  onChange={(e) => setAnswerInput(e.target.value)}
-              ></textarea>
-              <Button variant={"primary"} children={"Guardar"} onClick={handleSave} />
-            </div>
-          </Modal>
-          <div className="Faq">
-            {questions.map((q, index) => (
-                <QuestionAdmin
-                    key={index}
-                    id={q.id}
-                    question={q.question}
-                    answer={q.answer}
-                    view={q.view}
-                    isOpen={openQuestionIndex === index}
-                    onClick={() => handleQuestionClick(index)}
-                    btnUpdate={() => clickShowModal("update", q)}
-                    btnDelete={() => handleQuestionDelete(index)}
-                    toggleVisibility={toggleVisibility}
-                />
-            ))}
+              children={"Guardar"}
+              onClick={handleSave}
+            />
           </div>
+        </Modal>
+        <div className="Faq">
+          {questions.map((q, index) => (
+            <QuestionAdmin
+              key={index}
+              id={q.id}
+              question={q.question}
+              answer={q.answer}
+              view={q.is_visible}
+              isOpen={openQuestionIndex === index}
+              onClick={() => handleQuestionClick(index)}
+              btnUpdate={() => clickShowModal("update", q)}
+              btnDelete={() => handleQuestionDelete(index)}
+              toggleVisibility={toggleVisibility}
+            />
+          ))}
         </div>
-      </>
+      </div>
+    </>
   );
 }
 

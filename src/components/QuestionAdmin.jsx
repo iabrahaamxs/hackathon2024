@@ -6,8 +6,8 @@ import { useState } from "react";
 function QuestionAdmin({ question, answer, isOpen, onClick, view, btnUpdate, btnDelete, id, toggleVisibility }) {
   const [isView, setIsView] = useState(view);
 
-  const handleToggleVisibility = () => {
-    toggleVisibility(id, isView);
+  const handleToggleVisibility = async() => {
+    toggleVisibility(id, isView, question, answer);
     setIsView(!isView);
   };
 
