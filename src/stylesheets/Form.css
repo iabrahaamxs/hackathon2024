@@ -5,7 +5,7 @@
   border-radius: 10px;
 }
 
-.form-container {
+.form-container-user {
   background-color: white;
   height: 100%;
   padding: 20px;
@@ -34,7 +34,7 @@
   align-items: center;
 }
 
-.icon {
+.icon-form {
   font-size: 24px;
   margin-right: 10px;
 }
@@ -181,7 +181,7 @@
   padding: 30px;
 }
 
-.modal-content {
+.modal-content-faq {
   display: grid;
   gap: 15px;
 }

@@ -101,10 +101,10 @@ function NewAdmin({ backClick }) {
           <h2>Crear nuevo administrador</h2>
         </div>
         <br/>
-        <div className="form-container">
+        <div className="form-container-user">
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUser/>
               </i>
               <InputField
@@ -120,7 +120,7 @@ function NewAdmin({ backClick }) {
               />
             </div>
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUser/>
               </i>
               <InputField
@@ -138,7 +138,7 @@ function NewAdmin({ backClick }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaAddressCard/>
               </i>
               <InputField
@@ -154,7 +154,7 @@ function NewAdmin({ backClick }) {
               />
             </div>
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaPhone/>
               </i>
               <InputField
@@ -172,7 +172,7 @@ function NewAdmin({ backClick }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <MdEmail/>
               </i>
               <InputField
@@ -187,7 +187,7 @@ function NewAdmin({ backClick }) {
               />
             </div>
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaLock/>
               </i>
               <InputField
@@ -204,7 +204,7 @@ function NewAdmin({ backClick }) {
           </div>
           <div className="form-row single">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaLock/>
               </i>
               <InputField

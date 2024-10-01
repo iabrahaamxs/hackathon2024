@@ -64,11 +64,6 @@
   margin-bottom: 20px;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
 
 .error-message {
   color: red;

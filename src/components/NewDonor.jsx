@@ -102,10 +102,10 @@ function NewDonor({ backClick }) {
           <h2>Crear nuevo donante</h2>
         </div>
         <br/>
-        <div className="form-container">
+        <div className="form-container-user">
           <div className="form-column">
             <div className="form-group center">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUser/>
               </i>
               <InputField
@@ -120,7 +120,7 @@ function NewDonor({ backClick }) {
               />
             </div>
             <div className="form-group center">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUsers/>
               </i>
               <select
@@ -137,7 +137,7 @@ function NewDonor({ backClick }) {
               </select>
             </div>
             <div className="form-group center">
-              <i className="icon">
+              <i className="icon-form">
                 <FaAddressCard/>
               </i>
               <InputField
@@ -152,7 +152,7 @@ function NewDonor({ backClick }) {
               />
             </div>
             <div className="form-group center">
-              <i className="icon">
+              <i className="icon-form">
                 <FaLock/>
               </i>
               <InputField
@@ -166,7 +166,7 @@ function NewDonor({ backClick }) {
               />
             </div>
             {/* <div className="form-group center">
-        <i className="icon">
+        <i className="icon-form">
           <FaLock />
         </i>
         <InputField

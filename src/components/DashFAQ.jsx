@@ -203,7 +203,7 @@ function DashFAQ() {
               className="modal"
               handleClose={() => setShowModal(false)}
           >
-            <div className="modal-content">
+            <div className="modal-content-faq">
               <h2>{titleModal}</h2>
               <InputField
                   type="text"
