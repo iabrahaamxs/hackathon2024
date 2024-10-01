@@ -1,6 +1,5 @@
 .header-container {
   background-color: white;
-  height: 100%;
   padding: 10px;
   display: flex;
   border-radius: 10px;
@@ -120,3 +119,9 @@
   color: red;
   text-align: center;
 }
+
+
+.form-deliver {
+  width: 60%;
+}
+

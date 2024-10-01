@@ -88,7 +88,7 @@ export default function Statistics() {
 
   return (
       <div>
-        <div className={'section header'}>
+        <div className={'header-container'}>
           <h2>Reportes y estadísticas</h2>
         </div>
         <p>Pacientes</p>

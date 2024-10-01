@@ -112,7 +112,7 @@ function Patients() {
         {page === "patients" ? (
             <>
               <div className="patients-container">
-                <h3>Pacientes</h3>
+                <h2>Pacientes</h2>
               </div>
               <br />
               <div className="patients-content">

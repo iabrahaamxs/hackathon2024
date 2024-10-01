@@ -207,20 +207,13 @@ function Deliver() {
 
   return (
       <>
-        <div
-            style={{
-              backgroundColor: "white",
-              padding: 10,
-              display: "flex",
-              borderRadius: "10px"
-            }}
-        >
+        <div className="header-container">
           <h2>Registrar entrega</h2>
         </div>
         <br />
-        <div className={'section'}>
-          <div className={'center'}>
-            <div style={{width: "60%"}}>
+        <div className="section">
+          <div className="center">
+            <div className="form-deliver">
               <div className="input-row">
                 <InputField
                     type="text"
@@ -228,7 +221,7 @@ function Deliver() {
                     value={cedula}
                     onChange={handleCedulaChange}
                 />
-                <Button variant={'primary'} children={'Buscar'} onClick={handleSearchPatient}/>
+                <Button variant={'primary'} children={'Buscar'} onClick={handleSearchPatient} />
               </div>
               <InputField
                   type="text"
@@ -277,10 +270,10 @@ function Deliver() {
                   maxLength={3}
                   disabled={isQuantityDisabled}
               />
-              <div className={'center'}>
-                <Button variant={'primary'} children={'Guardar'} onClick={handleSaveMed} disabled={isButtonDisabled}/>
+              <div className="center">
+                <Button variant={'primary'} children={'Guardar'} onClick={handleSaveMed} disabled={isButtonDisabled} />
               </div>
-              {errorMed && <div style={{color: "red", textAlign: "center"}}>{errorMed}</div>}
+              {errorMed && <div className="error-message">{errorMed}</div>}
             </div>
           </div>
         </div>

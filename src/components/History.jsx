@@ -353,6 +353,7 @@ function History({ backClick, patientId }) {
     { Medicamento: 'Insulina', Cantidad: '20', Entregado: '26/09/2024'}
   ];
 
+  const headers = ['Medicamento', 'Cantidad', 'Entregado'];
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -363,7 +364,10 @@ function History({ backClick, patientId }) {
 
   return (
       <div>
-        <div className="section header">
+        <div className="header-container"
+             style={{
+               justifyContent: "space-between",
+             }}>
           <h2>Historia médica</h2>
           <Button children="Volver" onClick={() => backClick("patients")} variant={'outline'} />
         </div>
@@ -462,7 +466,7 @@ function History({ backClick, patientId }) {
                   label={"Dirección"}
                   id={"address"}
                   type={"text"}
-                  className={"login form"}
+                  className={"history form"}
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
                   maxLength={100}
@@ -658,7 +662,11 @@ function History({ backClick, patientId }) {
 
         <More
             title={'Historial de entregas'}
-            infoComponent={<div style={{width: '90%', margin: 'auto'}}><Table data={dataEntregas}/></div>}
+            infoComponent={
+              <div style={{ width: '90%', margin: 'auto' }}>
+                <Table data={dataEntregas} headers={headers} />
+              </div>
+            }
         />
 
       </div>
