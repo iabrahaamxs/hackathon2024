@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 import "../stylesheets/More.css";
 import RowInventory from "./RowInventory";
 import { calculatePriority } from "../utils/utils";
+import "../stylesheets/Inventory.css"
 
-function MoreInventory({ title, gm, quantity, rows }) {
+function MoreInventory({ title, quantity, rows, onDeleteMore }) {
   const [isOpen, setIsOpen] = useState(false);
   const [inventoryRows, setInventoryRows] = useState(rows);
+
+  useEffect(() => {
+    setInventoryRows(rows);
+  }, [rows]);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -33,16 +38,12 @@ function MoreInventory({ title, gm, quantity, rows }) {
 
   return (
       <div className={`more-container ${isOpen ? "active" : ""}`}>
-        <div
-            style={{ opacity: 0.6, gap: 50 }}
-            className={`title ${isOpen ? "active" : ""}`}
-            onClick={handleClick}
-        >
-          <div style={{ display: "flex", alignItems: "center" }}>
+        <div className={`title ${isOpen ? "active" : ""}`} onClick={handleClick}>
+          <div className="title-content">
             <div className={`priority-indicator ${getPrioriClass(priority)}`}></div>
-            <h4 className={"title-text"}>{title}</h4>
+            <h4 className="title-text">{title}</h4>
           </div>
-          <div style={{ width: "50%" }}></div>
+          <div className="spacer"></div>
           <h4>{quantity} unidades</h4>
           {isOpen ? (
               <FaAngleUp className="arrow" />
@@ -51,7 +52,7 @@ function MoreInventory({ title, gm, quantity, rows }) {
           )}
         </div>
         {isOpen && (
-            <div className={"info"}>
+            <div className="info">
               {inventoryRows.map((row) => (
                   <RowInventory
                       key={row.id}
