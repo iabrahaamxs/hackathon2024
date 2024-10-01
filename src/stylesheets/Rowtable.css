@@ -100,4 +100,33 @@
   .action-btn:hover {
     opacity: 0.8;
   }
-  
+
+.flex-center-med {
+  display: flex;
+  justify-content: center;
+}
+
+.space-around-med {
+  justify-content: space-around;
+}
+
+.width-70-med {
+  width: 70%;
+}
+
+.flex-50-med {
+  display: flex;
+  width: 50%;
+}
+
+.flex-med {
+  display: flex;
+}
+
+.tag-med {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}

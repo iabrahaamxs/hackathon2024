@@ -221,17 +221,17 @@ export default function Statistics() {
             </div>
           </div>
           <div className={'statistics-third-row'}>
-            <div className={'card percent'}>
-              <h1 style={{color: "green", fontSize: "50px", margin: "0"}}>87%</h1>
-              <p style={{width: "80%"}}>De los tratamientos cumplidos</p>
+            <div className="card percent">
+              <h1 className="green-text-stats">87%</h1>
+              <p className="width-80-stats">De los tratamientos cumplidos</p>
             </div>
-            <div className={'card percent'}>
-              <h1 style={{color: "gold", fontSize: "50px", margin: "0"}}>13%</h1>
-              <p style={{width: "80%"}}>De los pacientes no reciben sus tratamientos a tiempo</p>
+            <div className="card percent">
+              <h1 className="gold-text-stats">13%</h1>
+              <p className="width-80-stats">De los pacientes no reciben sus tratamientos a tiempo</p>
             </div>
-            <div className={'card percent'}>
-              <h1 style={{color: "red", fontSize: "50px", margin: "0"}}>9%</h1>
-              <p style={{width: "80%"}}>De los medicamentos caducaron antes de usarse</p>
+            <div className="card percent">
+              <h1 className="red-text-stats">9%</h1>
+              <p className="width-80-stats">De los medicamentos caducaron antes de usarse</p>
             </div>
           </div>
         </section>

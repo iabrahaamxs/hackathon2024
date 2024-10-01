@@ -13,47 +13,29 @@ function RowtableMedicine({ id, name, illness, updateClick, deleteClick }) {
     }
   };
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <div
-        className="row-table shadow"
-        style={{ justifyContent: "space-around", width: "70%" }}
-      >
-        <span className="column name-column">{name}</span>
-        <div style={{ display: "flex", width: "50%" }}>
-          {/* mapear aqui */}
-
-          {illness.map((ill, index) => (
-            <div key={index} style={{ display: "flex" }}>
-              <div
-                style={{
-                  display: "inline-block",
-                  padding: "5px 10px",
-                  margin: "5px",
-                  borderRadius: "5px",
-                  fontSize: "14px",
-                  backgroundColor: getTagColor(ill),
-                }}
-              >
-                {ill}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="actions-column-table">
-          <button className="action-btn delete-btn" aria-label="Delete"
-                  onClick={deleteClick}>
-            <FaTrash />
-          </button>
-          <button
-            className="action-btn edit-btn"
-            aria-label="Edit"
-            onClick={updateClick}
-          >
-            <FaPencil />
-          </button>
+      <div className="flex-center-med">
+        <div className="row-table shadow space-around-med width-70-med">
+          <span className="column name-column">{name}</span>
+          <div className="flex-50-med">
+            {/* mapear aqui */}
+            {illness.map((ill, index) => (
+                <div key={index} className="flex-med">
+                  <div className={`tag-med ${getTagColor(ill)}`}>
+                    {ill}
+                  </div>
+                </div>
+            ))}
+          </div>
+          <div className="actions-column-table">
+            <button className="action-btn delete-btn" aria-label="Delete" onClick={deleteClick}>
+              <FaTrash/>
+            </button>
+            <button className="action-btn edit-btn" aria-label="Edit" onClick={updateClick}>
+              <FaPencil/>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
 

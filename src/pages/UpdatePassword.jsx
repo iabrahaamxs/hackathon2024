@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import "../stylesheets/UpdatePassword.css"
 
 function UpdatePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -30,9 +31,9 @@ function UpdatePassword() {
   };
 
   return (
-      <div style={styles.containerPassword}>
-        <div style={styles.cardPassword}>
-          <h2 style={styles.titlePasswordPassword}>Actualizar Contraseña</h2>
+      <div className="containerPassword">
+        <div className="cardPassword">
+          <h2 className="titlePassword">Actualizar Contraseña</h2>
 
           {!successPassword ? (
               <>
@@ -61,7 +62,7 @@ function UpdatePassword() {
                     className="inputField"
                 />
                 {errorPassword && (
-                    <p style={styles.errorPassword}>{errorPassword}</p>
+                    <p className="errorPassword">{errorPassword}</p>
                 )}
 
                 <Button variant="primary" onClick={handleSubmit} className="btn">
@@ -78,7 +79,7 @@ function UpdatePassword() {
               </>
           ) : (
               <>
-                <p style={styles.successPassword}>
+                <p className="successPassword">
                   ¡Tu contraseña ha sido actualizada exitosamente!
                 </p>
                 <Button
@@ -96,37 +97,3 @@ function UpdatePassword() {
 }
 
 export default UpdatePassword;
-
-const styles = {
-  containerPassword: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    backgroundColor: "#f0f2f5",
-  },
-  cardPassword: {
-    backgroundColor: "#fff",
-    padding: "40px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-    textAlign: "center",
-    width: "100%",
-    maxWidth: "400px",
-  },
-  titlePassword: {
-    fontSize: "24px",
-    marginBottom: "20px",
-    color: "#333",
-  },
-  errorPassword: {
-    color: "red",
-    marginTop: "10px",
-  },
-  successPassword: {
-    color: "green",
-    fontSize: "18px",
-    marginBottom: "20px",
-  },
-};
