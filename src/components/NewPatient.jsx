@@ -164,7 +164,7 @@ function NewPatient({ backClick }) {
           <h2>Crear nuevo paciente</h2>
         </div>
         <p>Paciente</p>
-        <div className="form-container">
+        <div className="form-container-user">
           <div className="form-row">
             <div className="form-group">
               <select
@@ -182,7 +182,7 @@ function NewPatient({ backClick }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUser/>
               </i>
               <InputField
@@ -196,7 +196,7 @@ function NewPatient({ backClick }) {
               />
             </div>
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUser/>
               </i>
               <InputField
@@ -212,7 +212,7 @@ function NewPatient({ backClick }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaAddressCard/>
               </i>
               <InputField
@@ -227,7 +227,7 @@ function NewPatient({ backClick }) {
               />
             </div>
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <BsFillCalendarDateFill/>
               </i>
               <InputField
@@ -242,7 +242,7 @@ function NewPatient({ backClick }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaLocationDot/>
               </i>
               <select
@@ -260,7 +260,7 @@ function NewPatient({ backClick }) {
               </select>
             </div>
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaHouse/>
               </i>
               <InputField
@@ -276,7 +276,7 @@ function NewPatient({ backClick }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <BsGenderAmbiguous/>
               </i>
               <select
@@ -291,7 +291,7 @@ function NewPatient({ backClick }) {
               </select>
             </div>
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <FaPhone/>
               </i>
               <InputField
@@ -334,7 +334,7 @@ function NewPatient({ backClick }) {
         <div className="treatment-container">
           <div className="form-row">
             <div className="form-group">
-              <i className="icon">
+              <i className="icon-form">
                 <GiMedicines/>
               </i>
               <select

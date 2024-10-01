@@ -24,7 +24,7 @@ function QuestionAdmin({
 
   return (
       <div className="question-admin-container">
-        <div className={`question-container ${isOpen ? "active" : ""}`}>
+        <div className={`question-container question-container-admin ${isOpen ? "active" : ""}`}>
           <div className={`question ${isOpen ? "active" : ""}`} onClick={onClick}>
             <h3 className="question-text">{question}</h3>
             {isOpen ? (
@@ -39,7 +39,7 @@ function QuestionAdmin({
               </div>
           )}
         </div>
-        <div className="actions-column-question">
+        <div className="actions-column-table actions-column-question">
           <button
               onClick={toggleVisibility}
               className="action-btn question-btn"

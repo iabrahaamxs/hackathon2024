@@ -10,6 +10,7 @@ import Button from "./Button";
 import { BsFillCalendarDateFill, BsGenderAmbiguous } from "react-icons/bs";
 import { GiMedicines } from "react-icons/gi";
 import '../stylesheets/Dashboard.css'
+import '../stylesheets/Form.css'
 import {MdOutlinePhoneAndroid} from "react-icons/md";
 import {useEffect, useState} from "react";
 import More from "./More.jsx";
@@ -383,7 +384,7 @@ function History({ backClick, patientId }) {
         <div className="section">
           <div className="row">
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <FaAddressCard />
               </i>
               <InputField
@@ -398,7 +399,7 @@ function History({ backClick, patientId }) {
               />
             </div>
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUser />
               </i>
               <InputField
@@ -413,7 +414,7 @@ function History({ backClick, patientId }) {
               />
             </div>
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <FaUser />
               </i>
               <InputField
@@ -430,7 +431,7 @@ function History({ backClick, patientId }) {
           </div>
           <div className="row">
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <BsGenderAmbiguous />
               </i>
               <select name="gender" className="select history" value={sexo} onChange={(e) => setSexo(e.target.value)}>
@@ -439,7 +440,7 @@ function History({ backClick, patientId }) {
               </select>
             </div>
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <BsFillCalendarDateFill />
               </i>
               <InputField
@@ -454,7 +455,7 @@ function History({ backClick, patientId }) {
           </div>
           <div className="row">
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <FaLocationDot />
               </i>
               <select name="select" className="select history" value={sector} onChange={(e) => setSector(e.target.value)}>
@@ -466,7 +467,7 @@ function History({ backClick, patientId }) {
               </select>
             </div>
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <FaHouse />
               </i>
               <InputField
@@ -482,7 +483,7 @@ function History({ backClick, patientId }) {
           </div>
           <div className="row">
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <FaPhone />
               </i>
               <InputField
@@ -497,7 +498,7 @@ function History({ backClick, patientId }) {
               />
             </div>
             <div className="input">
-              <i className="icon">
+              <i className="icon-form">
                 <MdOutlinePhoneAndroid />
               </i>
               <InputField

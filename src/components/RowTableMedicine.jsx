@@ -23,7 +23,7 @@ function RowtableMedicine({ id, name, illness, updateClick, deleteClick }) {
           {/* mapear aqui */}
 
           {illness.map((ill, index) => (
-            <div key={index} style={{ opacity: 0.7, display: "flex" }}>
+            <div key={index} style={{ display: "flex" }}>
               <div
                 style={{
                   display: "inline-block",
