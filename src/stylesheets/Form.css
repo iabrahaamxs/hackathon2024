@@ -56,6 +56,13 @@
   justify-content: space-around;
 }
 
+.medicine-options {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  top: -15px;
+}
+
 .illness-option {
   display: flex;
   align-items: center;

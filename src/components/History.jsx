@@ -20,7 +20,7 @@ import Modal from "./Modal.jsx";
 import Swal from "sweetalert2";
 //TODO Reiniciar los modales
 
-function History({ backClick }) {
+function History({ backClick, patientId }) {
   const [inputValue, setInputValue] = useState('');
   const meds = ['Prednisona', 'Losartan', 'Insulina'];
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ function History({ backClick }) {
   };
 
   const sectores = ['Barrio Lindo', 'Alambique', 'Santos Luzardo', 'Cardenales', 'Los Luises'];
-
+  //TODO Obtener datos con patientId
   const pacienteDatos = {
     id: '12352242', nombres: 'Jose María', apellidos: 'Pérez Ortega', sexo: 'Masculino',
     fnacimiento: '1973-04-03', sector: 'Los Luises', direccion: 'Casa imaginaria',
@@ -96,6 +96,7 @@ function History({ backClick }) {
     });
   };
 
+  //TODO Buscar tratamiento con id
   const [treatmentsData, setTreatmentsData] = useState([
       { treatmentId: "1", med: 'Losartan', quantity: '30', date: '26/09/2024'},
       { treatmentId: "2", med: 'Prednisona', quantity: '30', date: '26/09/2024'},
@@ -188,7 +189,7 @@ function History({ backClick }) {
     });
   };
 
-
+    //TODO Buscar diagnósticos con id
   const initialDiagnosisData = [
     {id: 1, illness:'Diabetes', classification: 'Estadio I', notes:'Heriditaria', treatment:''},
     {id: 2, illness:'Hipertensión', classification: 'Estadio II', notes:'', treatment:''},
@@ -298,7 +299,7 @@ function History({ backClick }) {
     });
   };
 
-
+    //TODO Buscar antecedentes con id
   const initialAntecedentesData = {
     encamado: false, diabetes: true, dislipidemia: false, obesidad: true,
     erc: false, iam: false, acv: false, fumador: false, alergias: 'Maní', observaciones: ''

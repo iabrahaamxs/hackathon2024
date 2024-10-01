@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Button from "./Button";
 import InputField from "./InputField";
 import RowPatient from "./RowPatient.jsx";
 import History from "./History.jsx";
@@ -7,15 +6,12 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { LocalStorage } from "../utils/LocalStorage.js";
 import { IllnessApi } from "../api/illness.js";
+import "../stylesheets/Patients.css"
 
 function Patients() {
   const [page, setPage] = useState("patients");
   const [filter, setFilter] = useState([]);
-  const [illnesses, setIllnesses] = useState([
-    "diabetes",
-    "hipertension",
-    "asma",
-  ]);
+  const [illnesses, setIllnesses] = useState([]);
   const [patients, setPatients] = useState([
     {
       id: "14234123",
@@ -31,6 +27,7 @@ function Patients() {
       illness: ["diabetes"],
     },
   ]);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
 
   const handleClick = (page) => {
     setPage(page);
@@ -38,15 +35,16 @@ function Patients() {
 
   const handleClickHistory = (page, id) => {
     setPage(page);
+    setSelectedPatientId(id);
     console.log(id);
     // TODO: Lógica para buscar la historia
   };
 
   const handleCheckboxChange = (condition) => {
     setFilter((prevFilter) =>
-      prevFilter.includes(condition)
-        ? prevFilter.filter((ill) => ill !== condition)
-        : [...prevFilter, condition]
+        prevFilter.includes(condition)
+            ? prevFilter.filter((ill) => ill !== condition)
+            : [...prevFilter, condition]
     );
   };
 
@@ -62,21 +60,21 @@ function Patients() {
     }).then((result) => {
       if (result.isConfirmed) {
         setPatients((prevPatients) =>
-          prevPatients.filter((patient) => patient.id !== id)
+            prevPatients.filter((patient) => patient.id !== id)
         );
         console.log(`Paciente eliminado: ${patient.name}`);
         Swal.fire(
-          "¡Eliminado!",
-          `Paciente ${patient.name} eliminado con éxito.`,
-          "success"
+            "¡Eliminado!",
+            `Paciente ${patient.name} eliminado con éxito.`,
+            "success"
         );
       }
     });
   };
 
   const filteredPatients = patients.filter(
-    (patient) =>
-      filter.length === 0 || patient.illness.some((ill) => filter.includes(ill))
+      (patient) =>
+          filter.length === 0 || patient.illness.some((ill) => filter.includes(ill))
   );
 
   const navigate = useNavigate();
@@ -89,7 +87,7 @@ function Patients() {
         return;
       }
       try {
-        const enfer = await IllnessApi.getIllness(jwt); //llamando a las enfer
+        const enfer = await IllnessApi.getIllness(jwt); //llamando a las enfermedades
         setIllnesses(enfer);
       } catch (error) {
         console.error("Error:", error);
@@ -97,93 +95,62 @@ function Patients() {
     };
 
     fetchData();
-  }, []);
+  }, [navigate]);
 
   return (
-    <>
-      {page === "patients" ? (
-        <>
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: 10,
-              display: "flex",
-              borderRadius: "10px",
-            }}
-          >
-            <h3>Pacientes</h3>
-          </div>
-          <br />
-          <div
-            style={{
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-              justifyContent: "center",
-              gap: 20,
-              height: "100%",
-              padding: 20,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "right",
-                alignItems: "right",
-              }}
-            >
-              <InputField
-                type="text"
-                className={"form"}
-                label={"Buscar"}
-                onlyNumbers={true}
-                maxLength={8}
-              />
-            </div>
-            <br />
-            <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                {illnesses.map((i, index) => (
-                  <label
-                    key={index}
-                    className="checkbox-label"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      value={i.name}
-                      checked={filter.includes(i.name)}
-                      onChange={() => handleCheckboxChange(i.name)}
-                    />
-                    <span
-                      className="checkbox-custom"
-                      style={{ marginLeft: "5px" }}
-                    ></span>
-                    {i.name}
-                  </label>
-                ))}
+      <>
+        {page === "patients" ? (
+            <>
+              <div className="patients-container">
+                <h3>Pacientes</h3>
               </div>
-              {filteredPatients.map((patient) => (
-                <RowPatient
-                  key={patient.id}
-                  id={patient.id}
-                  name={patient.name}
-                  priority={patient.priority}
-                  illness={patient.illness}
-                  handleClick={() => handleClickHistory("history", patient.id)}
-                  onDelete={handleDeletePatient}
-                />
-              ))}
-            </div>
-          </div>
-          <br />
-        </>
-      ) : null}
-      {page === "history" ? <History backClick={handleClick} /> : null}
-    </>
+              <br />
+              <div className="patients-content">
+                <div className="search-container">
+                  <InputField
+                      type="text"
+                      className={"form"}
+                      label={"Buscar"}
+                      onlyNumbers={true}
+                      maxLength={8}
+                  />
+                </div>
+                <br />
+                <div className="flex-column">
+                  <div className="flex-wrap">
+                    {illnesses.map((i, index) => (
+                        <label key={index} className="checkbox-label">
+                          <input
+                              type="checkbox"
+                              value={i.name}
+                              checked={filter.includes(i.name)}
+                              onChange={() => handleCheckboxChange(i.name)}
+                          />
+                          <span className="checkbox-custom"></span>
+                          {i.name}
+                        </label>
+                    ))}
+                  </div>
+                  {filteredPatients.map((patient) => (
+                      <RowPatient
+                          key={patient.id}
+                          id={patient.id}
+                          name={patient.name}
+                          priority={patient.priority}
+                          illness={patient.illness}
+                          handleClick={() => handleClickHistory("history", patient.id)}
+                          onDelete={handleDeletePatient}
+                      />
+                  ))}
+                </div>
+              </div>
+              <br />
+            </>
+        ) : null}
+        {page === "history" && selectedPatientId ? (
+            <History backClick={() => handleClick("patients")} patientId={selectedPatientId} />
+        ) : null}
+      </>
   );
 }
 
