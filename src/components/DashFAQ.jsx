@@ -23,7 +23,7 @@ function DashFAQ() {
     setOpenQuestionIndex(openQuestionIndex === index ? null : index);
   };
 
-  const handleQuestionDelete = async (index) => {
+  const handleQuestionDelete = async (id) => {
     const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "¿Quieres eliminar esta pregunta?",
@@ -39,6 +39,7 @@ function DashFAQ() {
       try {
         const jwt = LocalStorage.Get("token");
         //TODO Eliminar pregunta
+        await FaqApi.deleteFaq(jwt, id);
 
         Swal.fire("¡Eliminado!", "La pregunta ha sido eliminada.", "success");
 
@@ -90,11 +91,13 @@ function DashFAQ() {
         const jwt = LocalStorage.Get("token");
         if (selectedQuestion) {
           //TODO Actualizar pregunta
-          console.log("Actualizando pregunta aca:", {
-            ...selectedQuestion,
-            question: questionInput,
-            answer: answerInput,
-          });
+
+          await FaqApi.updateFaq(
+            jwt,
+            selectedQuestion.id,
+            questionInput,
+            answerInput
+          );
         } else {
           //TODO Crear nueva pregunta
           await FaqApi.createFaq(jwt, questionInput, answerInput);
@@ -137,15 +140,9 @@ function DashFAQ() {
       try {
         const jwt = LocalStorage.Get("token");
         //TODO cambiar estado de la pregunta
-        const datos = {
-          id,
-          currentView,
-          ques,
-          ans,
-        };
-        console.log("todos los datos:", datos);
 
-        //await FaqApi.updateFaqVisible(jwt, id, ques, ans, currentView);
+        await FaqApi.updateFaqVisible(jwt, id, ques, ans, !currentView);
+
         Swal.fire(
           "¡Actualizado!",
           currentView
@@ -254,7 +251,7 @@ function DashFAQ() {
               isOpen={openQuestionIndex === index}
               onClick={() => handleQuestionClick(index)}
               btnUpdate={() => clickShowModal("update", q)}
-              btnDelete={() => handleQuestionDelete(index)}
+              btnDelete={() => handleQuestionDelete(q.id)}
               toggleVisibility={toggleVisibility}
             />
           ))}
