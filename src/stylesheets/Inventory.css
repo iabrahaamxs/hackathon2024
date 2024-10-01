@@ -110,7 +110,7 @@
   width: 15%;
 }
 
-.actions-column {
+.actions-column-inventory {
   width: 15%;
   display: flex;
   justify-content: end;

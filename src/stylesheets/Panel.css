@@ -23,12 +23,40 @@ img{
     padding: 10px;
     border-radius: 10px;
     width: 90%;
+    border: 0;
+    cursor: pointer;
+    opacity: 0.5;
+    color: black;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    height: 45px;
 }
+
+.panel-btn.selected {
+    opacity: 1;
+    color: white;
+    background-color: #4B9AC5;
+}
+
+.icon-btn {
+    font-size: 22px;
+    margin-right: 8px;
+}
+
+.text-btn {
+    font-size: 15px;
+}
+
 
 .dashboard-container {
     display: flex;
 }
 
+.article-content {
+    padding: 40px;
+    flex: 1;
+}
 
 .card-create{
     width: 30%;

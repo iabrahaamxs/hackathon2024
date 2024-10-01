@@ -186,6 +186,7 @@ function Inventory()  {
         ${medicineDetails}
       `,
         icon: 'question',
+        reverseButtons: true,
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',

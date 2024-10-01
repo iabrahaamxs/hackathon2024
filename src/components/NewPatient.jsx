@@ -97,6 +97,7 @@ function NewPatient({ backClick }) {
         <p><strong>Prioridad:</strong> ${priority}</p>
       `,
       icon: "info",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: "Guardar",
       cancelButtonText: "Cancelar",
@@ -162,7 +163,7 @@ function NewPatient({ backClick }) {
         <div className="header-container">
           <h2>Crear nuevo paciente</h2>
         </div>
-        <p>Usuario</p>
+        <p>Paciente</p>
         <div className="form-container">
           <div className="form-row">
             <div className="form-group">

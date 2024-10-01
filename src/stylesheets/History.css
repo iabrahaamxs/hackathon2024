@@ -1,0 +1,29 @@
+.medication-card {
+  width: 80%;
+  margin: auto;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 16px;
+}
+
+.medication-info {
+  opacity: 0.7;
+}
+
+.medication-info:nth-child(1) {
+  width: 14%;
+}
+
+.medication-info:nth-child(2) {
+  width: 10%;
+}
+
+.medication-info:nth-child(3) {
+  width: 10%;
+}
+
+.medication-info:nth-child(4) {
+  width: 15%;
+}

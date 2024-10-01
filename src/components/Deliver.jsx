@@ -173,6 +173,7 @@ function Deliver() {
       title: 'Confirmar Guardado',
       text: "¿Estás seguro de que deseas registrar esta entrega?",
       icon: 'question',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

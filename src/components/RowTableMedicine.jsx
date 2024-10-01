@@ -39,7 +39,7 @@ function RowtableMedicine({ id, name, illness, updateClick, deleteClick }) {
             </div>
           ))}
         </div>
-        <div className="actions-column">
+        <div className="actions-column-table">
           <button className="action-btn delete-btn" aria-label="Delete"
                   onClick={deleteClick}>
             <FaTrash />

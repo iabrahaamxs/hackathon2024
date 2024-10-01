@@ -5,6 +5,7 @@ import EnfermedadComponent from "./EnfermedadComponent";
 import { IllnessApi } from "../api/illness";
 import { useNavigate } from "react-router-dom";
 import { LocalStorage } from "../utils/LocalStorage";
+import "../stylesheets/Items.css"
 
 function Illness({ clickBack }) {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ function Illness({ clickBack }) {
       title: "Confirmar Inserción",
       text: `¿Estás seguro de que deseas agregar la enfermedad ${nuevaEnfermedad}?`,
       icon: "question",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: "Sí, agregar",
       cancelButtonText: "No, cancelar",
@@ -64,6 +66,7 @@ function Illness({ clickBack }) {
       title: `¿Estás seguro de que deseas eliminar ${enfermedad.name}?`,
       text: "No podrás revertir esto",
       icon: "warning",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: "Sí, bórralo",
       cancelButtonText: "No, cancelar",
@@ -127,38 +130,24 @@ function Illness({ clickBack }) {
   });
 
   return (
-    <>
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: 10,
-          display: "flex",
-          borderRadius: "10px",
-          justifyContent: "space-between",
-        }}
-      >
-        <h2>Enfermedades</h2>
-        <Button
-          children={"Volver"}
-          variant={"primary"}
-          onClick={() => clickBack("ItemHome")}
-        />
-      </div>
-      <br />
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: 10,
-          borderRadius: "10px",
-        }}
-      >
-        <EnfermedadComponent
-          enfermedadesExistentes={enfermedades}
-          agregarEnfermedad={agregarEnfermedad}
-          eliminarEnfermedad={eliminarEnfermedad}
-        />
-      </div>
-    </>
+      <>
+        <div className="header-container">
+          <h2>Enfermedades</h2>
+          <Button
+              children={"Volver"}
+              variant={"primary"}
+              onClick={() => clickBack("ItemHome")}
+          />
+        </div>
+        <br/>
+        <div className="content-container">
+          <EnfermedadComponent
+              enfermedadesExistentes={enfermedades}
+              agregarEnfermedad={agregarEnfermedad}
+              eliminarEnfermedad={eliminarEnfermedad}
+          />
+        </div>
+      </>
   );
 }
 

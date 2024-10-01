@@ -1,38 +1,24 @@
 import Button from "./Button";
 import TableMedicine from "./TableMedicine";
+import "../stylesheets/Items.css"
 
 function Medicine({ clickBack }) {
   return (
-    <>
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: 10,
-          display: "flex",
-          borderRadius: "10px",
-          justifyContent: "space-between",
-        }}
-      >
-        <h2>Medicinas</h2>
-        <Button
-          children={"Volver"}
-          variant={"primary"}
-          onClick={() => clickBack("ItemHome")}
-        />
-      </div>
-      <br />
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: 10,
-          display: "flex",
-          flexDirection: "column",
-          borderRadius: "10px",
-        }}
-      >
-        <TableMedicine />
-      </div>
-    </>
+      <>
+        <div className="header-container">
+          <h2>Medicinas</h2>
+          <Button
+              children={"Volver"}
+              variant={"primary"}
+              onClick={() => clickBack("ItemHome")}
+          />
+        </div>
+        <br/>
+        <div className="content-container column">
+          <TableMedicine/>
+        </div>
+      </>
   );
 }
+
 export default Medicine;

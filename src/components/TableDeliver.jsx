@@ -54,6 +54,7 @@ function TableDeliver({ onClick }) {
       title: `¿Estás seguro de que deseas eliminar el tratamiento de ${treatment.name}?`,
       text: "No podrás revertir esto",
       icon: 'warning',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: 'Sí, bórralo',
       cancelButtonText: 'No, cancelar'
@@ -77,6 +78,7 @@ function TableDeliver({ onClick }) {
       title: `¿Estás seguro de que deseas marcar como entregado el tratamiento de ${treatment.name}?`,
       text: "Esta acción no se puede deshacer",
       icon: 'question',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: 'Sí, marcar como entregado',
       cancelButtonText: 'No, cancelar'

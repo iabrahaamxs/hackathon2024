@@ -66,6 +66,7 @@ function NewDonor({ backClick }) {
         <p><strong>Identificación:</strong> ${identification}</p>
       `,
       icon: "info",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: "Guardar",
       cancelButtonText: "Cancelar",

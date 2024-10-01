@@ -61,90 +61,82 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="dashboard-container">
-      <aside className="panel">
-        <div className="panel-title">
-          <img
-            src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
-            alt=""
+      <div className="dashboard-container">
+        <aside className="panel">
+          <div className="panel-title">
+            <img
+                src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
+                alt=""
+            />
+            <h3>CCCD</h3>
+          </div>
+          <BtnOption
+              text="Entregar medicamentos"
+              iconName="deliver"
+              selected={selectedOption === "deliver"}
+              handleClick={handleOptionClick}
           />
-          <h3>CCCD</h3>
-        </div>
-        <BtnOption
-          text="Entregar medicamentos"
-          iconName="deliver"
-          selected={selectedOption === "deliver"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Registrar usuario"
-          iconName="user"
-          selected={selectedOption === "user"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Pacientes"
-          iconName="patient"
-          selected={selectedOption === "patient"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Reportes y estadísticas"
-          iconName="report"
-          selected={selectedOption === "report"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Inventario"
-          iconName="box"
-          selected={selectedOption === "box"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Items"
-          iconName="item"
-          selected={selectedOption === "item"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Preguntas frecuentes"
-          iconName="question"
-          selected={selectedOption === "question"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Cambiar contraseña"
-          iconName="password"
-          selected={selectedOption === "password"}
-          handleClick={handleOptionClick}
-        />
-        <BtnOption
-          text="Cerrar sesión"
-          iconName="logout"
-          selected={selectedOption === "logout"}
-          handleClick={handleOptionClick}
-        />
-      </aside>
+          <BtnOption
+              text="Registrar usuario"
+              iconName="user"
+              selected={selectedOption === "user"}
+              handleClick={handleOptionClick}
+          />
+          <BtnOption
+              text="Pacientes"
+              iconName="patient"
+              selected={selectedOption === "patient"}
+              handleClick={handleOptionClick}
+          />
+          <BtnOption
+              text="Reportes y estadísticas"
+              iconName="report"
+              selected={selectedOption === "report"}
+              handleClick={handleOptionClick}
+          />
+          <BtnOption
+              text="Inventario"
+              iconName="box"
+              selected={selectedOption === "box"}
+              handleClick={handleOptionClick}
+          />
+          <BtnOption
+              text="Items"
+              iconName="item"
+              selected={selectedOption === "item"}
+              handleClick={handleOptionClick}
+          />
+          <BtnOption
+              text="Preguntas frecuentes"
+              iconName="question"
+              selected={selectedOption === "question"}
+              handleClick={handleOptionClick}
+          />
+          <BtnOption
+              text="Cambiar contraseña"
+              iconName="password"
+              selected={selectedOption === "password"}
+              handleClick={handleOptionClick}
+          />
+          <BtnOption
+              text="Cerrar sesión"
+              iconName="logout"
+              selected={selectedOption === "logout"}
+              handleClick={handleOptionClick}
+          />
+        </aside>
 
-      <article
-        style={{
-          // background: "white",
-          padding: 40,
-          flex: 1,
-          // borderRadius: "10px",
-          // paddingLeft: "10px",
-        }}
-      >
-        {selectedOption === "deliver" ? <Deliver /> : null}
-        {selectedOption === "user" ? <RegisterUser /> : null}
-        {selectedOption === "patient" ? <Patients /> : null}
-        {selectedOption === "report" ? <Statistics /> : null}
-        {selectedOption === "box" ? <Inventory /> : null}
-        {selectedOption === "question" ? <DashFAQ /> : null}
-        {selectedOption === "item" ? <Items /> : null}
-      </article>
-    </div>
+        <article className="article-content">
+          {selectedOption === "deliver" ? <Deliver/> : null}
+          {selectedOption === "user" ? <RegisterUser/> : null}
+          {selectedOption === "patient" ? <Patients/> : null}
+          {selectedOption === "report" ? <Statistics/> : null}
+          {selectedOption === "box" ? <Inventory/> : null}
+          {selectedOption === "question" ? <DashFAQ/> : null}
+          {selectedOption === "item" ? <Items/> : null}
+        </article>
+      </div>
 
-    //  <Link to="/">Home</Link>
+      //  <Link to="/">Home</Link>
   );
 }

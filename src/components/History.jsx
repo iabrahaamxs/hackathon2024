@@ -76,6 +76,7 @@ function History({ backClick, patientId }) {
       title: 'Confirmar Actualización',
       text: "¿Estás seguro de que deseas actualizar los datos del paciente?",
       icon: 'question',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -98,10 +99,10 @@ function History({ backClick, patientId }) {
 
   //TODO Buscar tratamiento con id
   const [treatmentsData, setTreatmentsData] = useState([
-      { treatmentId: "1", med: 'Losartan', quantity: '30', date: '26/09/2024'},
-      { treatmentId: "2", med: 'Prednisona', quantity: '30', date: '26/09/2024'},
-      { treatmentId: "3", med: 'Xanax', quantity: '60', date: '26/09/2024'},
-      { treatmentId: "4", med: 'Insulina', quantity: '20', date: '26/09/2024'}]);
+      { treatmentId: "1", med: 'Losartan', presentation: "500mg", quantity: '30', date: '26/09/2024'},
+      { treatmentId: "2", med: 'Prednisona', presentation: "300mg", quantity: '30', date: '26/09/2024'},
+      { treatmentId: "3", med: 'Xanax', presentation: "600mg", quantity: '60', date: '26/09/2024'},
+      { treatmentId: "4", med: 'Insulina', presentation: "500ml", quantity: '20', date: '26/09/2024'}]);
 
   const [showNewTreatment, setShowNewTreatment] = useState(false);
 
@@ -113,6 +114,7 @@ function History({ backClick, patientId }) {
       title: '¿Estás seguro?',
       text: "No podrás revertir esto",
       icon: 'warning',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -168,6 +170,7 @@ function History({ backClick, patientId }) {
       title: 'Confirmar Guardado',
       text: "¿Estás seguro de que deseas guardar el nuevo tratamiento?",
       icon: 'question',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -230,6 +233,7 @@ function History({ backClick, patientId }) {
       title: 'Confirmar Guardado',
       text: "¿Estás seguro de que deseas guardar el nuevo diagnóstico?",
       icon: 'question',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -255,6 +259,7 @@ function History({ backClick, patientId }) {
       title: '¿Estás seguro?',
       text: "¿Deseas actualizar este diagnóstico?",
       icon: 'warning',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -280,6 +285,7 @@ function History({ backClick, patientId }) {
       title: '¿Estás seguro?',
       text: "No podrás revertir esto",
       icon: 'warning',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -327,6 +333,7 @@ function History({ backClick, patientId }) {
       title: '¿Estás seguro?',
       text: "¿Deseas actualizar los antecedentes?",
       icon: 'warning',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -518,7 +525,7 @@ function History({ backClick, patientId }) {
                   med={item.med}
                   date={item.date}
                   quantity={item.quantity}
-                  renovate={item.renovate}
+                  presentation={item.presentation}
                   treatmentId={item.treatmentId}
                   onDelete={handleDeleteTreatment}
               />

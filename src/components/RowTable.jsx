@@ -25,7 +25,7 @@ function Rowtable({ treatmentId, priority, id, name, med, quantity, lote, date, 
         <span className="column quantity-column">{quantity} und</span>
         <span className="column lote-column">#{lote}</span>
         <span className="column date-column">{date}</span>
-        <div className="actions-column">
+        <div className="actions-column-table">
           <button className="action-btn delete-btn" aria-label="Delete" onClick={() => onDelete(treatmentId)}>
             <FaTrash />
           </button>
