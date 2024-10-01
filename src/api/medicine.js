@@ -38,7 +38,50 @@ const createMedicine = async (jwt, name, illnesses) => {
   }
 };
 
+const updateMedicine = async (jwt, id, name, illnesses) => {
+  try {
+    const res = await axiosManager.put(
+      `/api/catalog/medicine/${id}/`,
+      {
+        illnesses,
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error updateMedi" });
+    }
+
+    return { ok: false };
+  }
+};
+
+const deleteMedicine = async (jwt, id) => {
+  try {
+    const res = await axiosManager.delete(`/api/catalog/medicine/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error deleteMedi" });
+    }
+
+    return { ok: false };
+  }
+};
+
 export const MedicineApi = {
   getMedicines,
   createMedicine,
+  updateMedicine,
+  deleteMedicine,
 };
