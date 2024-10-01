@@ -45,7 +45,7 @@ function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
           ))}
         </div>
           <Button variant={"outline"} children={"Ver historia"} onClick={handleClick} />
-        <div className="actions-column">
+        <div>
           <button className="action-btn delete-btn" aria-label="Delete" onClick={() => onDelete(id)}>
             <FaTrash />
           </button>
