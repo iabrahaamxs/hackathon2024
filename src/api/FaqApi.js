@@ -55,8 +55,48 @@ const updateFaqVisible = async (jwt, id, question, answer, is_visible) => {
   }
 };
 
+const updateFaq = async (jwt, id, question, answer) => {
+  try {
+    const res = await axiosManager.put(
+      `/api/catalog/faq/${id}/`,
+      { question, answer, is_visible: true },
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error updateFaq" });
+    }
+
+    return [{ ok: false }];
+  }
+};
+
+const deleteFaq = async (jwt, id) => {
+  try {
+    const res = await axiosManager.delete(`/api/catalog/faq/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error deleteFaq" });
+    }
+
+    return [{ ok: false }];
+  }
+};
+
 export const FaqApi = {
   getFaq,
   createFaq,
   updateFaqVisible,
+  updateFaq,
+  deleteFaq,
 };

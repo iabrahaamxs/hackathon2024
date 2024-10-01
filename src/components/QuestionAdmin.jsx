@@ -2,69 +2,81 @@ import { FaEye, FaEyeSlash, FaPencil, FaTrash } from "react-icons/fa6";
 import "../stylesheets/Question.css";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { useState } from "react";
+import { FaqApi } from "../api/FaqApi";
+import { LocalStorage } from "../utils/LocalStorage";
 
-function QuestionAdmin({ question, answer, isOpen, onClick, view, btnUpdate, btnDelete, id, toggleVisibility }) {
+function QuestionAdmin({
+  question,
+  answer,
+  isOpen,
+  onClick,
+  view,
+  btnUpdate,
+  btnDelete,
+  id,
+  toggleVisibility,
+}) {
   const [isView, setIsView] = useState(view);
 
-  const handleToggleVisibility = async() => {
+  const handleToggleVisibility = async () => {
     toggleVisibility(id, isView, question, answer);
-    setIsView(!isView);
+    //setIsView(!isView);
   };
 
   return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+      }}
+    >
       <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 10,
-          }}
+        className={`question-container ${isOpen ? "active" : ""}`}
+        style={{ position: "static" }}
       >
-        <div
-            className={`question-container ${isOpen ? "active" : ""}`}
-            style={{ position: "static" }}
-        >
-          <div className={`question ${isOpen ? "active" : ""}`} onClick={onClick}>
-            <h3 className={"question-text"}>{question}</h3>
-            {isOpen ? (
-                <FaAngleUp className="arrow" />
-            ) : (
-                <FaAngleDown className="arrow" />
-            )}
-          </div>
-          {isOpen && (
-              <div className={"answer"}>
-                <p className={"answer-text"}>{answer}</p>
-              </div>
+        <div className={`question ${isOpen ? "active" : ""}`} onClick={onClick}>
+          <h3 className={"question-text"}>{question}</h3>
+          {isOpen ? (
+            <FaAngleUp className="arrow" />
+          ) : (
+            <FaAngleDown className="arrow" />
           )}
         </div>
-        <div className="actions-column" style={{ marginBottom: 20 }}>
-          <button
-              onClick={handleToggleVisibility}
-              className="action-btn"
-              style={{ color: "black" }}
-              aria-label="Edit"
-          >
-            {isView ? <FaEye /> : <FaEyeSlash />}
-          </button>
-          <button
-              onClick={btnUpdate}
-              className="action-btn"
-              aria-label="Edit"
-              style={{ color: "black" }}
-          >
-            <FaPencil />
-          </button>
-          <button
-              onClick={btnDelete}
-              className="action-btn"
-              aria-label="Delete"
-              style={{ color: "black" }}
-          >
-            <FaTrash />
-          </button>
-        </div>
+        {isOpen && (
+          <div className={"answer"}>
+            <p className={"answer-text"}>{answer}</p>
+          </div>
+        )}
       </div>
+      <div className="actions-column" style={{ marginBottom: 20 }}>
+        <button
+          onClick={handleToggleVisibility}
+          className="action-btn"
+          style={{ color: "black" }}
+          aria-label="Edit"
+        >
+          {isView ? <FaEye /> : <FaEyeSlash />}
+        </button>
+        <button
+          onClick={btnUpdate}
+          className="action-btn"
+          aria-label="Edit"
+          style={{ color: "black" }}
+        >
+          <FaPencil />
+        </button>
+        <button
+          onClick={btnDelete}
+          className="action-btn"
+          aria-label="Delete"
+          style={{ color: "black" }}
+        >
+          <FaTrash />
+        </button>
+      </div>
+    </div>
   );
 }
 
