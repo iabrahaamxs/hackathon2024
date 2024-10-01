@@ -1,6 +1,22 @@
 import axiosManager from "./apiManager";
 
-const getFaq = async () => {
+const getFaq = async (jwt) => {
+  try {
+    const res = await axiosManager.get("/api/catalog/faq/", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error getFaq" });
+    }
+
+    return [{ ok: false }];
+  }
+};
+const getFaqUser = async () => {
   try {
     const res = await axiosManager.get("/api/catalog/faq/");
     return res.data;
@@ -95,6 +111,7 @@ const deleteFaq = async (jwt, id) => {
 
 export const FaqApi = {
   getFaq,
+  getFaqUser,
   createFaq,
   updateFaqVisible,
   updateFaq,

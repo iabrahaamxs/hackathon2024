@@ -2,8 +2,6 @@ import { FaEye, FaEyeSlash, FaPencil, FaTrash } from "react-icons/fa6";
 import "../stylesheets/Question.css";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { useState } from "react";
-import { FaqApi } from "../api/FaqApi";
-import { LocalStorage } from "../utils/LocalStorage";
 
 function QuestionAdmin({
   question,
@@ -16,12 +14,12 @@ function QuestionAdmin({
   id,
   toggleVisibility,
 }) {
-  const [isView, setIsView] = useState(view);
+  //const [isView, setIsView] = useState(view);
 
-  const handleToggleVisibility = async () => {
-    toggleVisibility(id, isView, question, answer);
-    //setIsView(!isView);
-  };
+  // const handleToggleVisibility = async () => {
+  //   toggleVisibility(id, isView, question, answer);
+  //   //setIsView(!isView);
+  // };
 
   return (
     <div
@@ -52,12 +50,12 @@ function QuestionAdmin({
       </div>
       <div className="actions-column" style={{ marginBottom: 20 }}>
         <button
-          onClick={handleToggleVisibility}
+          onClick={toggleVisibility}
           className="action-btn"
           style={{ color: "black" }}
           aria-label="Edit"
         >
-          {isView ? <FaEye /> : <FaEyeSlash />}
+          {view ? <FaEye /> : <FaEyeSlash />}
         </button>
         <button
           onClick={btnUpdate}
