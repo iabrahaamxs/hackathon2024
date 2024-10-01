@@ -38,7 +38,25 @@ const postIllness = async (jwt, name) => {
   }
 };
 
+const deleteIllness = async (jwt, id) => {
+  try {
+    const res = await axiosManager.delete(`/api/catalog/illness/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error deleteIllness" });
+    }
+
+    return { ok: false };
+  }
+};
+
 export const IllnessApi = {
   getIllness,
   postIllness,
+  deleteIllness,
 };

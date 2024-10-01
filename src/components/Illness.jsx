@@ -16,7 +16,7 @@ function Illness({ clickBack }) {
     { id: 5, nombre: "Cáncer" },
     { id: 6, nombre: "Depresión" },
   ]);
-  const [mensaje, setMensaje] = useState("");
+  //const [mensaje, setMensaje] = useState("");
   const [eliminaciones, setEliminaciones] = useState([]);
 
   const insertIllnes = async (e) => {
@@ -61,51 +61,52 @@ function Illness({ clickBack }) {
   const eliminarEnfermedad = (id) => {
     const enfermedad = enfermedades.find((e) => e.id === id);
     Swal.fire({
-      title: `¿Estás seguro de que deseas eliminar ${enfermedad.nombre}?`,
+      title: `¿Estás seguro de que deseas eliminar ${enfermedad.name}?`,
       text: "No podrás revertir esto",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí, bórralo",
       cancelButtonText: "No, cancelar",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         setEliminaciones((prevEliminaciones) => [
           ...prevEliminaciones,
           enfermedad,
         ]);
-        setEnfermedades(enfermedades.filter((e) => e.id !== id));
-        console.log(
-          `Enfermedad eliminada: ${enfermedad.id} - ${enfermedad.nombre}`
-        );
+
+        const jwt = LocalStorage.Get("token");
+        await IllnessApi.deleteIllness(jwt, id);
+        const res = await IllnessApi.getIllness(jwt);
+        setEnfermedades(res);
         //TODO Lógica para eliminar la enfermedad
         Swal.fire(
           "¡Eliminado!",
-          `Enfermedad eliminada: ${enfermedad.id} - ${enfermedad.nombre}`,
+          `Enfermedad eliminada: ${enfermedad.name}`,
           "success"
         );
       }
     });
   };
 
-  const revertirEliminacion = (id) => {
-    const enfermedad = eliminaciones.find((e) => e.id === id);
-    if (enfermedad) {
-      setEnfermedades((prevEnfermedades) => [...prevEnfermedades, enfermedad]);
-      setEliminaciones((prevEliminaciones) =>
-        prevEliminaciones.filter((e) => e.id !== id)
-      );
-      console.log(
-        `Eliminación revertida: ${enfermedad.id} - ${enfermedad.nombre}`
-      );
-      Swal.fire({
-        title: "¡Revertido!",
-        text: `Eliminación revertida: ${enfermedad.id} - ${enfermedad.nombre}`,
-        icon: "success",
-        timer: 3000,
-        showConfirmButton: false,
-      });
-    }
-  };
+  // const revertirEliminacion = (id) => {
+  //   const enfermedad = eliminaciones.find((e) => e.id === id);
+  //   if (enfermedad) {
+  //     setEnfermedades((prevEnfermedades) => [...prevEnfermedades, enfermedad]);
+  //     setEliminaciones((prevEliminaciones) =>
+  //       prevEliminaciones.filter((e) => e.id !== id)
+  //     );
+  //     console.log(
+  //       `Eliminación revertida: ${enfermedad.id} - ${enfermedad.nombre}`
+  //     );
+  //     Swal.fire({
+  //       title: "¡Revertido!",
+  //       text: `Eliminación revertida: ${enfermedad.id} - ${enfermedad.nombre}`,
+  //       icon: "success",
+  //       timer: 3000,
+  //       showConfirmButton: false,
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
