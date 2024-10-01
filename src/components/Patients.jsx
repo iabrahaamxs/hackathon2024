@@ -28,6 +28,7 @@ function Patients() {
     },
   ]);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleClick = (page) => {
     setPage(page);
@@ -72,9 +73,18 @@ function Patients() {
     });
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+
   const filteredPatients = patients.filter(
       (patient) =>
-          filter.length === 0 || patient.illness.some((ill) => filter.includes(ill))
+          (filter.length === 0 || patient.illness.some((ill) => filter.includes(ill))) &&
+          (searchTerm === "" || removeAccents(patient.id).includes(removeAccents(searchTerm)) || removeAccents(patient.name).toLowerCase().includes(removeAccents(searchTerm).toLowerCase()))
   );
 
   const navigate = useNavigate();
@@ -111,8 +121,8 @@ function Patients() {
                       type="text"
                       className={"form"}
                       label={"Buscar"}
-                      onlyNumbers={true}
-                      maxLength={8}
+                      value={searchTerm}
+                      onChange={handleSearchChange}
                   />
                 </div>
                 <br />
