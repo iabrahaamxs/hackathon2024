@@ -17,7 +17,9 @@ const Faq = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const faq = await FaqApi.getFaq();
+        const faq = await FaqApi.getFaqUser();
+        console.log(faq);
+
         setQuestions(faq);
       } catch (error) {
         console.error("Error faqVIEW:", error);

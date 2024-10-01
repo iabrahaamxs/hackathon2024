@@ -173,7 +173,7 @@ function DashFAQ() {
         return;
       }
       try {
-        const faq = await FaqApi.getFaq(); //llamando a las faq
+        const faq = await FaqApi.getFaq(jwt); //llamando a las faq
         setQuestions(faq);
       } catch (error) {
         console.error("Error:", error);
@@ -252,7 +252,9 @@ function DashFAQ() {
               onClick={() => handleQuestionClick(index)}
               btnUpdate={() => clickShowModal("update", q)}
               btnDelete={() => handleQuestionDelete(q.id)}
-              toggleVisibility={toggleVisibility}
+              toggleVisibility={() =>
+                toggleVisibility(q.id, q.is_visible, q.question, q.answer)
+              }
             />
           ))}
         </div>
