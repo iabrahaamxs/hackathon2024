@@ -11,17 +11,70 @@ function Deliver() {
   const [patientName, setPatientName] = useState("");
   const [errorMed, setErrorMed] = useState("");
   const [meds, setMeds] = useState([]);
-  const [isMedDisabled, setIsMedDisabled] = useState(true)
+  const [presentations, setPresentations] = useState([]);
+  const [selectedPresentation, setSelectedPresentation] = useState("");
+  const [isMedDisabled, setIsMedDisabled] = useState(true);
   const [isDateDisabled, setIsDateDisabled] = useState(true);
   const [isQuantityDisabled, setIsQuantityDisabled] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const patients = [
-    { id: 1, cedula: '12345678', name: 'Juan Pérez', age: 45, gender: 'M', illness: 'Diabetes', meds: [{ name: 'Insulina', lastDelivery: '2024-08-30' }, { name: 'Metformina', lastDelivery: '2024-09-01' }] },
-    { id: 2, cedula: '87654321', name: 'María Gómez', age: 50, gender: 'F', illness: 'Hipertensión', meds: [{ name: 'Losartan', lastDelivery: '2024-09-15' }] },
-    { id: 3, cedula: '11223344', name: 'Carlos López', age: 60, gender: 'M', illness: 'Asma', meds: [{ name: 'Prednisona', lastDelivery: '2024-09-01' }] },
-    { id: 4, cedula: '44332211', name: 'Ana Martínez', age: 35, gender: 'F', illness: 'Artritis', meds: [{ name: 'Xanax', lastDelivery: '2024-09-10' }] },
-    { id: 5, cedula: '55667788', name: 'Luis Rodríguez', age: 70, gender: 'M', illness: 'Cardiopatía', meds: [{ name: 'Losartan', lastDelivery: '2024-08-25' }] }
+    {
+      id: 1,
+      cedula: '12345678',
+      name: 'Juan Pérez',
+      age: 45,
+      gender: 'M',
+      illness: 'Diabetes',
+      meds: [
+        { name: 'Insulina', presentations: ['10ml', '20ml', '30ml'], lastDelivery: '2024-08-30', presentation: '30ml' },
+        { name: 'Metformina', presentations: ['500mg', '850mg'], lastDelivery: '2024-09-01', presentation: '500mg' }
+      ]
+    },
+    {
+      id: 2,
+      cedula: '87654321',
+      name: 'María Gómez',
+      age: 50,
+      gender: 'F',
+      illness: 'Hipertensión',
+      meds: [
+        { name: 'Losartan', presentations: ['50mg', '100mg'], lastDelivery: '2024-09-15', presentation: '100mg' }
+      ]
+    },
+    {
+      id: 3,
+      cedula: '11223344',
+      name: 'Carlos López',
+      age: 60,
+      gender: 'M',
+      illness: 'Asma',
+      meds: [
+        { name: 'Prednisona', presentations: ['20mg', '40mg'], lastDelivery: '2024-09-01', presentation: '20mg' }
+      ]
+    },
+    {
+      id: 4,
+      cedula: '44332211',
+      name: 'Ana Martínez',
+      age: 35,
+      gender: 'F',
+      illness: 'Artritis',
+      meds: [
+        { name: 'Xanax', presentations: ['0.5mg', '1mg'], lastDelivery: '2024-09-10', presentation: '0.5mg' }
+      ]
+    },
+    {
+      id: 5,
+      cedula: '55667788',
+      name: 'Luis Rodríguez',
+      age: 70,
+      gender: 'M',
+      illness: 'Cardiopatía',
+      meds: [
+        { name: 'Losartan', presentations: ['50mg', '100mg'], lastDelivery: '2024-08-25', presentation: '50mg' }
+      ]
+    }
   ];
 
   const handleChangeMed = (e) => {
@@ -41,11 +94,9 @@ function Deliver() {
   };
 
   const handleSearchPatient = () => {
-    //TODO Buscar al paciente en la BD
     const patient = patients.find(p => p.cedula === cedula);
     if (patient) {
       setPatientName(patient.name);
-      //TODO Buscar medicinas del paciente
       setMeds(patient.meds.map(med => med.name));
       setIsMedDisabled(false);
       setIsDateDisabled(true);
@@ -54,13 +105,20 @@ function Deliver() {
       setInputMed("");
       setStartDate("");
       setQuantity("");
+      setPresentations([]);
+      setSelectedPresentation("");
     } else {
       setPatientName("Paciente no encontrado");
       setMeds([]);
+      setIsMedDisabled(true);
       setIsDateDisabled(true);
       setIsQuantityDisabled(true);
       setIsButtonDisabled(true);
+      setInputMed("");
       setStartDate("");
+      setQuantity("");
+      setPresentations([]);
+      setSelectedPresentation("");
       setErrorMed("");
     }
   };
@@ -71,7 +129,9 @@ function Deliver() {
       if (patient) {
         const med = patient.meds.find(m => m.name === inputMed);
         if (med) {
-          //TODO Buscar última entrega
+          setPresentations(med.presentations);
+          setSelectedPresentation(med.presentation); // Selecciona la presentación asignada al paciente
+
           const lastDeliveryDate = new Date(med.lastDelivery);
           const currentDate = new Date();
           const diffTime = Math.abs(currentDate - lastDeliveryDate);
@@ -100,10 +160,6 @@ function Deliver() {
       setErrorMed("Todos los campos son obligatorios.");
       return;
     }
-    if (inputMed.length < 3) {
-      setErrorMed("El nombre del medicamento debe tener al menos 3 caracteres.");
-      return;
-    }
     if (quantity <= 0) {
       setErrorMed("La cantidad mensual debe ser mayor que 0.");
       return;
@@ -115,7 +171,7 @@ function Deliver() {
 
     Swal.fire({
       title: 'Confirmar Guardado',
-      text: "¿Estás seguro de que deseas guardar el nuevo tratamiento?",
+      text: "¿Estás seguro de que deseas registrar esta entrega?",
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -124,8 +180,8 @@ function Deliver() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // TODO: Lógica para guardar el nuevo tratamiento
-        console.log("Nuevo tratamiento agregado:", { inputMed, startDate, quantity, cedula, patientName });
+        // TODO: Lógica para guardar la entrega
+        console.log("Nuevo tratamiento agregado:", { inputMed, startDate, quantity, cedula, patientName, selectedPresentation });
         setErrorMed("");
         setInputMed("");
         setStartDate("");
@@ -133,13 +189,16 @@ function Deliver() {
         setCedula("");
         setPatientName("");
         setMeds([]);
-        setIsDateDisabled(false);
-        setIsQuantityDisabled(false);
-        setIsButtonDisabled(false);
+        setPresentations([]);
+        setSelectedPresentation("");
+        setIsMedDisabled(true);
+        setIsDateDisabled(true);
+        setIsQuantityDisabled(true);
+        setIsButtonDisabled(true);
 
         Swal.fire(
             'Guardado!',
-            'El nuevo tratamiento ha sido guardado exitosamente.',
+            'La entrega se ha registrado exitosamente.',
             'success'
         );
       }
@@ -187,6 +246,21 @@ function Deliver() {
                   maxLength={50}
                   disabled={isMedDisabled}
               />
+              <div className="medicine-options">
+                {presentations.map((presentation, index) => (
+                    <div key={index}>
+                      <input
+                          type="radio"
+                          id={`presentation-${index}`}
+                          name="presentation"
+                          value={presentation}
+                          checked={selectedPresentation === presentation}
+                          onChange={(e) => setSelectedPresentation(e.target.value)}
+                      />
+                      <label htmlFor={`presentation-${index}`}>{presentation}</label>
+                    </div>
+                ))}
+              </div>
               <InputField
                   type="date"
                   label={"Fecha de entrega"}
@@ -210,8 +284,8 @@ function Deliver() {
             </div>
           </div>
         </div>
-        </>
-        );
+      </>
+  );
 }
 
 export default Deliver;

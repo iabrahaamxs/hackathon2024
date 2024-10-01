@@ -219,11 +219,11 @@ function NewAdmin({ backClick }) {
             </div>
           </div>
           <br/>
+          {error && <div className="error-message">{error}</div>}
           <div className="button-container">
             <Button children="Cancelar" onClick={() => backClick("create")}/>
             <Button children="Guardar" variant={"primary"} onClick={handleSave}/>
           </div>
-          {error && <div className="error-message">{error}</div>}
         </div>
         <br/>
       </div>

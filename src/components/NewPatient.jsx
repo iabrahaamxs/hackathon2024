@@ -66,7 +66,7 @@ function NewPatient({ backClick }) {
       return;
     }
 
-    const newAdmin = {
+    const newPatient = {
       name,
       lastName,
       documento,
@@ -88,8 +88,11 @@ function NewPatient({ backClick }) {
       confirmButtonText: "Guardar",
       cancelButtonText: "Cancelar",
       preConfirm: () => {
-        console.log("Nuevo paciente creado:", newAdmin);
-        // TODO: Lógica para guardar el nuevo administrador
+        console.log("Nuevo paciente creado:", newPatient);
+        // TODO: Lógica para guardar el nuevo paciente
+        /*1. Crear paciente y recuperar ID
+        2. Crear relación paciente-enfermedad
+        3. Crear relación medicine_container - paciente */
         setError("");
         Swal.fire(
           "¡Paciente Creado!",
@@ -102,8 +105,11 @@ function NewPatient({ backClick }) {
           setLastName("");
           setDocumento("");
           setPhone("");
-          //setConfirmPassword("");
           setPriority("");
+          setBirthdate("");
+          setSector(null);
+          setAddress("");
+          setSex("");
         });
       },
     });
@@ -323,7 +329,17 @@ function NewPatient({ backClick }) {
                 ))}
               </select>
               <InputField
-                  label={"cantidad"}
+                  label={"(g.)"}
+                  id={"quantity"}
+                  type={"text"}
+                  className={"form"}
+                  onlyNumbers={true}
+                  maxLength={3}
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+              />
+              <InputField
+                  label={"cantidad (mensual)"}
                   id={"quantity"}
                   type={"text"}
                   className={"form"}

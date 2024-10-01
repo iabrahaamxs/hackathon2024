@@ -1,6 +1,7 @@
-import { FaPencil, FaTrash } from "react-icons/fa6";
+import React from "react";
+import { FaTrash } from "react-icons/fa6";
 import Button from "./Button.jsx";
-import { FaCalendarCheck } from "react-icons/fa";
+import "../stylesheets/Patients.css"
 
 function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
   const getPriority = (priority) => {
@@ -15,12 +16,12 @@ function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
 
   const getTagColor = (illness) => {
     switch (illness.toLowerCase()) {
-      case 'diabetes':
-        return '#ff9999'; // Color para diabetes
-      case 'hipertension':
-        return '#99ccff'; // Color para hipertensión
+      case "diabetes":
+        return "#ff9999"; // Color para diabetes
+      case "hipertension":
+        return "#99ccff"; // Color para hipertensión
       default:
-        return '#e0e0e0'; // Color por defecto
+        return "#e0e0e0"; // Color por defecto
     }
   };
 
@@ -29,36 +30,22 @@ function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
   };
 
   return (
-      <div
-          className="shadow"
-          style={{
-            width: "100%",
-            height: 50,
-            display: "flex",
-            alignItems: "center",
-            fontSize: 16,
-          }}
-      >
+      <div className="row-patient shadow">
         <div
-            style={{
-              backgroundColor: getPriority(priority),
-              width: 10,
-              height: 10,
-              borderRadius: 9999,
-              margin: 10,
-            }}
+            className="priority-indicator"
+            style={{ backgroundColor: getPriority(priority) }}
         ></div>
-        <span style={{ width: "10%", opacity: 0.7 }}>{id}</span>
-        <span style={{ width: "30%", opacity: 0.7 }}>{name}</span>
-        <div style={{ width: "30%", opacity: 0.7 }}>
+        <span className="patient-id">{id}</span>
+        <span className="patient-name">{name}</span>
+        <div className="patient-illness">
           {illness.map((ill, index) => (
-              <div key={index} style={{ ...tagStyle, backgroundColor: getTagColor(ill) }}>
+              <div key={index} className="tag" style={{ backgroundColor: getTagColor(ill) }}>
                 {capitalizeFirstLetter(ill)}
               </div>
           ))}
         </div>
-        <div style={{ width: "20%" }}>
-          <Button variant={'outline'} children={'Ver historia'} onClick={handleClick} />
+        <div className="actions-column">
+          <Button variant={"outline"} children={"Ver historia"} onClick={handleClick} />
         </div>
         <div className="actions-column">
           <button className="action-btn delete-btn" aria-label="Delete" onClick={() => onDelete(id)}>
@@ -69,13 +56,4 @@ function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
   );
 }
 
-const tagStyle = {
-  display: 'inline-block',
-  padding: '5px 10px',
-  margin: '5px',
-  borderRadius: '5px',
-  fontSize: '14px'
-};
-
 export default RowPatient;
-
