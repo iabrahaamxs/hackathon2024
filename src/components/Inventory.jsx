@@ -214,15 +214,12 @@ function Inventory() {
   return (
       <>
         <div
+            className={"header-container"}
             style={{
-              backgroundColor: "white",
-              padding: 10,
-              display: "flex",
-              borderRadius: "10px",
               justifyContent: "space-between",
             }}
         >
-          <h3>Inventario</h3>
+          <h2>Inventario</h2>
           <Button
               children={agg ? "Volver" : "Agregar donativo"}
               variant="primary"

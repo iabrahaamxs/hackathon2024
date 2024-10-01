@@ -13,7 +13,7 @@ function Medicine({ clickBack }) {
           justifyContent: "space-between",
         }}
       >
-        <h3>Medicinas</h3>
+        <h2>Medicinas</h2>
         <Button
           children={"Volver"}
           variant={"primary"}

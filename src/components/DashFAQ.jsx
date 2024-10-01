@@ -194,7 +194,7 @@ function DashFAQ() {
           justifyContent: "space-between",
         }}
       >
-        <h3>Preguntas frecuentes</h3>
+        <h2>Preguntas frecuentes</h2>
         <Button
           variant={"primary"}
           children={"Agregar pregunta"}
