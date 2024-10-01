@@ -40,6 +40,7 @@ function NewPatient({ backClick }) {
   const [phone, setPhone] = useState("");
   const [illness, setIllness] = useState("diabetes");
   const [med, setMed] = useState("");
+  const [presentation, setPresentation] = useState("");
   const [quantity, setQuantity] = useState("");
   const [priority, setPriority] = useState("");
   const [enfermedades, setEnfermedades] = useState([]);
@@ -72,6 +73,18 @@ function NewPatient({ backClick }) {
       documento,
       phone,
       priority,
+      sector,
+      address,
+      sex,
+      birthdate
+    };
+
+    const newDiagnosis = {
+      documento, illness
+    };
+
+    const newTreatment = {
+      documento, med,  presentation, quantity
     };
 
     Swal.fire({
@@ -89,10 +102,15 @@ function NewPatient({ backClick }) {
       cancelButtonText: "Cancelar",
       preConfirm: () => {
         console.log("Nuevo paciente creado:", newPatient);
+        console.log("Diagnostico creado: ", newDiagnosis);
+        console.log("Tratamiento crrado: ", newTreatment);
+
         // TODO: Lógica para guardar el nuevo paciente
         /*1. Crear paciente y recuperar ID
         2. Crear relación paciente-enfermedad
-        3. Crear relación medicine_container - paciente */
+        3. Buscar si existe la presentación del medicamento (medicina + gramos)
+        3b. Crear presentación, si no existe
+        4. Crear relación medicine_container - paciente */
         setError("");
         Swal.fire(
           "¡Paciente Creado!",
@@ -110,6 +128,9 @@ function NewPatient({ backClick }) {
           setSector(null);
           setAddress("");
           setSex("");
+          setMed("");
+          setPresentation("");
+          setQuantity("");
         });
       },
     });
@@ -126,7 +147,7 @@ function NewPatient({ backClick }) {
         console.log(res);
 
         const enfer = await IllnessApi.getIllness(jwt); //llamando a las enfer
-        setMeds(res.data);
+        setMeds(res);
         setEnfermedades(enfer);
       } catch (error) {
         console.error("Error:", error);
@@ -330,13 +351,13 @@ function NewPatient({ backClick }) {
               </select>
               <InputField
                   label={"(g.)"}
-                  id={"quantity"}
+                  id={"presentation"}
                   type={"text"}
                   className={"form"}
                   onlyNumbers={true}
                   maxLength={3}
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  value={presentation}
+                  onChange={(e) => setPresentation(e.target.value)}
               />
               <InputField
                   label={"cantidad (mensual)"}
