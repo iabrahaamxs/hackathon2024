@@ -377,7 +377,7 @@ function History({ backClick, patientId }) {
                justifyContent: "space-between",
              }}>
           <h2>Historia médica</h2>
-          <Button children="Volver" onClick={() => backClick("patients")} variant={'outline'} />
+          <Button children="Volver" onClick={() => backClick("patients")} variant={'outline'}/>
         </div>
 
         <p>Datos del paciente</p>
@@ -385,7 +385,7 @@ function History({ backClick, patientId }) {
           <div className="row">
             <div className="input">
               <i className="icon-form">
-                <FaAddressCard />
+                <FaAddressCard/>
               </i>
               <InputField
                   label={"Identificación"}
@@ -400,7 +400,7 @@ function History({ backClick, patientId }) {
             </div>
             <div className="input">
               <i className="icon-form">
-                <FaUser />
+                <FaUser/>
               </i>
               <InputField
                   label={"Nombre"}
@@ -415,7 +415,7 @@ function History({ backClick, patientId }) {
             </div>
             <div className="input">
               <i className="icon-form">
-                <FaUser />
+                <FaUser/>
               </i>
               <InputField
                   label={"Apellido"}
@@ -432,7 +432,7 @@ function History({ backClick, patientId }) {
           <div className="row">
             <div className="input">
               <i className="icon-form">
-                <BsGenderAmbiguous />
+                <BsGenderAmbiguous/>
               </i>
               <select name="gender" className="select history" value={sexo} onChange={(e) => setSexo(e.target.value)}>
                 <option value="M">Masculino</option>
@@ -441,7 +441,7 @@ function History({ backClick, patientId }) {
             </div>
             <div className="input">
               <i className="icon-form">
-                <BsFillCalendarDateFill />
+                <BsFillCalendarDateFill/>
               </i>
               <InputField
                   label={"Fecha de nacimiento"}
@@ -456,9 +456,10 @@ function History({ backClick, patientId }) {
           <div className="row">
             <div className="input">
               <i className="icon-form">
-                <FaLocationDot />
+                <FaLocationDot/>
               </i>
-              <select name="select" className="select history" value={sector} onChange={(e) => setSector(e.target.value)}>
+              <select name="select" className="select history" value={sector}
+                      onChange={(e) => setSector(e.target.value)}>
                 {sectores.map((sector, index) => (
                     <option key={index} value={sector}>
                       {sector}
@@ -468,7 +469,7 @@ function History({ backClick, patientId }) {
             </div>
             <div className="input">
               <i className="icon-form">
-                <FaHouse />
+                <FaHouse/>
               </i>
               <InputField
                   label={"Dirección"}
@@ -484,7 +485,7 @@ function History({ backClick, patientId }) {
           <div className="row">
             <div className="input">
               <i className="icon-form">
-                <FaPhone />
+                <FaPhone/>
               </i>
               <InputField
                   label={"Teléfono"}
@@ -499,7 +500,7 @@ function History({ backClick, patientId }) {
             </div>
             <div className="input">
               <i className="icon-form">
-                <MdOutlinePhoneAndroid />
+                <MdOutlinePhoneAndroid/>
               </i>
               <InputField
                   label={"Celular"}
@@ -514,7 +515,7 @@ function History({ backClick, patientId }) {
             </div>
           </div>
           <div className="update">
-            <Button children={'Actualizar'} variant={'primary'} onClick={handleUpdatePatient} />
+            <Button children={'Actualizar'} variant={'primary'} onClick={handleUpdatePatient}/>
           </div>
           {errorPatient && <div className="error-message">{errorPatient}</div>}
         </div>
@@ -564,36 +565,36 @@ function History({ backClick, patientId }) {
               maxLength={3}
           />
           <div className={'center'}>
-            <Button variant={'primary'} children={'Guardar'} onClick={handleSaveMed} />
+            <Button variant={'primary'} children={'Guardar'} onClick={handleSaveMed}/>
           </div>
-          {errorMed && <div style={{ color: "red", textAlign: "center" }}>{errorMed}</div>}
+          {errorMed && <div style={{color: "red", textAlign: "center"}}>{errorMed}</div>}
         </Modal>
 
         <p>Diagnósticos actuales</p>
         <div className={'section'}>
-            {diagnosisData.map((item, index) => (
-                <Diagnosis
-                    key={item.id}
-                    id={item.id}
-                    illness={item.illness}
-                    classification={item.classification}
-                    notes={item.notes}
-                    treatment={item.treatment}
-                    onIllnessChange={(e) => handleDiagnosisChange(index, 'illness', e.target.value)}
-                    onClassificationChange={(e) => handleDiagnosisChange(index, 'classification', e.target.value)}
-                    onNotesChange={(e) => handleDiagnosisChange(index, 'notes', e.target.value)}
-                    onTreatmentChange={(e) => handleDiagnosisChange(index, 'treatment', e.target.value)}
-                    onUpdate={() => handleDiagnosisUpdate(item.id)}
-                    onDelete={() => handleDiagnosisDelete(item.id)}
-                />
-            ))}
+          {diagnosisData.map((item, index) => (
+              <Diagnosis
+                  key={item.id}
+                  id={item.id}
+                  illness={item.illness}
+                  classification={item.classification}
+                  notes={item.notes}
+                  treatment={item.treatment}
+                  onIllnessChange={(e) => handleDiagnosisChange(index, 'illness', e.target.value)}
+                  onClassificationChange={(e) => handleDiagnosisChange(index, 'classification', e.target.value)}
+                  onNotesChange={(e) => handleDiagnosisChange(index, 'notes', e.target.value)}
+                  onTreatmentChange={(e) => handleDiagnosisChange(index, 'treatment', e.target.value)}
+                  onUpdate={() => handleDiagnosisUpdate(item.id)}
+                  onDelete={() => handleDiagnosisDelete(item.id)}
+              />
+          ))}
           <div className={'center'}>
             <Button
                 children={'Agregar diagnóstico'}
                 variant={'primary'}
                 onClick={handleOpenDiagnosis}
             /></div>
-      </div>
+        </div>
         <Modal show={showNewDiagnosis} handleClose={handleCloseDiagnosis}>
           <h2>Agregar Nuevo Diagnóstico</h2>
           <InputField
@@ -629,50 +630,49 @@ function History({ backClick, patientId }) {
             />
           </div>
           <div className={'center'}>
-            <Button variant={'primary'} children={'Guardar'} onClick={handleSaveDiagnosis} />
+            <Button variant={'primary'} children={'Guardar'} onClick={handleSaveDiagnosis}/>
           </div>
-          {errorDiagnosis && <div style={{ color: "red", textAlign: "center" }}>{errorDiagnosis}</div>}
+          {errorDiagnosis && <div style={{color: "red", textAlign: "center"}}>{errorDiagnosis}</div>}
         </Modal>
 
         <p>Antecedentes</p>
-        <div className={'section'}>
-          <div className={'antecedentes'}>
-            <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
+        <div className="section">
+          <div className="antecedentes">
+            <div className="flex-wrap-antecedentes">
               {conditions.map((condition, index) => (
-                  <label key={index} className="checkbox-label"
-                         style={{flex: '1 1 22%', display: 'flex', alignItems: 'center', marginBottom: '20px'}}>
+                  <label key={index} className="checkbox-label flex-item-antecedentes">
                     <input
                         type="checkbox"
                         value={condition}
                         checked={antecedentesData[condition.toLowerCase()]}
                         onChange={() => handleCheckboxChange(condition)}
                     />
-                    <span className="checkbox-custom" style={{marginLeft: '5px'}}></span>
+                    <span className="checkbox-custom margin-left-antecedentes"></span>
                     {condition}
                   </label>
               ))}
             </div>
             <InputField
-                label={'Alergias'}
+                label="Alergias"
                 value={antecedentesData.alergias}
                 onChange={(e) => handleAntecedentesChange('alergias', e.target.value)}
             />
             <InputField
-                label={'Observaciones'}
+                label="Observaciones"
                 value={antecedentesData.observaciones}
                 onChange={(e) => handleAntecedentesChange('observaciones', e.target.value)}
             />
           </div>
-          <div className={'update'}>
-            <Button children={'Actualizar'} variant={'primary'} onClick={handleUpdateAntecedentes}/>
+          <div className="update">
+            <Button children="Actualizar" variant="primary" onClick={handleUpdateAntecedentes}/>
           </div>
         </div>
 
         <More
             title={'Historial de entregas'}
             infoComponent={
-              <div style={{ width: '90%', margin: 'auto' }}>
-                <Table data={dataEntregas} headers={headers} />
+              <div style={{width: '90%', margin: 'auto'}}>
+                <Table data={dataEntregas} headers={headers}/>
               </div>
             }
         />

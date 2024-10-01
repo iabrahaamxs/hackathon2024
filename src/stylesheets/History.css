@@ -27,3 +27,20 @@
 .medication-info:nth-child(4) {
   width: 15%;
 }
+
+.flex-wrap-antecedentes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.flex-item-antecedentes {
+  flex: 1 1 22%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.margin-left-antecedentes {
+  margin-left: 5px;
+}

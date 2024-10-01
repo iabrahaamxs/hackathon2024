@@ -205,3 +205,25 @@ p {
   justify-content: space-between;
   align-items: center;
 }
+
+.green-text-stats {
+  color: green;
+  font-size: 50px;
+  margin: 0;
+}
+
+.gold-text-stats {
+  color: gold;
+  font-size: 50px;
+  margin: 0;
+}
+
+.red-text-stats {
+  color: red;
+  font-size: 50px;
+  margin: 0;
+}
+
+.width-80-stats {
+  width: 80%;
+}
