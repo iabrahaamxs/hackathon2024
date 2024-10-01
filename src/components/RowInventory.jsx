@@ -1,6 +1,7 @@
 import Button from "./Button";
 import Swal from "sweetalert2";
 import { calculatePriority } from "../utils/utils";
+import "../stylesheets/Inventory.css"
 
 function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
   const priority = calculatePriority(date);
@@ -29,7 +30,6 @@ function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
       confirmButtonText: 'Sí, eliminarlo'
     }).then((result) => {
       if (result.isConfirmed) {
-        //TODO Lógica para eliminar
         onDelete(id);
         Swal.fire(
             'Eliminado!',
@@ -43,22 +43,12 @@ function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
   return (
       <div className="row-table">
         <div className={`priority-indicator ${getPrioriClass(priority)}`}></div>
-        <span style={{ width: "25%" }} className="column">
-        {name}
-      </span>
-        <span style={{ width: "15%" }} className="column">
-        {gm}
-      </span>
-        <span style={{ width: "15%" }} className="column">
-        #{med}
-      </span>
-        <span style={{ width: "15%" }} className="column">
-        {date}
-      </span>
-        <span style={{ width: "15%" }} className="column">
-        {quantity}und
-      </span>
-        <div style={{ width: "15%" }} className="actions-column">
+        <span className="column name-column">{name}</span>
+        <span className="column gm-column">{gm}</span>
+        <span className="column med-column">#{med}</span>
+        <span className="column date-column">{date}</span>
+        <span className="column quantity-column">{quantity}und</span>
+        <div className="actions-column">
           {priority === 1 ? (
               <Button variant={"primary"} children={"Devolver"} onClick={() => handleDelete(id)} />
           ) : null}
