@@ -15,15 +15,15 @@ function TableMedicine() {
   const [typeModal, setTypeModal] = useState("");
   const [selectedMedicine, setSelectedMedicine] = useState({
     id: null,
-    nombre: "",
-    illness: [],
+    name: "",
+    illnesses: [],
   });
   const [medicamentos, setMedicamentos] = useState([]);
   const navigate = useNavigate();
 
   const openModal = (
     type,
-    medicine = { id: null, nombre: "", illness: [] }
+    medicine = { id: null, name: "", illnesses: [] }
   ) => {
     setTypeModal(type === "add" ? "Insertar Medicina" : "Actualizar Medicina");
     setSelectedMedicine(medicine);
@@ -34,10 +34,10 @@ function TableMedicine() {
 
   const handleCheckboxChange = (illness) => {
     setSelectedMedicine((prev) => {
-      const newIllness = prev.illness.includes(illness)
-        ? prev.illness.filter((i) => i !== illness)
-        : [...prev.illness, illness];
-      return { ...prev, illness: newIllness };
+      const newIllness = prev.illnesses.includes(illness)
+        ? prev.illnesses.filter((i) => i !== illness)
+        : [...prev.illnesses, illness];
+      return { ...prev, illnesses: newIllness };
     });
   };
 
@@ -52,18 +52,16 @@ function TableMedicine() {
       confirmButtonText: "Sí, guardar",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        const jwt = LocalStorage.Get("token");
         if (typeModal === "Insertar Medicina") {
           //setMedicamentos((prev) => [...prev, selectedMedicine]); setmedicamentos otra vez
-          console.log("Medicina agregada:", selectedMedicine);
-          const jwt = LocalStorage.Get("token");
+          //console.log("Medicina agregada:", selectedMedicine);
+
           await MedicineApi.createMedicine(
             jwt,
-            selectedMedicine.nombre,
-            selectedMedicine.illness
+            selectedMedicine.name,
+            selectedMedicine.illnesses
           );
-          const meds = await MedicineApi.getMedicines(jwt);
-          setMedicamentos(meds);
-
           Swal.fire(
             "Guardado",
             "La medicina ha sido agregada exitosamente.",
@@ -75,13 +73,22 @@ function TableMedicine() {
               med.id === selectedMedicine.id ? selectedMedicine : med
             )
           );
-          console.log("Medicina actualizada:", selectedMedicine);
+          //console.log("Medicina actualizada:", selectedMedicine);
+          await MedicineApi.updateMedicine(
+            jwt,
+            selectedMedicine.id,
+            selectedMedicine.name,
+            selectedMedicine.illnesses
+          );
           Swal.fire(
             "Actualizado",
             "La medicina ha sido actualizada exitosamente.",
             "success"
           );
         }
+
+        const meds = await MedicineApi.getMedicines(jwt);
+        setMedicamentos(meds);
         setShowModal(false);
       }
     });
@@ -117,10 +124,14 @@ function TableMedicine() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log("Eliminando medicina con id:", id);
-        setMedicamentos((prev) => prev.filter((med) => med.id !== id));
+        const jwt = LocalStorage.Get("token");
+        //console.log("Eliminando medicina con id:", id);
+        await MedicineApi.deleteMedicine(jwt, id);
+        //setMedicamentos((prev) => prev.filter((med) => med.id !== id));
+        const meds = await MedicineApi.getMedicines(jwt);
+        setMedicamentos(meds);
         Swal.fire(
           "Eliminado",
           "La medicina ha sido eliminada exitosamente.",
@@ -163,11 +174,11 @@ function TableMedicine() {
             type="text"
             label={"Medicina"}
             className="form"
-            value={selectedMedicine.nombre}
+            value={selectedMedicine.name}
             onChange={(e) =>
               setSelectedMedicine({
                 ...selectedMedicine,
-                nombre: e.target.value,
+                name: e.target.value,
               })
             }
           />
@@ -188,7 +199,7 @@ function TableMedicine() {
               <input
                 type="checkbox"
                 value={e.id}
-                checked={selectedMedicine.illness.includes(e.id)}
+                checked={selectedMedicine.illnesses.includes(e.id)}
                 onChange={() => handleCheckboxChange(e.id)}
               />
               <span
