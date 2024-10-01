@@ -59,8 +59,7 @@
 
   .patient-id,
   .patient-name,
-  .patient-illness,
-  .actions-column {
+  .patient-illness {
     width: 100%;
     text-align: center;
   }
@@ -113,32 +112,4 @@
   margin: 5px;
   border-radius: 5px;
   font-size: 14px;
-}
-
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-  .row-patient {
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
-  }
-
-  .priority-indicator {
-    margin: 5px auto;
-  }
-
-  .patient-id,
-  .patient-name,
-  .patient-illness,
-  .actions-column {
-    width: 100%;
-    text-align: center;
-    margin: 5px 0;
-  }
-
-  .patient-illness {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
 }

@@ -60,6 +60,51 @@
     justify-content: center;
     margin-top: 20px;
   }
-  
 
-  
+.medicine-container-custom {
+  background-color: #fff;
+  border-radius: 10px;
+  justify-content: center;
+  gap: 20px;
+  height: 100%;
+  padding: 20px;
+}
+
+.header-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-content-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-group-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkbox-label-custom {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.checkbox-custom-custom {
+  margin-left: 5px;
+}
+
+.center-custom {
+  display: flex;
+  justify-content: center;
+}
+
+.medicine-list-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

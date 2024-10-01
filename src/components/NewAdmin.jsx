@@ -69,6 +69,7 @@ function NewAdmin({ backClick }) {
         <p><strong>Correo:</strong> ${email}</p>
       `,
       icon: 'info',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
       cancelButtonText: 'Cancelar',

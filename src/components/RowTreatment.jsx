@@ -1,29 +1,14 @@
 import { FaPencil, FaTrash } from "react-icons/fa6";
+import "../stylesheets/History.css"
 
-function RowTreatment({ med, quantity, date, onDelete, treatmentId }) {
+function RowTreatment({ med, quantity, date, presentation, onDelete, treatmentId }) {
   return (
-      <div
-          className="shadow"
-          style={{
-            width: "80%",
-            margin: "auto",
-            height: 50,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-            fontSize: 16,
-          }}
-      >
-        <span style={{width: "14%", opacity: 0.7}}>{med}</span>
-        <span style={{width: "10%", opacity: 0.7}}>{quantity} uds.</span>
-        <span style={{width: "15%", opacity: 0.7}}>{date}</span>
-        <div
-            style={{
-              width: "10%",
-              display: "flex",
-              justifyContent: "end"
-            }}
-        >
+      <div className="medication-card shadow">
+        <span className="medication-info">{med}</span>
+        <span className="medication-info">{presentation}</span>
+        <span className="medication-info">{quantity} uds.</span>
+        <span className="medication-info">{date}</span>
+        <div className="action-container">
           <button className="action-btn delete-btn" aria-label="Delete" onClick={() => onDelete(treatmentId)}>
             <FaTrash/>
           </button>

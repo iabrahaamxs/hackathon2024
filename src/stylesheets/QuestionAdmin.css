@@ -1,0 +1,18 @@
+.question-admin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.question-container {
+  position: static;
+}
+
+.actions-column-question {
+  margin-bottom: 20px;
+}
+
+.question-btn {
+  color: black;
+}

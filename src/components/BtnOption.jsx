@@ -21,23 +21,13 @@ function BtnOption({ text, iconName, selected, handleClick }) {
   };
 
   return (
-    <button
-      onClick={() => handleClick(iconName)}
-      style={{
-        border: 0,
-        cursor: "pointer",
-        opacity: selected ? 1 : 0.5,
-        color: selected ? "white" : "black",
-        backgroundColor: selected ? "#4B9AC5" : "white",
-        display: "flex",
-        alignItems: "center",
-        height: "45px",
-      }}
-      className="panel-btn"
-    >
-      <i style={{ fontSize: 22, marginRight: 8 }}>{iconMap[iconName]}</i>
-      <p style={{ fontSize: 15 }}>{text}</p>
-    </button>
+      <button
+          onClick={() => handleClick(iconName)}
+          className={`panel-btn ${selected ? 'selected' : ''}`}
+      >
+        <i className="icon-btn">{iconMap[iconName]}</i>
+        <p className="text-btn">{text}</p>
+      </button>
   );
 }
 

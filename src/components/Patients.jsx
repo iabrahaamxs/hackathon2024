@@ -55,6 +55,7 @@ function Patients() {
       title: `¿Estás seguro de que deseas eliminar a ${patient.name}?`,
       text: "No podrás revertir esto",
       icon: "warning",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: "Sí, bórralo",
       cancelButtonText: "No, cancelar",

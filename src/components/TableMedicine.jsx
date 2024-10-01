@@ -46,6 +46,7 @@ function TableMedicine() {
       title: "¿Estás seguro?",
       text: "¿Deseas guardar esta medicina?",
       icon: "warning",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -120,6 +121,7 @@ function TableMedicine() {
       title: "¿Estás seguro?",
       text: "¿Deseas eliminar esta medicina?",
       icon: "warning",
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -142,95 +144,67 @@ function TableMedicine() {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#fff",
-        borderRadius: "10px",
-        justifyContent: "center",
-        gap: 20,
-        height: "100%",
-        padding: 20,
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          variant={"primary"}
-          children={"Insertar medicina"}
-          onClick={() => openModal("add")}
-        />
-        <InputField type="text" className={"form"} label={"Buscar"} />
-      </div>
-      <br />
-      <Modal show={showModal} handleClose={() => setShowModal(false)}>
-        <h2>{typeModal}</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <InputField
-            type="text"
-            label={"Medicina"}
-            className="form"
-            value={selectedMedicine.name}
-            onChange={(e) =>
-              setSelectedMedicine({
-                ...selectedMedicine,
-                name: e.target.value,
-              })
-            }
+      <div className="medicine-container-custom">
+        <div className="header-custom">
+          <Button
+              variant={"primary"}
+              children={"Insertar medicina"}
+              onClick={() => openModal("add")}
           />
-
-          <label className="form-label">Enfermedad asociada:</label>
+          <InputField type="text" className={"form"} label={"Buscar"}/>
         </div>
-        <div className="radio-group">
-          {enfermedades.map((e, index) => (
-            <label
-              key={index}
-              className="checkbox-label"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "20px",
-              }}
-            >
-              <input
-                type="checkbox"
-                value={e.id}
-                checked={selectedMedicine.illnesses.includes(e.id)}
-                onChange={() => handleCheckboxChange(e.id)}
+        <br/>
+        <Modal show={showModal} handleClose={() => setShowModal(false)}>
+          <h2>{typeModal}</h2>
+          <div className="modal-content-custom">
+            <InputField
+                type="text"
+                label={"Medicina"}
+                className="form"
+                value={selectedMedicine.name}
+                onChange={(e) =>
+                    setSelectedMedicine({
+                      ...selectedMedicine,
+                      name: e.target.value,
+                    })
+                }
+            />
+            <label className="form-label-custom">Enfermedad asociada:</label>
+          </div>
+          <div className="radio-group-custom">
+            {enfermedades.map((e, index) => (
+                <label key={index} className="checkbox-label-custom">
+                  <input
+                      type="checkbox"
+                      value={e.id}
+                      checked={selectedMedicine.illnesses.includes(e.id)}
+                      onChange={() => handleCheckboxChange(e.id)}
+                  />
+                  <span className="checkbox-custom-custom"></span>
+                  {e.name}
+                </label>
+            ))}
+          </div>
+          <div className="center-custom">
+            <Button
+                variant={"primary"}
+                children={"Guardar"}
+                onClick={handleSave}
+            />
+          </div>
+        </Modal>
+        <div className="medicine-list-custom">
+          {medicamentos.map((row) => (
+              <RowtableMedicine
+                  key={row.id}
+                  name={row.name}
+                  illness={row.illnesses}
+                  updateClick={() => openModal("update", row)}
+                  deleteClick={() => handleDelete(row.id)}
               />
-              <span
-                className="checkbox-custom"
-                style={{ marginLeft: "5px" }}
-              ></span>
-              {e.name}
-            </label>
           ))}
         </div>
-
-        <div className={"center"}>
-          <Button
-            variant={"primary"}
-            children={"Guardar"}
-            onClick={handleSave}
-          />
-        </div>
-      </Modal>
-      <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-        {medicamentos.map((row) => (
-          <RowtableMedicine
-            key={row.id}
-            name={row.name}
-            illness={row.illnesses}
-            updateClick={() => openModal("update", row)}
-            deleteClick={() => handleDelete(row.id)}
-          />
-        ))}
       </div>
-    </div>
   );
 }
 

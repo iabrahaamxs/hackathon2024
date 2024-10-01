@@ -71,7 +71,7 @@
     justify-content: center;
   }
   
-  .actions-column {
+  .actions-column-table {
     width: 10%;
     display: flex;
     gap: 10px;

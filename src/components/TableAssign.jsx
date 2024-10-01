@@ -108,6 +108,7 @@ function TableAssign({ onClick }) {
       title: 'Confirmar Asignación',
       text: `¿Estás seguro de que deseas asignar el tratamiento a ${selectedTreatment.name}?`,
       icon: 'question',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonText: 'Sí, asignar',
       cancelButtonText: 'No, cancelar'

@@ -24,6 +24,7 @@ function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
       title: '¿Estás seguro?',
       text: "No podrás revertir esto",
       icon: 'warning',
+      reverseButtons: true,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -48,7 +49,7 @@ function RowInventory({ id, gm, name, med, quantity, date, onDelete }) {
         <span className="column med-column">#{med}</span>
         <span className="column date-column">{date}</span>
         <span className="column quantity-column">{quantity}und</span>
-        <div className="actions-column">
+        <div className="actions-column-inventory">
           {priority === 1 ? (
               <Button variant={"primary"} children={"Devolver"} onClick={() => handleDelete(id)} />
           ) : null}
