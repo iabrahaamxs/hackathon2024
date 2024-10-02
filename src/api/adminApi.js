@@ -29,7 +29,7 @@ const getUser = async (jwt) => {
       },
     });
     console.log("Authorization");
-    return { ok: res.data[0].is_admin };
+    return res.data;
   } catch (error) {
     if (error) {
       console.log({ error: "error getUser" });
@@ -40,11 +40,42 @@ const getUser = async (jwt) => {
 };
 
 //url, datos
-const createPatient = async (jwt, data) => {
+const createPatient = async (
+  jwt,
+  illness,
+  medicine,
+  grammage,
+  quantity,
+  first_names,
+  last_names,
+  document,
+  birth_date,
+  address,
+  phone_number1,
+  sex,
+  purchase_power,
+  created_by,
+  sector
+) => {
   try {
     const res = await axiosManager.post(
-      "/api/login",
-      { data }, // se supone que son los datos del paciente, poner individual
+      "/api/patient/",
+      {
+        illness,
+        medicine,
+        grammage,
+        quantity,
+        first_names,
+        last_names,
+        document,
+        birth_date,
+        address,
+        phone_number1,
+        sex,
+        purchase_power,
+        created_by,
+        sector,
+      },
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -52,12 +83,12 @@ const createPatient = async (jwt, data) => {
       }
     );
 
-    console.log(res); //me devuelve??
+    console.log("user de la api creado", res.data);
 
-    return { ok: true };
+    return res.data;
   } catch (error) {
     if (error) {
-      console.log("error createPatient");
+      console.log("error createPatient", error);
     }
     return { ok: false };
   }
@@ -125,10 +156,31 @@ const createAdmin = async (jwt, data) => {
   }
 };
 
+const getUserme = async (jwt) => {
+  try {
+    const res = await axiosManager.get("/api/user/me", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    console.log(res.data);
+
+    return res.data;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error getUserme" });
+    }
+
+    return { ok: false };
+  }
+};
+
 export const AdminApi = {
   login,
   getUser,
   createPatient,
   createDonor,
   createAdmin,
+  getUserme,
 };
