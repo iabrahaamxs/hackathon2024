@@ -387,6 +387,7 @@ function NewPatient({ backClick }) {
 
         <div className="button-container">
           <Button children="Cancelar" onClick={() => backClick("create")}/>
+          {/* eslint-disable-next-line react/no-children-prop */}
           <Button children="Guardar" variant={"primary"} onClick={handleSave}/>
         </div>
       </div>
