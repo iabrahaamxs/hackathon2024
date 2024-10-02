@@ -115,11 +115,6 @@
 }
 
 @media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .medicine-container {
     flex-direction: column;
   }
