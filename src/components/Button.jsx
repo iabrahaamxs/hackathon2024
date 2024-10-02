@@ -1,7 +1,7 @@
 import React from "react";
 import "../stylesheets/Button.css";
 
-const Button = ({ variant, onClick, children, disabled = false }) => {
+const Button = ({ variant, onClick, children, alt, disabled = false }) => {
   const getClassNames = () => {
     let classNames = "button";
     switch (variant) {
@@ -28,6 +28,7 @@ const Button = ({ variant, onClick, children, disabled = false }) => {
       className={getClassNames()}
       onClick={disabled ? null : onClick}
       disabled={disabled}
+      alt={alt}
     >
       {children}
     </button>
