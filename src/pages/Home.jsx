@@ -141,23 +141,14 @@ const Login = () => {
         console.log("Buscar documento:", documento);
 
         // Simulación de verificación de donante o paciente
-        const esDonante = verificarDonante(documento);
         const esPaciente = verificarPaciente(documento);
 
-        if (esDonante) {
+        if (esPaciente) {
           navigate("/consulta");
-        } else if (esPaciente) {
-          navigate("/consulta?page=paciente");
         } else {
-          setError("El documento no pertenece a un donante ni a un paciente.");
+          setError("Beneficiario no encontrado.");
         }
       }
-    };
-
-    // Función simulada para verificar si el documento pertenece a un donante
-    const verificarDonante = (doc) => {
-      const donantes = ["123456", "654321", "112233"]; // Ejemplo de documentos de donantes
-      return donantes.includes(doc);
     };
 
     // Función simulada para verificar si el documento pertenece a un paciente
