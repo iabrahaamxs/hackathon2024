@@ -183,6 +183,7 @@
   display: flex;
   border-radius: 10px;
   justify-content: space-between;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas */
 }
 
 .faq-content {
@@ -209,6 +210,24 @@
 
 /* Media query for mobile devices */
 @media (max-width: 768px) {
+
+  .faq-header {
+    flex-direction: column; /* Coloca los elementos en una columna */
+    align-items: flex-start;
+  }
+
+  .faq-header h2 {
+    margin-bottom: 10px;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+
+  .modal-content-faq {
+    gap: 10px;
+  }
+
   .card-create {
     width: 80%; /* Ajustar el ancho para pantallas pequeñas */
     height: auto; /* Permitir que la altura se ajuste automáticamente */
