@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { AdminApi } from "../api/adminApi.js";
 import React, { useState, useEffect } from "react";
 import { LocalStorage } from "../utils/LocalStorage.js";
+import { useTheme } from '../utils/ThemeContext';
+import {BsFillMoonStarsFill, BsFillSunFill} from "react-icons/bs";
 
 const Login = () => {
   const Ingresar = () => {
@@ -197,9 +199,11 @@ const Login = () => {
   );
 };
 
+
 export default function Home() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme(); // Usa el contexto del tema
 
   useEffect(() => {
     const validate = async () => {
@@ -220,27 +224,35 @@ export default function Home() {
   if (!isAuthorized) {
     return null;
   }
+
   return (
-    <div className={"home"}>
-      <div className={"welcome"}>
-        <h1>Llevando salud a los más necesitados</h1>
-        <div className={"center"}>
-          <img
-            src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
-            alt="Logo de Farmacia"
-          />
+      <div className={"home"}>
+        <div className={"welcome"}>
+          <h1>Llevando salud a los más necesitados</h1>
+          <div className={"center"}>
+            <img
+                src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
+                alt="Logo de Farmacia"
+            />
+          </div>
+          <div className={"center"}>
+            <Button
+                variant={"primary"}
+                children={"Preguntas frecuentes"}
+                onClick={() => navigate("/preguntas-frecuentes")}
+            />
+          </div>
+          <div className={"center"}>
+            <Button
+                variant={"secondary"}
+                children={theme === 'dark' ? <BsFillSunFill /> : <BsFillMoonStarsFill />}
+                onClick={toggleTheme}
+            />
+          </div>
         </div>
-        <div className={"center"}>
-          <Button
-            variant={"primary"}
-            children={"Preguntas frecuentes"}
-            onClick={() => navigate("/preguntas-frecuentes")}
-          />
+        <div className={"container"}>
+          <Login />
         </div>
       </div>
-      <div className={"container"}>
-        <Login />
-      </div>
-    </div>
   );
 }

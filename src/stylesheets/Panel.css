@@ -1,24 +1,24 @@
-.panel{
+.panel {
     background-color: var(--container);
     width: 20%;
     min-width: 240px;
     height: 100vh;
-
-
 }
-.panel-title{
+
+.panel-title {
     display: flex;
     align-items: center;
     padding-top: 10px;
     padding-left: 10px;
 
 }
-img{
+
+img {
     width: 80px;
     padding-right: 6px;
 }
 
-.panel-btn{
+.panel-btn {
     margin: 15px;
     padding: 10px;
     border-radius: 10px;
@@ -34,7 +34,7 @@ img{
 
 .panel-btn.selected {
     opacity: 1;
-    color: white;
+    color: var(--text-on-dark);
     background-color: var(--primary);
 }
 
@@ -45,8 +45,8 @@ img{
 
 .text-btn {
     font-size: 15px;
+    color: var(--text-primary);
 }
-
 
 .dashboard-container {
     display: flex;
@@ -57,7 +57,7 @@ img{
     flex: 1;
 }
 
-.card-create{
+.card-create {
     width: 30%;
     height: 192px;
     display: flex;
@@ -68,10 +68,9 @@ img{
     padding-bottom: 10px;
     gap: 6px;
     border-radius: 6px;
-
 }
 
-.shadow{
+.shadow {
     background-color: var(--container);
     border-radius: 10px;
     box-shadow: 0px 4px 4px 0px rgba(151, 151, 151, 0.25);

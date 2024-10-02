@@ -6,7 +6,7 @@
 
 .table {
   width: 100%;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -16,18 +16,18 @@
 .table th, .table td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border);
 }
 
 .table th {
-  background-color: #f9fafb;
+  background-color: var(--background);
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .table td {
-  background-color: #fff;
-  color: #555;
+  background-color: var(--container);
+  color: var(--text-secondary);
 }
 
 .table tr:last-child td {
@@ -43,11 +43,11 @@
 }
 
 .status-disponible {
-  background-color: green;
+  background-color: var(--status-disponible);
 }
 
 .status-espera {
-  background-color: yellow;
+  background-color: var(--status-espera);
 }
 
 /* Media Queries for Responsive Design */
@@ -68,4 +68,3 @@
     font-size: 14px; /* Reducir el tamaño de fuente en dispositivos móviles */
   }
 }
-

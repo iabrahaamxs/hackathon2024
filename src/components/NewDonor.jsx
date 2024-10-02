@@ -160,7 +160,7 @@ function NewDonor({ backClick }) {
               id={"email"}
               type={"email"}
               className={"login form"}
-              maxLength={16}
+              maxLength={30}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

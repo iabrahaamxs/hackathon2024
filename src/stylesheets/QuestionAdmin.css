@@ -18,9 +18,8 @@
   margin-bottom: 20px;
 }
 
-
 .question-btn {
-  color: black !important;
+  color: var(--text-primary) !important;
 }
 
 /* Media queries para pantallas más pequeñas */
@@ -28,5 +27,4 @@
   .actions-column-question {
     flex-wrap: wrap;
   }
-
 }
