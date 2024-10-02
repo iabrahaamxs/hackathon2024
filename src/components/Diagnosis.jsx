@@ -25,57 +25,62 @@ function Diagnosis({
   };
 
   return (
-    <div className={`more-container ${isOpen ? "active" : ""}`}>
-      <div className={`title ${isOpen ? "active" : ""}`} onClick={handleClick}>
-        <h3 className={"title-text"}>{illness}</h3>
-        <div className={"icons"}>
-          <FaTrashAlt className="arrow" onClick={() => onDelete(id)} />
-          {isOpen ? (
-            <FaAngleUp className="arrow" />
-          ) : (
-            <FaAngleDown className="arrow" />
-          )}
-        </div>
-      </div>
-      {isOpen && (
-        <div className={"section"}>
-          <div className={"info"}>
-            <div className="input-row">
-              <select
-                name="classification"
-                className="select history"
-                defaultValue={classification}
-                onChange={onClassificationChange}
-              >
-                <option value="-">-</option>
-                <option value="Estadio I">Estadio I</option>
-                <option value="Estadio II">Estadio II</option>
-                <option value="Estadio III">Estadio III</option>
-              </select>
-              <InputField
-                label={"Observaciones"}
-                value={notes}
-                onChange={onNotesChange}
-              />
-            </div>
-            <div className="input-full-width">
-              <InputField
-                label={"Tratamiento"}
-                value={treatment}
-                onChange={onTreatmentChange}
-              />
-            </div>
-            <div className={"center"}>
-              <Button
-                children={"Actualizar"}
-                variant={"primary"}
-                onClick={() => onUpdate(id)}
-              />
-            </div>
+      <div className={`more-container ${isOpen ? "active" : ""}`} alt="Contenedor adicional con información expandible">
+        <div className={`title ${isOpen ? "active" : ""}`} onClick={handleClick}
+             alt="Título de la sección, clic para expandir o contraer">
+          <h3 className={"title-text"}>{illness}</h3>
+          <div className={"icons"} alt="Iconos de acciones">
+            <FaTrashAlt className="arrow" onClick={() => onDelete(id)} alt="Icono de eliminar"/>
+            {isOpen ? (
+                <FaAngleUp className="arrow" alt="Icono de flecha hacia arriba para contraer"/>
+            ) : (
+                <FaAngleDown className="arrow" alt="Icono de flecha hacia abajo para expandir"/>
+            )}
           </div>
         </div>
-      )}
-    </div>
+        {isOpen && (
+            <div className={"section"} alt="Sección expandida con más información">
+              <div className={"info"} alt="Información detallada">
+                <div className="input-row" alt="Fila de entrada">
+                  <select
+                      name="classification"
+                      className="select history"
+                      defaultValue={classification}
+                      onChange={onClassificationChange}
+                      alt="Selector de clasificación de la enfermedad"
+                  >
+                    <option value="-">-</option>
+                    <option value="Estadio I">Estadio I</option>
+                    <option value="Estadio II">Estadio II</option>
+                    <option value="Estadio III">Estadio III</option>
+                  </select>
+                  <InputField
+                      label={"Observaciones"}
+                      value={notes}
+                      onChange={onNotesChange}
+                      alt="Campo para ingresar observaciones"
+                  />
+                </div>
+                <div className="input-full-width" alt="Campo de entrada de ancho completo">
+                  <InputField
+                      label={"Tratamiento"}
+                      value={treatment}
+                      onChange={onTreatmentChange}
+                      alt="Campo para ingresar el tratamiento"
+                  />
+                </div>
+                <div className={"center"} alt="Centro de acciones">
+                  <Button
+                      children={"Actualizar"}
+                      variant={"primary"}
+                      onClick={() => onUpdate(id)}
+                      alt="Botón para actualizar la información"
+                  />
+                </div>
+              </div>
+            </div>
+        )}
+      </div>
   );
 }
 

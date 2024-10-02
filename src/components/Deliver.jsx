@@ -252,89 +252,97 @@ function Deliver() {
   };
 
   return (
-    <>
-      <div className="header-container">
-        <h2>Registrar entrega</h2>
-      </div>
-      <br />
-      <div className="section">
-        <div className="center">
-          <div className="form-deliver">
-            <div className="input-row">
+      <>
+        <div className="header-container">
+          <h2>Registrar entrega</h2>
+        </div>
+        <br />
+        <div className="section">
+          <div className="center">
+            <div className="form-deliver">
+              <div className="input-row">
+                <InputField
+                    type="text"
+                    label={"Cédula del paciente"}
+                    value={cedula}
+                    onChange={handleCedulaChange}
+                    alt="Campo para ingresar la cédula del paciente"
+                />
+                <Button
+                    variant={"primary"}
+                    children={"Buscar"}
+                    onClick={handleSearchPatient}
+                    alt="Botón para buscar al paciente por su cédula"
+                />
+              </div>
               <InputField
-                type="text"
-                label={"Cédula del paciente"}
-                value={cedula}
-                onChange={handleCedulaChange}
+                  type="text"
+                  label={"Nombre del paciente"}
+                  value={patientName}
+                  disabled={true}
+                  alt="Campo que muestra el nombre del paciente"
               />
-              <Button
-                variant={"primary"}
-                children={"Buscar"}
-                onClick={handleSearchPatient}
+              <InputField
+                  type="text"
+                  label={"Medicamento"}
+                  value={inputMed}
+                  onChange={handleChangeMed}
+                  suggestions={meds}
+                  onlyAlphanumeric={true}
+                  maxLength={50}
+                  disabled={isMedDisabled}
+                  alt="Campo para ingresar el nombre del medicamento"
               />
-            </div>
-            <InputField
-              type="text"
-              label={"Nombre del paciente"}
-              value={patientName}
-              disabled={true}
-            />
-            <InputField
-              type="text"
-              label={"Medicamento"}
-              value={inputMed}
-              onChange={handleChangeMed}
-              suggestions={meds}
-              onlyAlphanumeric={true}
-              maxLength={50}
-              disabled={isMedDisabled}
-            />
-            <div className="medicine-options">
-              {presentations.map((presentation, index) => (
-                <div key={index} className="illness-option">
-                  <input
-                    type="radio"
-                    id={`presentation-${index}`}
-                    name="presentation"
-                    value={presentation}
-                    checked={selectedPresentation === presentation}
-                    onChange={(e) => setSelectedPresentation(e.target.value)}
-                  />
-                  <label htmlFor={`presentation-${index}`}>
-                    {presentation}
-                  </label>
-                </div>
-              ))}
-            </div>
-            <InputField
-              type="date"
-              label={"Fecha de entrega"}
-              value={startDate}
-              onChange={handleStartDateChange}
-              disabled={isDateDisabled}
-            />
-            <InputField
-              type="number"
-              label={"Cantidad mensual"}
-              value={quantity}
-              onChange={handleQuantityChange}
-              onlyNumbers={true}
-              maxLength={3}
-              disabled={isQuantityDisabled}
-            />
-            <div className="center">
-              <Button
-                variant={"primary"}
-                children={"Guardar"}
-                onClick={handleSaveMed}
-                disabled={isButtonDisabled}
+              <div className="medicine-options" alt="Opciones de presentación del medicamento">
+                {presentations.map((presentation, index) => (
+                    <div key={index} className="illness-option">
+                      <input
+                          type="radio"
+                          id={`presentation-${index}`}
+                          name="presentation"
+                          value={presentation}
+                          checked={selectedPresentation === presentation}
+                          onChange={(e) => setSelectedPresentation(e.target.value)}
+                          alt={`Opción de presentación: ${presentation}`}
+                      />
+                      <label htmlFor={`presentation-${index}`}>
+                        {presentation}
+                      </label>
+                    </div>
+                ))}
+              </div>
+              <InputField
+                  type="date"
+                  label={"Fecha de entrega"}
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                  disabled={isDateDisabled}
+                  alt="Campo para seleccionar la fecha de entrega"
               />
+              <InputField
+                  type="number"
+                  label={"Cantidad mensual"}
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  onlyNumbers={true}
+                  maxLength={3}
+                  disabled={isQuantityDisabled}
+                  alt="Campo para ingresar la cantidad mensual del medicamento"
+              />
+              <div className="center">
+                <Button
+                    variant={"primary"}
+                    children={"Guardar"}
+                    onClick={handleSaveMed}
+                    disabled={isButtonDisabled}
+                    alt="Botón para guardar la información del medicamento"
+                />
+              </div>
+              {errorMed && <div className="error-message" alt="Mensaje de error">{errorMed}</div>}
             </div>
-            {errorMed && <div className="error-message">{errorMed}</div>}
           </div>
         </div>
-      </div>
-    </>
+      </>
   );
 }
 

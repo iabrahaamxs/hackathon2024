@@ -76,12 +76,15 @@ const Login = () => {
       <div className="login-container">
         <h4>Documento</h4>
         <InputField
-          label={"Ingrese su cédula"}
-          id={"documento"}
-          type={"text"}
-          className={"login"}
-          value={documento}
-          onChange={handleInputChange}
+            label={"Cédula o RIF"}
+            id={"documento"}
+            type={"text"}
+            className={"login"}
+            onlyAlphanumeric={true}
+            maxLength={11}
+            helperText={"Ingrese su RIF sin guiones"}
+            value={documento}
+            onChange={handleInputChange}
         />
         <h4>Contraseña</h4>
         <InputField
@@ -167,15 +170,12 @@ const Login = () => {
       <div className="login-container">
         <h4>Documento</h4>
         <InputField
-          label={"Cédula o RIF"}
-          id={"documento"}
-          type={"text"}
-          className={"login"}
-          onlyAlphanumeric={true}
-          maxLength={11}
-          helperText={"Ingrese su RIF sin guiones"}
-          value={documento}
-          onChange={handleInputChange}
+            label={"Ingrese su cédula"}
+            id={"documento"}
+            type={"text"}
+            className={"login"}
+            value={documento}
+            onChange={handleInputChange}
         />
         {error && <div className="error-message">{error}</div>}
         <div className="center">
