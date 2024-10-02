@@ -259,10 +259,6 @@
     gap: 10px;
   }
 
-  .treatment-container .form-group {
-
-  }
-
   .treatment-container .form-group select {
     width: 100%; /* Ocupa el 100% del ancho */
   }
@@ -283,4 +279,3 @@
     flex: 1; /* Hacer que los inputs ocupen el mismo ancho */
   }
 }
-

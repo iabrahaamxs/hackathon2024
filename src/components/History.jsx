@@ -381,9 +381,9 @@ function History({ backClick, patientId }) {
         </div>
 
         <p>Datos del paciente</p>
-        <div className="section">
-          <div className="row">
-            <div className="input">
+        <div className="form-container-user">
+          <div className="form-row">
+            <div className="form-group">
               <i className="icon-form">
                 <FaAddressCard/>
               </i>
@@ -398,7 +398,7 @@ function History({ backClick, patientId }) {
                   maxLength={8}
               />
             </div>
-            <div className="input">
+            <div className="form-group">
               <i className="icon-form">
                 <FaUser/>
               </i>
@@ -413,7 +413,7 @@ function History({ backClick, patientId }) {
                   maxLength={30}
               />
             </div>
-            <div className="input">
+            <div className="form-group">
               <i className="icon-form">
                 <FaUser/>
               </i>
@@ -429,8 +429,8 @@ function History({ backClick, patientId }) {
               />
             </div>
           </div>
-          <div className="row">
-            <div className="input">
+          <div className="form-row">
+            <div className="form-group">
               <i className="icon-form">
                 <BsGenderAmbiguous/>
               </i>
@@ -439,7 +439,7 @@ function History({ backClick, patientId }) {
                 <option value="F">Femenino</option>
               </select>
             </div>
-            <div className="input">
+            <div className="form-group">
               <i className="icon-form">
                 <BsFillCalendarDateFill/>
               </i>
@@ -453,8 +453,8 @@ function History({ backClick, patientId }) {
               />
             </div>
           </div>
-          <div className="row">
-            <div className="input">
+          <div className="form-row">
+            <div className="form-group">
               <i className="icon-form">
                 <FaLocationDot/>
               </i>
@@ -467,7 +467,7 @@ function History({ backClick, patientId }) {
                 ))}
               </select>
             </div>
-            <div className="input">
+            <div className="form-group">
               <i className="icon-form">
                 <FaHouse/>
               </i>
@@ -482,8 +482,8 @@ function History({ backClick, patientId }) {
               />
             </div>
           </div>
-          <div className="row">
-            <div className="input">
+          <div className="form-row">
+            <div className="form-group">
               <i className="icon-form">
                 <FaPhone/>
               </i>
@@ -498,7 +498,7 @@ function History({ backClick, patientId }) {
                   maxLength={11}
               />
             </div>
-            <div className="input">
+            <div className="form-group">
               <i className="icon-form">
                 <MdOutlinePhoneAndroid/>
               </i>
