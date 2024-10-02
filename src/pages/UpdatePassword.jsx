@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
-import "../stylesheets/UpdatePassword.css"
+import "../stylesheets/UpdatePassword.css";
 
 function UpdatePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -25,74 +25,72 @@ function UpdatePassword() {
       console.log("Éxito: La contraseña ha sido actualizada.", {
         currentPassword,
         newPassword: password,
-        confirmPassword
+        confirmPassword,
       });
     }
   };
 
   return (
-      <div className="containerPassword">
-        <div className="cardPassword">
-          <h2 className="titlePassword">Actualizar Contraseña</h2>
+    <div className="containerPassword">
+      <div className="cardPassword">
+        <h2 className="titlePassword">Actualizar Contraseña</h2>
 
-          {!successPassword ? (
-              <>
-                <InputField
-                    id="password"
-                    label="Contraseña Actual"
-                    type="password"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    className="inputField"
-                />
-                <InputField
-                    id="newPassword"
-                    label="Nueva Contraseña"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="inputField"
-                />
-                <InputField
-                    id="confirmPassword"
-                    label="Confirmar Nueva Contraseña"
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="inputField"
-                />
-                {errorPassword && (
-                    <p className="errorPassword">{errorPassword}</p>
-                )}
+        {!successPassword ? (
+          <>
+            <InputField
+              id="password"
+              label="Contraseña Actual"
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="inputField"
+            />
+            <InputField
+              id="newPassword"
+              label="Nueva Contraseña"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="inputField"
+            />
+            <InputField
+              id="confirmPassword"
+              label="Confirmar Nueva Contraseña"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="inputField"
+            />
+            {errorPassword && <p className="errorPassword">{errorPassword}</p>}
 
-                <Button variant="primary" onClick={handleSubmit} className="btn">
-                  Actualizar Contraseña
-                </Button>
+            <Button variant="primary" onClick={handleSubmit} className="btn">
+              Actualizar Contraseña
+            </Button>
 
-                <Button
-                    variant="outline"
-                    onClick={() => (window.location.href = "/")}
-                    className="btn"
-                >
-                  Volver a Inicio
-                </Button>
-              </>
-          ) : (
-              <>
-                <p className="successPassword">
-                  ¡Tu contraseña ha sido actualizada exitosamente!
-                </p>
-                <Button
-                    variant="primary"
-                    onClick={() => (window.location.href = "/")}
-                    className="btn"
-                >
-                  Volver a Inicio
-                </Button>
-              </>
-          )}
-        </div>
+            <Button
+              variant="outline"
+              onClick={() => (window.location.href = "/")}
+              className="btn"
+            >
+              Volver a Inicio
+            </Button>
+          </>
+        ) : (
+          <>
+            <p className="successPassword">
+              ¡Tu contraseña ha sido actualizada exitosamente!
+            </p>
+            <Button
+              variant="primary"
+              onClick={() => (window.location.href = "/")}
+              className="btn"
+            >
+              Volver a Inicio
+            </Button>
+          </>
+        )}
       </div>
+    </div>
   );
 }
 

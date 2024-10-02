@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import Button from "./Button";
 import InputField from "./InputField";
 import RowtableAssign from "./RowtableAssign";
@@ -92,12 +92,12 @@ function TableAssign({ onClick }) {
   }, [showModal]);
 
   const formatDate = (dateString) => {
-    const [day, month, year] = dateString.split('/');
+    const [day, month, year] = dateString.split("/");
     return `20${year}-${month}-${day}`;
   };
 
   const handleAssign = (treatmentId) => {
-    const treatment = rows.find(row => row.treatmentId === treatmentId);
+    const treatment = rows.find((row) => row.treatmentId === treatmentId);
     setSelectedTreatment(treatment);
     setSelectedDate(formatDate(treatment.date2));
     setShowModal(true);
@@ -105,109 +105,118 @@ function TableAssign({ onClick }) {
 
   const handleSave = () => {
     Swal.fire({
-      title: 'Confirmar Asignación',
+      title: "Confirmar Asignación",
       text: `¿Estás seguro de que deseas asignar el tratamiento a ${selectedTreatment.name}?`,
-      icon: 'question',
+      icon: "question",
       reverseButtons: true,
       showCancelButton: true,
-      confirmButtonText: 'Sí, asignar',
-      cancelButtonText: 'No, cancelar'
+      confirmButtonText: "Sí, asignar",
+      cancelButtonText: "No, cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         const updatedTreatment = {
           ...selectedTreatment,
           date2: selectedDate,
         };
-        console.log('Guardar tratamiento:', updatedTreatment);
+        console.log("Guardar tratamiento:", updatedTreatment);
         // TODO Agregar lógica para guardar asignación en el backend
-        setRows((prevRows) => prevRows.filter((row) => row.treatmentId !== selectedTreatment.treatmentId));
+        setRows((prevRows) =>
+          prevRows.filter(
+            (row) => row.treatmentId !== selectedTreatment.treatmentId
+          )
+        );
         setShowModal(false);
         Swal.fire(
-            '¡Asignado!',
-            `Tratamiento asignado a ${selectedTreatment.name} con éxito.`,
-            'success'
+          "¡Asignado!",
+          `Tratamiento asignado a ${selectedTreatment.name} con éxito.`,
+          "success"
         );
       }
     });
   };
 
   return (
+    <div
+      style={{
+        backgroundColor: "#fff",
+        borderRadius: "10px",
+        justifyContent: "center",
+        gap: 20,
+        height: "100%",
+        padding: 20,
+      }}
+    >
       <div
-          style={{
-            backgroundColor: "#fff",
-            borderRadius: "10px",
-            justifyContent: "center",
-            gap: 20,
-            height: "100%",
-            padding: 20,
-          }}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
-        <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-        >
-          <Button
-              variant={"primary"}
-              children={"Entregas Pendientes"}
-              onClick={() => onClick("deliver")}
-          />
-          <InputField type="text" className={"form"} label={"Buscar"} onlyNumbers={true} maxLength={8} />
-        </div>
-        <br />
-        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-
-          <Modal show={showModal} handleClose={() => setShowModal(false)}>
-            <h2>Asignar Medicamento</h2>
-            {selectedTreatment && (
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  <label>Cedula: {selectedTreatment.id}</label>
-                  <label>Nombre: {selectedTreatment.name}</label>
-                  <label>Medicamento: {selectedTreatment.med}</label>
-                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                    <label>Fecha de retiro: </label>
-                    <InputField
-                        type="date"
-                        className="form"
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                    />
-                  </div>
-                </div>
-            )}
-            <div className={"center"}>
-              <Button
-                  variant={"primary"}
-                  children={"Guardar"}
-                  onClick={handleSave}
-              />
-            </div>
-          </Modal>
-
-          <div className="row-table" style={{ fontSize: 12, marginBottom: -25 }}>
-            <div className={`priority-indicator`} style={{ width: "64%" }}></div>
-            <span className="column date-column-assign">Última Entrega</span>
-            <span className="column date-column-assign">Renovación</span>
-          </div>
-          {rows.map((row) => (
-              <RowtableAssign
-                  key={row.treatmentId}
-                  treatmentId={row.treatmentId}
-                  priority={row.priority}
-                  id={row.id}
-                  name={row.name}
-                  med={row.med}
-                  quantity={row.quantity}
-                  date1={row.date1}
-                  date2={row.date2}
-                  available={row.available}
-                  setModal={handleAssign}
-              />
-          ))}
-        </div>
+        <Button
+          variant={"primary"}
+          children={"Entregas Pendientes"}
+          onClick={() => onClick("deliver")}
+        />
+        <InputField
+          type="text"
+          className={"form"}
+          label={"Buscar"}
+          onlyNumbers={true}
+          maxLength={8}
+        />
       </div>
+      <br />
+      <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+        <Modal show={showModal} handleClose={() => setShowModal(false)}>
+          <h2>Asignar Medicamento</h2>
+          {selectedTreatment && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <label>Cedula: {selectedTreatment.id}</label>
+              <label>Nombre: {selectedTreatment.name}</label>
+              <label>Medicamento: {selectedTreatment.med}</label>
+              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                <label>Fecha de retiro: </label>
+                <InputField
+                  type="date"
+                  className="form"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                />
+              </div>
+            </div>
+          )}
+          <div className={"center"}>
+            <Button
+              variant={"primary"}
+              children={"Guardar"}
+              onClick={handleSave}
+            />
+          </div>
+        </Modal>
+
+        <div className="row-table" style={{ fontSize: 12, marginBottom: -25 }}>
+          <div className={`priority-indicator`} style={{ width: "64%" }}></div>
+          <span className="column date-column-assign">Última Entrega</span>
+          <span className="column date-column-assign">Renovación</span>
+        </div>
+        {rows.map((row) => (
+          <RowtableAssign
+            key={row.treatmentId}
+            treatmentId={row.treatmentId}
+            priority={row.priority}
+            id={row.id}
+            name={row.name}
+            med={row.med}
+            quantity={row.quantity}
+            date1={row.date1}
+            date2={row.date2}
+            available={row.available}
+            setModal={handleAssign}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

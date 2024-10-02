@@ -5,7 +5,7 @@ import EnfermedadComponent from "./EnfermedadComponent";
 import { IllnessApi } from "../api/illness";
 import { useNavigate } from "react-router-dom";
 import { LocalStorage } from "../utils/LocalStorage";
-import "../stylesheets/Items.css"
+import "../stylesheets/Items.css";
 
 function Illness({ clickBack }) {
   const navigate = useNavigate();
@@ -130,24 +130,24 @@ function Illness({ clickBack }) {
   });
 
   return (
-      <>
-        <div className="header-container">
-          <h2>Enfermedades</h2>
-          <Button
-              children={"Volver"}
-              variant={"primary"}
-              onClick={() => clickBack("ItemHome")}
-          />
-        </div>
-        <br/>
-        <div className="content-container">
-          <EnfermedadComponent
-              enfermedadesExistentes={enfermedades}
-              agregarEnfermedad={agregarEnfermedad}
-              eliminarEnfermedad={eliminarEnfermedad}
-          />
-        </div>
-      </>
+    <>
+      <div className="header-container">
+        <h2>Enfermedades</h2>
+        <Button
+          children={"Volver"}
+          variant={"primary"}
+          onClick={() => clickBack("ItemHome")}
+        />
+      </div>
+      <br />
+      <div className="content-container">
+        <EnfermedadComponent
+          enfermedadesExistentes={enfermedades}
+          agregarEnfermedad={agregarEnfermedad}
+          eliminarEnfermedad={eliminarEnfermedad}
+        />
+      </div>
+    </>
   );
 }
 

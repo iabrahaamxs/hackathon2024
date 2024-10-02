@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { LocalStorage } from "../utils/LocalStorage.js";
 import { IllnessApi } from "../api/illness.js";
-import "../stylesheets/Patients.css"
+import "../stylesheets/Patients.css";
 
 function Patients() {
   const [page, setPage] = useState("patients");
@@ -43,9 +43,9 @@ function Patients() {
 
   const handleCheckboxChange = (condition) => {
     setFilter((prevFilter) =>
-        prevFilter.includes(condition)
-            ? prevFilter.filter((ill) => ill !== condition)
-            : [...prevFilter, condition]
+      prevFilter.includes(condition)
+        ? prevFilter.filter((ill) => ill !== condition)
+        : [...prevFilter, condition]
     );
   };
 
@@ -62,13 +62,13 @@ function Patients() {
     }).then((result) => {
       if (result.isConfirmed) {
         setPatients((prevPatients) =>
-            prevPatients.filter((patient) => patient.id !== id)
+          prevPatients.filter((patient) => patient.id !== id)
         );
         console.log(`Paciente eliminado: ${patient.name}`);
         Swal.fire(
-            "¡Eliminado!",
-            `Paciente ${patient.name} eliminado con éxito.`,
-            "success"
+          "¡Eliminado!",
+          `Paciente ${patient.name} eliminado con éxito.`,
+          "success"
         );
       }
     });
@@ -83,9 +83,14 @@ function Patients() {
   };
 
   const filteredPatients = patients.filter(
-      (patient) =>
-          (filter.length === 0 || patient.illness.some((ill) => filter.includes(ill))) &&
-          (searchTerm === "" || removeAccents(patient.id).includes(removeAccents(searchTerm)) || removeAccents(patient.name).toLowerCase().includes(removeAccents(searchTerm).toLowerCase()))
+    (patient) =>
+      (filter.length === 0 ||
+        patient.illness.some((ill) => filter.includes(ill))) &&
+      (searchTerm === "" ||
+        removeAccents(patient.id).includes(removeAccents(searchTerm)) ||
+        removeAccents(patient.name)
+          .toLowerCase()
+          .includes(removeAccents(searchTerm).toLowerCase()))
   );
 
   const navigate = useNavigate();
@@ -109,59 +114,62 @@ function Patients() {
   }, [navigate]);
 
   return (
-      <>
-        {page === "patients" ? (
-            <>
-              <div className="patients-container">
-                <h2>Pacientes</h2>
+    <>
+      {page === "patients" ? (
+        <>
+          <div className="patients-container">
+            <h2>Pacientes</h2>
+          </div>
+          <br />
+          <div className="patients-content">
+            <div className="search-container">
+              <InputField
+                type="text"
+                className={"form"}
+                label={"Buscar"}
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+            </div>
+            <br />
+            <div className="flex-column">
+              <div className="flex-wrap">
+                {illnesses.map((i, index) => (
+                  <label key={index} className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value={i.name}
+                      checked={filter.includes(i.name)}
+                      onChange={() => handleCheckboxChange(i.name)}
+                    />
+                    <span className="checkbox-custom"></span>
+                    {i.name}
+                  </label>
+                ))}
               </div>
-              <br />
-              <div className="patients-content">
-                <div className="search-container">
-                  <InputField
-                      type="text"
-                      className={"form"}
-                      label={"Buscar"}
-                      value={searchTerm}
-                      onChange={handleSearchChange}
-                  />
-                </div>
-                <br />
-                <div className="flex-column">
-                  <div className="flex-wrap">
-                    {illnesses.map((i, index) => (
-                        <label key={index} className="checkbox-label">
-                          <input
-                              type="checkbox"
-                              value={i.name}
-                              checked={filter.includes(i.name)}
-                              onChange={() => handleCheckboxChange(i.name)}
-                          />
-                          <span className="checkbox-custom"></span>
-                          {i.name}
-                        </label>
-                    ))}
-                  </div>
-                  {filteredPatients.map((patient) => (
-                      <RowPatient
-                          key={patient.id}
-                          id={patient.id}
-                          name={patient.name}
-                          priority={patient.priority}
-                          illness={patient.illness}
-                          handleClick={() => handleClickHistory("history", patient.id)}
-                          onDelete={handleDeletePatient}
-                      />
-                  ))}
-                </div>
-              </div>
-              <br />
-            </>
-        ) : null}
-        {page === "history" && selectedPatientId ? (
-            <History backClick={() => handleClick("patients")} patientId={selectedPatientId} />
-        ) : null}
-      </>
+              {filteredPatients.map((patient) => (
+                <RowPatient
+                  key={patient.id}
+                  id={patient.id}
+                  name={patient.name}
+                  priority={patient.priority}
+                  illness={patient.illness}
+                  handleClick={() => handleClickHistory("history", patient.id)}
+                  onDelete={handleDeletePatient}
+                />
+              ))}
+            </div>
+          </div>
+          <br />
+        </>
+      ) : null}
+      {page === "history" && selectedPatientId ? (
+        <History
+          backClick={() => handleClick("patients")}
+          patientId={selectedPatientId}
+        />
+      ) : null}
+    </>
   );
 }
 
