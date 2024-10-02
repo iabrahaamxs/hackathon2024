@@ -125,10 +125,29 @@ const createAdmin = async (jwt, data) => {
   }
 };
 
+const getUserme = async (jwt) => {
+  try {
+    const res = await axiosManager.get("/api/user/me", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    if (error) {
+      console.log({ error: "error getUserme" });
+    }
+
+    return { ok: false };
+  }
+};
+
 export const AdminApi = {
   login,
   getUser,
   createPatient,
   createDonor,
   createAdmin,
+  getUserme,
 };
