@@ -128,3 +128,10 @@
   left: 0;
   transform: translateY(2px);
 }
+
+@media (max-width: 798px) {
+
+  .login {
+    width: 250px;
+  }
+}

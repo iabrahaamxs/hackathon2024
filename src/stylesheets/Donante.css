@@ -146,6 +146,7 @@ p {
   height: 150px;
 }
 
+
 .statistics-first-row {
   width: 100%;
   display: flex;
@@ -158,6 +159,7 @@ p {
   display: flex;
   width: 100%;
 }
+
 
 .group-content > div:not(:first-of-type) {
   margin-right: -10px;
