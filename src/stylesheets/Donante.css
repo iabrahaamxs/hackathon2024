@@ -1,5 +1,6 @@
 p {
   opacity: 0.5;
+  color: var(--text-secondary);
 }
 
 .donaciones-up {
@@ -29,7 +30,6 @@ p {
   justify-content: space-between;
 }
 
-
 .custom-pie:first-child {
   margin-left: 10px;
 }
@@ -38,7 +38,6 @@ p {
   margin-left: -20px;
 }
 
-/* Checkboxes.css */
 .checkbox-container {
   display: flex;
   margin: 10px 0;
@@ -57,7 +56,7 @@ p {
 .checkbox-custom {
   width: 20px;
   height: 20px;
-  border: 2px solid #007bff;
+  border: 2px solid var(--primary);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -70,7 +69,7 @@ p {
   content: '';
   width: 12px;
   height: 12px;
-  background-color: #007bff;
+  background-color: var(--primary);
   display: none;
   border-radius: 2px;
 }
@@ -80,7 +79,7 @@ p {
 }
 
 .checkbox-label input:checked + .checkbox-custom {
-  background-color: #007bff;
+  background-color: var(--primary);
 }
 
 .second-top {
@@ -88,7 +87,6 @@ p {
   justify-content: space-between;
   padding: 0 10px 0 10px;
 }
-
 
 .illness-sector {
   margin-top: -30px;
@@ -128,8 +126,6 @@ p {
   opacity: 1 !important;
 }
 
-
-
 .medicine {
   margin-left: 10px;
   width: 400px;
@@ -146,7 +142,6 @@ p {
   height: 150px;
 }
 
-
 .statistics-first-row {
   width: 100%;
   display: flex;
@@ -159,7 +154,6 @@ p {
   display: flex;
   width: 100%;
 }
-
 
 .group-content > div:not(:first-of-type) {
   margin-right: -10px;
@@ -209,7 +203,7 @@ p {
 }
 
 .green-text-stats {
-  color: green;
+  color: var(--text-success);
   font-size: 50px;
   margin: 0;
 }
@@ -221,7 +215,7 @@ p {
 }
 
 .red-text-stats {
-  color: red;
+  color: var(--text-error);
   font-size: 50px;
   margin: 0;
 }

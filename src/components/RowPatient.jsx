@@ -17,11 +17,11 @@ function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
   const getTagColor = (illness) => {
     switch (illness.toLowerCase()) {
       case "diabetes":
-        return "#ff9999"; // Color para diabetes
+        return "#ff7777"; // Color para diabetes
       case "hipertension":
-        return "#99ccff"; // Color para hipertensión
+        return "#9933ff"; // Color para hipertensión
       default:
-        return "#e0e0e0"; // Color por defecto
+        return "#00e6e0"; // Color por defecto
     }
   };
 

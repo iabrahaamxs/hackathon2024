@@ -14,7 +14,7 @@ function Medicine({ clickBack }) {
         />
       </div>
       <br />
-      <div className="content-container column">
+      <div className="content-container">
         <TableMedicine />
       </div>
     </>

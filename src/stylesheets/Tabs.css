@@ -9,7 +9,7 @@
 .tab-list {
   display: flex;
   justify-content: center;
-  background-color: #add8e6;
+  background-color: var(--background);
   border-radius: 25px;
   padding: 5px;
   margin: 20px auto;
@@ -25,30 +25,31 @@
   transition: background-color 0.3s, color 0.3s;
   margin: 0 5px;
   border-radius: 20px;
+  color: var(--text-primary); /* Asegura que el texto sea visible en modo oscuro */
 }
 
 .tab:hover {
-  background-color: #87ceeb; /* Azul claro más oscuro */
+  background-color: var(--background-hover); /* Azul claro más oscuro */
 }
 
 .tab.active {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary);
+  color: var(--text-on-dark);
 }
 
 .tab-content {
   padding: 20px;
+  background-color: var(--container);
+  border-radius: 10px;
 }
 
 /* Media query para dispositivos móviles */
 @media (max-width: 600px) {
-
   .tabs {
     width: 100%;
     padding: 10px;
     top: 20px;
   }
-
 
   .tab {
     width: 100%;

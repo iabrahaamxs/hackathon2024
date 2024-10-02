@@ -1,24 +1,24 @@
-.panel{
-    background-color: #ffffff;
+.panel {
+    background-color: var(--container);
     width: 20%;
     min-width: 240px;
     height: 100vh;
-
-
 }
-.panel-title{
+
+.panel-title {
     display: flex;
     align-items: center;
     padding-top: 10px;
     padding-left: 10px;
 
 }
-img{
+
+img {
     width: 80px;
     padding-right: 6px;
 }
 
-.panel-btn{
+.panel-btn {
     margin: 15px;
     padding: 10px;
     border-radius: 10px;
@@ -26,8 +26,7 @@ img{
     border: 0;
     cursor: pointer;
     opacity: 0.5;
-    color: black;
-    background-color: white;
+    background-color: var(--container);
     display: flex;
     align-items: center;
     height: 45px;
@@ -35,8 +34,8 @@ img{
 
 .panel-btn.selected {
     opacity: 1;
-    color: white;
-    background-color: #4B9AC5;
+    color: var(--text-on-dark);
+    background-color: var(--primary);
 }
 
 .icon-btn {
@@ -46,8 +45,8 @@ img{
 
 .text-btn {
     font-size: 15px;
+    color: var(--text-primary);
 }
-
 
 .dashboard-container {
     display: flex;
@@ -58,7 +57,7 @@ img{
     flex: 1;
 }
 
-.card-create{
+.card-create {
     width: 30%;
     height: 192px;
     display: flex;
@@ -69,11 +68,10 @@ img{
     padding-bottom: 10px;
     gap: 6px;
     border-radius: 6px;
-
 }
 
-.shadow{
-    background-color: white;
+.shadow {
+    background-color: var(--container);
     border-radius: 10px;
     box-shadow: 0px 4px 4px 0px rgba(151, 151, 151, 0.25);
 }

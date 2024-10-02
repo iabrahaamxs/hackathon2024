@@ -1,4 +1,3 @@
-/* styles.css */
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -10,8 +9,8 @@
   bottom: 20px;
   right: 20px;
   z-index: 1000;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary);
+  color: var(--container);
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -26,7 +25,7 @@
 }
 
 .toggle-button:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-hover);
 }
 
 .panel {
@@ -62,7 +61,6 @@
 
   .article-content {
     margin-left: 0;
-
   }
 }
 
@@ -84,7 +82,7 @@
 
 /* Clases originales */
 .section {
-  background-color: white;
+  background-color: var(--container);
   height: 100%;
   padding: 20px;
   display: flex;
@@ -125,5 +123,6 @@
 }
 
 .red {
-  color: red;
+  color: var(--text-error);
 }
+
