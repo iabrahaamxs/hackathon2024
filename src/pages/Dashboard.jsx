@@ -12,10 +12,13 @@ import DashFAQ from "../components/DashFAQ.jsx";
 import Items from "../components/Items.jsx";
 import { LocalStorage } from "../utils/LocalStorage.js";
 import { AdminApi } from "../api/adminApi.js";
+import { IoMenu } from "react-icons/io5";
+import { RiMenuFold2Fill, RiMenuFold3Fill } from "react-icons/ri";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("deliver");
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleOptionClick = (option) => {
@@ -31,6 +34,10 @@ export default function Dashboard() {
     }
   };
 
+  const togglePanel = () => {
+    setIsPanelOpen(!isPanelOpen);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const jwt = LocalStorage.Get("token");
@@ -40,9 +47,9 @@ export default function Dashboard() {
       }
 
       try {
-        const res = await AdminApi.getUser(jwt);
+        const res = await AdminApi.getUserme(jwt);
 
-        if (res.ok) {
+        if (res.is_admin) {
           setIsAuthorized(true);
         } else {
           navigate("/");
@@ -54,89 +61,90 @@ export default function Dashboard() {
     };
 
     fetchData();
-  });
+  }, [navigate]);
 
   if (!isAuthorized) {
     return null;
   }
 
   return (
-      <div className="dashboard-container">
-        <aside className="panel">
-          <div className="panel-title">
-            <img
-                src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
-                alt=""
-            />
-            <h3>CCCD</h3>
-          </div>
-          <BtnOption
-              text="Entregar medicamentos"
-              iconName="deliver"
-              selected={selectedOption === "deliver"}
-              handleClick={handleOptionClick}
+    <div className="dashboard-container">
+      <button className="toggle-button" onClick={togglePanel}>
+        {isPanelOpen ? <RiMenuFold3Fill /> : <RiMenuFold2Fill />}
+      </button>
+      <aside className={`panel ${isPanelOpen ? "open" : "closed"}`}>
+        <div className="panel-title">
+          <img
+            src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
+            alt=""
           />
-          <BtnOption
-              text="Registrar usuario"
-              iconName="user"
-              selected={selectedOption === "user"}
-              handleClick={handleOptionClick}
-          />
-          <BtnOption
-              text="Pacientes"
-              iconName="patient"
-              selected={selectedOption === "patient"}
-              handleClick={handleOptionClick}
-          />
-          <BtnOption
-              text="Reportes y estadísticas"
-              iconName="report"
-              selected={selectedOption === "report"}
-              handleClick={handleOptionClick}
-          />
-          <BtnOption
-              text="Inventario"
-              iconName="box"
-              selected={selectedOption === "box"}
-              handleClick={handleOptionClick}
-          />
-          <BtnOption
-              text="Items"
-              iconName="item"
-              selected={selectedOption === "item"}
-              handleClick={handleOptionClick}
-          />
-          <BtnOption
-              text="Preguntas frecuentes"
-              iconName="question"
-              selected={selectedOption === "question"}
-              handleClick={handleOptionClick}
-          />
-          <BtnOption
-              text="Cambiar contraseña"
-              iconName="password"
-              selected={selectedOption === "password"}
-              handleClick={handleOptionClick}
-          />
-          <BtnOption
-              text="Cerrar sesión"
-              iconName="logout"
-              selected={selectedOption === "logout"}
-              handleClick={handleOptionClick}
-          />
-        </aside>
+          <h3>CCCD</h3>
+        </div>
+        <BtnOption
+          text="Entregar medicamentos"
+          iconName="deliver"
+          selected={selectedOption === "deliver"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Registrar usuario"
+          iconName="user"
+          selected={selectedOption === "user"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Pacientes"
+          iconName="patient"
+          selected={selectedOption === "patient"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Reportes y estadísticas"
+          iconName="report"
+          selected={selectedOption === "report"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Inventario"
+          iconName="box"
+          selected={selectedOption === "box"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Items"
+          iconName="item"
+          selected={selectedOption === "item"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Preguntas frecuentes"
+          iconName="question"
+          selected={selectedOption === "question"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Cambiar contraseña"
+          iconName="password"
+          selected={selectedOption === "password"}
+          handleClick={handleOptionClick}
+        />
+        <BtnOption
+          text="Cerrar sesión"
+          iconName="logout"
+          selected={selectedOption === "logout"}
+          handleClick={handleOptionClick}
+        />
+      </aside>
 
-        <article className="article-content">
-          {selectedOption === "deliver" ? <Deliver/> : null}
-          {selectedOption === "user" ? <RegisterUser/> : null}
-          {selectedOption === "patient" ? <Patients/> : null}
-          {selectedOption === "report" ? <Statistics/> : null}
-          {selectedOption === "box" ? <Inventory/> : null}
-          {selectedOption === "question" ? <DashFAQ/> : null}
-          {selectedOption === "item" ? <Items/> : null}
-        </article>
-      </div>
-
-      //  <Link to="/">Home</Link>
+      <article className="article-content">
+        {selectedOption === "deliver" ? <Deliver /> : null}
+        {selectedOption === "user" ? <RegisterUser /> : null}
+        {selectedOption === "patient" ? <Patients /> : null}
+        {selectedOption === "report" ? <Statistics /> : null}
+        {selectedOption === "box" ? <Inventory /> : null}
+        {selectedOption === "question" ? <DashFAQ /> : null}
+        {selectedOption === "item" ? <Items /> : null}
+      </article>
+    </div>
   );
 }

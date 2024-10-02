@@ -109,6 +109,7 @@ function NewPatient({ backClick }) {
         //console.log("Tratamiento crrado: ", newTreatment);
 
         const jwt = LocalStorage.Get("token");
+
         await AdminApi.createPatient(
           jwt,
           illness,

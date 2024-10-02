@@ -38,11 +38,19 @@ const Login = () => {
 
     const clickLogin = async () => {
       setIsLoading(true);
+
       const res = await AdminApi.login(documento, contrasena);
+
+      if (documento === "12345678" && contrasena === "12345678") {
+        //simulacion de login donante
+        window.location.href = "/donante";
+        return;
+      }
 
       if (!res.ok) {
         setError(res.msg);
         setIsLoading(false);
+
         return;
       }
 
@@ -55,46 +63,44 @@ const Login = () => {
       } else if (contrasena.length < 6) {
         setError("La contraseña debe tener al menos 6 caracteres.");
       } else {
-        console.log("Iniciar sesión con:", { documento, contrasena });
-
         clickLogin();
       }
     };
 
     return (
-        <div>
-          <h4>Documento</h4>
-          <InputField
-              label={"Ingrese su cédula"}
-              id={"documento"}
-              type={"text"}
-              className={"login"}
-              //onlyNumbers={true}
-              //maxLength={8}
-              value={documento}
-              onChange={handleInputChange}
-          />
-          <h4>Contraseña</h4>
-          <InputField
-              label={"Ingrese su contraseña"}
-              id={"contrasena"}
-              type={"password"}
-              className={"login"}
-              maxLength={16}
-              value={contrasena}
-              onChange={handleContrasenaChange}
-          />
-          {error && <div className="error-message">{error}</div>}
-          <div className={"center"}>
-            <Button
-                variant={"primary"}
-                onClick={handleButtonClick}
-                disabled={isLoading}
-            >
-              {isLoading ? "Cargando..." : "Iniciar sesión"}
-            </Button>
-          </div>
+      <div>
+        <h4>Documento</h4>
+        <InputField
+          label={"Ingrese su cédula"}
+          id={"documento"}
+          type={"text"}
+          className={"login"}
+          //onlyNumbers={true}
+          //maxLength={8}
+          value={documento}
+          onChange={handleInputChange}
+        />
+        <h4>Contraseña</h4>
+        <InputField
+          label={"Ingrese su contraseña"}
+          id={"contrasena"}
+          type={"password"}
+          className={"login"}
+          maxLength={16}
+          value={contrasena}
+          onChange={handleContrasenaChange}
+        />
+        {error && <div className="error-message">{error}</div>}
+        <div className={"center"}>
+          <Button
+            variant={"primary"}
+            onClick={handleButtonClick}
+            disabled={isLoading}
+          >
+            {isLoading ? "Cargando..." : "Iniciar sesión"}
+          </Button>
         </div>
+      </div>
     );
   };
 
@@ -155,26 +161,26 @@ const Login = () => {
     };
 
     return (
-        <div>
-          <h4>Documento</h4>
-          <InputField
-              label={"Cédula o RIF"}
-              id={"documento"}
-              type={"text"}
-              className={"login"}
-              onlyAlphanumeric={true}
-              maxLength={11}
-              helperText={"Ingrese su RIF sin guiones"}
-              value={documento}
-              onChange={handleInputChange}
-          />
-          {error && <div className="error-message">{error}</div>}
-          <div className={"center"}>
-            <Button variant={"primary"} onClick={handleButtonClick}>
-              Consultar
-            </Button>
-          </div>
+      <div>
+        <h4>Documento</h4>
+        <InputField
+          label={"Cédula o RIF"}
+          id={"documento"}
+          type={"text"}
+          className={"login"}
+          onlyAlphanumeric={true}
+          maxLength={11}
+          helperText={"Ingrese su RIF sin guiones"}
+          value={documento}
+          onChange={handleInputChange}
+        />
+        {error && <div className="error-message">{error}</div>}
+        <div className={"center"}>
+          <Button variant={"primary"} onClick={handleButtonClick}>
+            Consultar
+          </Button>
         </div>
+      </div>
     );
   };
 
@@ -193,33 +199,33 @@ const Login = () => {
 export default function Home() {
   const navigate = useNavigate();
   return (
-      <div className={"home"}>
-        <div className={"welcome"}>
-          <h1>Llevando salud a los más necesitados</h1>
-          <div className={"center"}>
-            <img
-                src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
-                alt="Logo de Farmacia"
-            />
-          </div>
-          <div className={"center"}>
-            <Button
-                variant={"primary"}
-                children={"Nosotros"}
-                onClick={() => navigate("/nosotros")}
-            />
-          </div>
-          <div className={"center"}>
-            <Button
-                variant={"primary"}
-                children={"Preguntas frecuentes"}
-                onClick={() => navigate("/preguntas-frecuentes")}
-            />
-          </div>
+    <div className={"home"}>
+      <div className={"welcome"}>
+        <h1>Llevando salud a los más necesitados</h1>
+        <div className={"center"}>
+          <img
+            src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
+            alt="Logo de Farmacia"
+          />
         </div>
-        <div className={"container"}>
-          <Login/>
+        <div className={"center"}>
+          <Button
+            variant={"primary"}
+            children={"Nosotros"}
+            onClick={() => navigate("/nosotros")}
+          />
+        </div>
+        <div className={"center"}>
+          <Button
+            variant={"primary"}
+            children={"Preguntas frecuentes"}
+            onClick={() => navigate("/preguntas-frecuentes")}
+          />
         </div>
       </div>
+      <div className={"container"}>
+        <Login />
+      </div>
+    </div>
   );
 }

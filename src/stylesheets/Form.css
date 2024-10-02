@@ -3,6 +3,21 @@
   padding: 10px;
   display: flex;
   border-radius: 10px;
+  text-align: center;
+}
+
+.section {
+  background-color: white;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  border-radius: 10px;
+  display: block;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
 }
 
 .form-container-user {
@@ -56,6 +71,7 @@
   justify-content: space-around;
   position: relative;
   top: -15px;
+  flex-wrap: wrap;
 }
 
 .illness-option {
@@ -116,9 +132,9 @@
   text-align: center;
 }
 
-
 .form-deliver {
-  width: 60%;
+  width: 100%;
+  max-width: 600px;
 }
 
 /*CardCreateUser*/
@@ -156,6 +172,7 @@
   justify-content: center;
   gap: 20px;
   height: 100%;
+  flex-wrap: wrap;
 }
 
 /*FAQ*/
@@ -189,3 +206,81 @@
 .textarea {
   width: 100%;
 }
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .card-create {
+    width: 80%; /* Ajustar el ancho para pantallas pequeñas */
+    height: auto; /* Permitir que la altura se ajuste automáticamente */
+    padding: 20px; /* Añadir relleno para mejorar la apariencia */
+  }
+
+  .create-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    padding: 30px;
+  }
+
+  .input-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .input-row > * {
+    margin: 0 0 15px 0;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .medicine-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-deliver {
+    padding: 10px;
+  }
+
+  .illness-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .treatment-container {
+    padding: 10px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .treatment-container .form-group {
+
+  }
+
+  .treatment-container .form-group select {
+    width: 100%; /* Ocupa el 100% del ancho */
+  }
+
+  .treatment-container .form-group input {
+    width: 100%; /* Ocupa el 100% del ancho */
+    margin-top: 10px; /* Añadir espacio entre los inputs */
+  }
+
+  .treatment-container .form-group .input-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .treatment-container .form-group .input-row > * {
+    flex: 1; /* Hacer que los inputs ocupen el mismo ancho */
+  }
+}
+

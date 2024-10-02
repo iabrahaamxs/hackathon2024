@@ -29,7 +29,7 @@ const getUser = async (jwt) => {
       },
     });
     console.log("Authorization");
-    return { ok: res.data[0].is_admin };
+    return res.data;
   } catch (error) {
     if (error) {
       console.log({ error: "error getUser" });

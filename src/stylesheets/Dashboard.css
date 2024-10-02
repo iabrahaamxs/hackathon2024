@@ -1,3 +1,88 @@
+/* styles.css */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-button {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 30px;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.panel {
+  width: 250px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.panel.closed {
+  transform: translateX(-100%);
+}
+
+.panel.open {
+  transform: translateX(0);
+}
+
+.article-content {
+  flex: 1;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .toggle-button {
+    display: flex;
+  }
+
+  .panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+  }
+
+  .article-content {
+    margin-left: 0;
+
+  }
+}
+
+/* Media query for desktop devices */
+@media (min-width: 769px) {
+  .dashboard-container {
+    flex-direction: row;
+  }
+
+  .panel {
+    position: relative;
+    transform: translateX(0);
+  }
+
+  .toggle-button {
+    display: none;
+  }
+}
+
+/* Clases originales */
 .section {
   background-color: white;
   height: 100%;
@@ -39,6 +124,6 @@
   gap: 15px;
 }
 
-.red{
-  color:red;
+.red {
+  color: red;
 }
