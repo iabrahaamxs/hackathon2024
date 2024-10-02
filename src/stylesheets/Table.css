@@ -1,7 +1,7 @@
 .table-container {
   width: 100%;
   margin: 20px 0;
-  border-collapse: collapse;
+  overflow-x: auto; /* Añadir scroll horizontal para tablas grandes */
 }
 
 .table {
@@ -10,6 +10,7 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 600px; /* Asegurar un ancho mínimo para la tabla */
 }
 
 .table th, .table td {
@@ -48,3 +49,23 @@
 .status-espera {
   background-color: yellow;
 }
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto; /* Añadir scroll horizontal para dispositivos móviles */
+  }
+
+  .table th, .table td {
+    padding: 8px 12px; /* Reducir el padding en dispositivos móviles */
+  }
+
+  .table th {
+    font-size: 14px; /* Reducir el tamaño de fuente en dispositivos móviles */
+  }
+
+  .table td {
+    font-size: 14px; /* Reducir el tamaño de fuente en dispositivos móviles */
+  }
+}
+
