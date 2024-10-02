@@ -1,36 +1,36 @@
-import React from 'react';
-import '../stylesheets/Button.css';
+import React from "react";
+import "../stylesheets/Button.css";
 
 const Button = ({ variant, onClick, children, disabled = false }) => {
   const getClassNames = () => {
-    let classNames = 'button';
+    let classNames = "button";
     switch (variant) {
-      case 'primary':
-        classNames += ' button-primary';
+      case "primary":
+        classNames += " button-primary";
         break;
-      case 'secondary':
-        classNames += ' button-secondary';
+      case "secondary":
+        classNames += " button-secondary";
         break;
-      case 'outline':
-        classNames += ' button-outline';
+      case "outline":
+        classNames += " button-outline";
         break;
       default:
         break;
     }
     if (disabled) {
-      classNames += ' button-disabled';
+      classNames += " button-disabled";
     }
     return classNames;
   };
 
   return (
-      <button
-          className={getClassNames()}
-          onClick={disabled ? null : onClick}
-          disabled={disabled}
-      >
-        {children}
-      </button>
+    <button
+      className={getClassNames()}
+      onClick={disabled ? null : onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
   );
 };
 

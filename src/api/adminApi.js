@@ -145,7 +145,7 @@ const createAdmin = async (jwt, data) => {
       }
     );
 
-    console.log(res); //me devuelve??
+    console.log(res);
 
     return { ok: true };
   } catch (error) {

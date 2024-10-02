@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTrash } from "react-icons/fa6";
 import Button from "./Button.jsx";
-import "../stylesheets/Patients.css"
+import "../stylesheets/Patients.css";
 
 function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
   const getPriority = (priority) => {
@@ -30,27 +30,39 @@ function RowPatient({ priority, id, name, illness, handleClick, onDelete }) {
   };
 
   return (
-      <div className="row-patient shadow">
-        <div
-            className="priority-indicator"
-            style={{ backgroundColor: getPriority(priority) }}
-        ></div>
-        <span className="patient-id">{id}</span>
-        <span className="patient-name">{name}</span>
-        <div className="patient-illness">
-          {illness.map((ill, index) => (
-              <div key={index} className="tag" style={{ backgroundColor: getTagColor(ill) }}>
-                {capitalizeFirstLetter(ill)}
-              </div>
-          ))}
-        </div>
-          <Button variant={"outline"} children={"Ver historia"} onClick={handleClick} />
-        <div className="actions-column">
-          <button className="action-btn delete-btn" aria-label="Delete" onClick={() => onDelete(id)}>
-            <FaTrash />
-          </button>
-        </div>
+    <div className="row-patient shadow">
+      <div
+        className="priority-indicator"
+        style={{ backgroundColor: getPriority(priority) }}
+      ></div>
+      <span className="patient-id">{id}</span>
+      <span className="patient-name">{name}</span>
+      <div className="patient-illness">
+        {illness.map((ill, index) => (
+          <div
+            key={index}
+            className="tag"
+            style={{ backgroundColor: getTagColor(ill) }}
+          >
+            {capitalizeFirstLetter(ill)}
+          </div>
+        ))}
       </div>
+      <Button
+        variant={"outline"}
+        children={"Ver historia"}
+        onClick={handleClick}
+      />
+      <div className="actions-column">
+        <button
+          className="action-btn delete-btn"
+          aria-label="Delete"
+          onClick={() => onDelete(id)}
+        >
+          <FaTrash />
+        </button>
+      </div>
+    </div>
   );
 }
 

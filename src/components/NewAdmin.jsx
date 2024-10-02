@@ -17,7 +17,15 @@ function NewAdmin({ backClick }) {
   const [error, setError] = useState("");
 
   const handleSave = () => {
-    if (!name || !lastName || !document || !phone || !email || !password || !confirmPassword) {
+    if (
+      !name ||
+      !lastName ||
+      !document ||
+      !phone ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
       setError("Todos los campos son obligatorios.");
       return;
     }
@@ -60,7 +68,7 @@ function NewAdmin({ backClick }) {
     };
 
     Swal.fire({
-      title: 'Confirmar Información',
+      title: "Confirmar Información",
       html: `
         <p><strong>Nombre:</strong> ${name}</p>
         <p><strong>Apellido:</strong> ${lastName}</p>
@@ -68,19 +76,19 @@ function NewAdmin({ backClick }) {
         <p><strong>Teléfono:</strong> ${phone}</p>
         <p><strong>Correo:</strong> ${email}</p>
       `,
-      icon: 'info',
+      icon: "info",
       reverseButtons: true,
       showCancelButton: true,
-      confirmButtonText: 'Guardar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: "Guardar",
+      cancelButtonText: "Cancelar",
       preConfirm: () => {
         console.log("Nuevo administrador creado:", newAdmin);
         // TODO: Lógica para guardar el nuevo administrador
         setError("");
         Swal.fire(
-            '¡Administrador Creado!',
-            'El nuevo administrador ha sido creado exitosamente.',
-            'success'
+          "¡Administrador Creado!",
+          "El nuevo administrador ha sido creado exitosamente.",
+          "success"
         ).then(() => {
           // Limpiar los campos después de mostrar el mensaje de éxito
           setName("");
@@ -91,144 +99,143 @@ function NewAdmin({ backClick }) {
           setPassword("");
           setConfirmPassword("");
         });
-      }
+      },
     });
   };
 
   return (
-      <div>
-        <div className="header-container">
-          <h2>Crear nuevo administrador</h2>
-        </div>
-        <br/>
-        <div className="form-container-user">
-          <div className="form-row">
-            <div className="form-group">
-              <i className="icon-form">
-                <FaUser/>
-              </i>
-              <InputField
-                  label={"Nombres"}
-                  id={"name"}
-                  type={"text"}
-                  className={"login form"}
-                  onlyLetters={true}
-                  maxLength={30}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  error={error && !name ? error : ""}
-              />
-            </div>
-            <div className="form-group">
-              <i className="icon-form">
-                <FaUser/>
-              </i>
-              <InputField
-                  label={"Apellidos"}
-                  id={"lastName"}
-                  type={"text"}
-                  className={"login form"}
-                  onlyLetters={true}
-                  maxLength={30}
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  error={error && !lastName ? error : ""}
-              />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <i className="icon-form">
-                <FaAddressCard/>
-              </i>
-              <InputField
-                  label={"Identificación"}
-                  id={"document"}
-                  type={"text"}
-                  className={"login form"}
-                  onlyNumbers={true}
-                  maxLength={8}
-                  value={document}
-                  onChange={(e) => setDocument(e.target.value)}
-                  error={error && !document ? error : ""}
-              />
-            </div>
-            <div className="form-group">
-              <i className="icon-form">
-                <FaPhone/>
-              </i>
-              <InputField
-                  label={"Teléfono"}
-                  id={"phone"}
-                  type={"text"}
-                  className={"login form"}
-                  onlyNumbers={true}
-                  maxLength={11}
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  error={error && !phone ? error : ""}
-              />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <i className="icon-form">
-                <MdEmail/>
-              </i>
-              <InputField
-                  label={"Correo"}
-                  id={"email"}
-                  type={"email"}
-                  className={"login form"}
-                  validateEmail={true}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  error={error && !email ? error : ""}
-              />
-            </div>
-            <div className="form-group">
-              <i className="icon-form">
-                <FaLock/>
-              </i>
-              <InputField
-                  label={"Contraseña"}
-                  id={"password"}
-                  type={"password"}
-                  className={"login form"}
-                  maxLength={16}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  error={error && !password ? error : ""}
-              />
-            </div>
-          </div>
-          <div className="form-row single">
-            <div className="form-group">
-              <i className="icon-form">
-                <FaLock/>
-              </i>
-              <InputField
-                  label={"Confirmar contraseña"}
-                  id={"confirmPassword"}
-                  type={"password"}
-                  className={"login form password-confirm"}
-                  maxLength={16}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  error={error && password !== confirmPassword ? error : ""}
-              />
-            </div>
-          </div>
-          <br/>
-          {error && <div className="error-message">{error}</div>}
-          <div className="button-container">
-            <Button children="Cancelar" onClick={() => backClick("create")}/>
-            <Button children="Guardar" variant={"primary"} onClick={handleSave}/>
-          </div>
-        </div>
-        <br/>
+    <div>
+      <div className="header-container">
+        <h2>Crear nuevo administrador</h2>
       </div>
-
+      <br />
+      <div className="form-container-user">
+        <div className="form-row">
+          <div className="form-group">
+            <i className="icon-form">
+              <FaUser />
+            </i>
+            <InputField
+              label={"Nombres"}
+              id={"name"}
+              type={"text"}
+              className={"login form"}
+              onlyLetters={true}
+              maxLength={30}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              error={error && !name ? error : ""}
+            />
+          </div>
+          <div className="form-group">
+            <i className="icon-form">
+              <FaUser />
+            </i>
+            <InputField
+              label={"Apellidos"}
+              id={"lastName"}
+              type={"text"}
+              className={"login form"}
+              onlyLetters={true}
+              maxLength={30}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              error={error && !lastName ? error : ""}
+            />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group">
+            <i className="icon-form">
+              <FaAddressCard />
+            </i>
+            <InputField
+              label={"Identificación"}
+              id={"document"}
+              type={"text"}
+              className={"login form"}
+              onlyNumbers={true}
+              maxLength={8}
+              value={document}
+              onChange={(e) => setDocument(e.target.value)}
+              error={error && !document ? error : ""}
+            />
+          </div>
+          <div className="form-group">
+            <i className="icon-form">
+              <FaPhone />
+            </i>
+            <InputField
+              label={"Teléfono"}
+              id={"phone"}
+              type={"text"}
+              className={"login form"}
+              onlyNumbers={true}
+              maxLength={11}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              error={error && !phone ? error : ""}
+            />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group">
+            <i className="icon-form">
+              <MdEmail />
+            </i>
+            <InputField
+              label={"Correo"}
+              id={"email"}
+              type={"email"}
+              className={"login form"}
+              validateEmail={true}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              error={error && !email ? error : ""}
+            />
+          </div>
+          <div className="form-group">
+            <i className="icon-form">
+              <FaLock />
+            </i>
+            <InputField
+              label={"Contraseña"}
+              id={"password"}
+              type={"password"}
+              className={"login form"}
+              maxLength={16}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              error={error && !password ? error : ""}
+            />
+          </div>
+        </div>
+        <div className="form-row single">
+          <div className="form-group">
+            <i className="icon-form">
+              <FaLock />
+            </i>
+            <InputField
+              label={"Confirmar contraseña"}
+              id={"confirmPassword"}
+              type={"password"}
+              className={"login form password-confirm"}
+              maxLength={16}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              error={error && password !== confirmPassword ? error : ""}
+            />
+          </div>
+        </div>
+        <br />
+        {error && <div className="error-message">{error}</div>}
+        <div className="button-container">
+          <Button children="Cancelar" onClick={() => backClick("create")} />
+          <Button children="Guardar" variant={"primary"} onClick={handleSave} />
+        </div>
+      </div>
+      <br />
+    </div>
   );
 }
 

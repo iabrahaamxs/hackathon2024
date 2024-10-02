@@ -144,67 +144,67 @@ function TableMedicine() {
   };
 
   return (
-      <div className="medicine-container-custom">
-        <div className="header-custom">
-          <Button
-              variant={"primary"}
-              children={"Insertar medicina"}
-              onClick={() => openModal("add")}
+    <div className="medicine-container-custom">
+      <div className="header-custom">
+        <Button
+          variant={"primary"}
+          children={"Insertar medicina"}
+          onClick={() => openModal("add")}
+        />
+        <InputField type="text" className={"form"} label={"Buscar"} />
+      </div>
+      <br />
+      <Modal show={showModal} handleClose={() => setShowModal(false)}>
+        <h2>{typeModal}</h2>
+        <div className="modal-content-custom">
+          <InputField
+            type="text"
+            label={"Medicina"}
+            className="form"
+            value={selectedMedicine.name}
+            onChange={(e) =>
+              setSelectedMedicine({
+                ...selectedMedicine,
+                name: e.target.value,
+              })
+            }
           />
-          <InputField type="text" className={"form"} label={"Buscar"}/>
+          <label className="form-label-custom">Enfermedad asociada:</label>
         </div>
-        <br/>
-        <Modal show={showModal} handleClose={() => setShowModal(false)}>
-          <h2>{typeModal}</h2>
-          <div className="modal-content-custom">
-            <InputField
-                type="text"
-                label={"Medicina"}
-                className="form"
-                value={selectedMedicine.name}
-                onChange={(e) =>
-                    setSelectedMedicine({
-                      ...selectedMedicine,
-                      name: e.target.value,
-                    })
-                }
-            />
-            <label className="form-label-custom">Enfermedad asociada:</label>
-          </div>
-          <div className="radio-group-custom">
-            {enfermedades.map((e, index) => (
-                <label key={index} className="checkbox-label-custom">
-                  <input
-                      type="checkbox"
-                      value={e.id}
-                      checked={selectedMedicine.illnesses.includes(e.id)}
-                      onChange={() => handleCheckboxChange(e.id)}
-                  />
-                  <span className="checkbox-custom-custom"></span>
-                  {e.name}
-                </label>
-            ))}
-          </div>
-          <div className="center-custom">
-            <Button
-                variant={"primary"}
-                children={"Guardar"}
-                onClick={handleSave}
-            />
-          </div>
-        </Modal>
-        <div className="medicine-list-custom">
-          {medicamentos.map((row) => (
-              <RowtableMedicine
-                  key={row.id}
-                  name={row.name}
-                  illness={row.illnesses}
-                  updateClick={() => openModal("update", row)}
-                  deleteClick={() => handleDelete(row.id)}
+        <div className="radio-group-custom">
+          {enfermedades.map((e, index) => (
+            <label key={index} className="checkbox-label-custom">
+              <input
+                type="checkbox"
+                value={e.id}
+                checked={selectedMedicine.illnesses.includes(e.id)}
+                onChange={() => handleCheckboxChange(e.id)}
               />
+              <span className="checkbox-custom-custom"></span>
+              {e.name}
+            </label>
           ))}
         </div>
+        <div className="center-custom">
+          <Button
+            variant={"primary"}
+            children={"Guardar"}
+            onClick={handleSave}
+          />
+        </div>
+      </Modal>
+      <div className="medicine-list-custom">
+        {medicamentos.map((row) => (
+          <RowtableMedicine
+            key={row.id}
+            name={row.name}
+            illness={row.illnesses}
+            updateClick={() => openModal("update", row)}
+            deleteClick={() => handleDelete(row.id)}
+          />
+        ))}
       </div>
+    </div>
   );
 }
 

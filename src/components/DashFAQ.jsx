@@ -187,66 +187,66 @@ function DashFAQ() {
   }, [navigate]);
 
   return (
-      <>
-        <div className="faq-header">
-          <h2>Preguntas frecuentes</h2>
-          <Button
+    <>
+      <div className="faq-header">
+        <h2>Preguntas frecuentes</h2>
+        <Button
+          variant={"primary"}
+          children={"Agregar pregunta"}
+          onClick={() => clickShowModal("add")}
+        />
+      </div>
+      <br />
+      <div className="faq-content">
+        <Modal
+          show={showModal}
+          className="modal"
+          handleClose={() => setShowModal(false)}
+        >
+          <div className="modal-content-faq">
+            <h2>{titleModal}</h2>
+            <InputField
+              type="text"
+              label="Pregunta"
+              className="form"
+              value={questionInput}
+              onChange={(e) => setQuestionInput(e.target.value)}
+            />
+            <label htmlFor="myTextarea">Respuesta</label>
+            <textarea
+              className="textarea"
+              rows="4"
+              cols="80"
+              value={answerInput}
+              onChange={(e) => setAnswerInput(e.target.value)}
+            ></textarea>
+            <Button
               variant={"primary"}
-              children={"Agregar pregunta"}
-              onClick={() => clickShowModal("add")}
-          />
-        </div>
-        <br />
-        <div className="faq-content">
-          <Modal
-              show={showModal}
-              className="modal"
-              handleClose={() => setShowModal(false)}
-          >
-            <div className="modal-content-faq">
-              <h2>{titleModal}</h2>
-              <InputField
-                  type="text"
-                  label="Pregunta"
-                  className="form"
-                  value={questionInput}
-                  onChange={(e) => setQuestionInput(e.target.value)}
-              />
-              <label htmlFor="myTextarea">Respuesta</label>
-              <textarea
-                  className="textarea"
-                  rows="4"
-                  cols="80"
-                  value={answerInput}
-                  onChange={(e) => setAnswerInput(e.target.value)}
-              ></textarea>
-              <Button
-                  variant={"primary"}
-                  children={"Guardar"}
-                  onClick={handleSave}
-              />
-            </div>
-          </Modal>
-          <div className="faq-list">
-            {questions.map((q, index) => (
-                <QuestionAdmin
-                    key={index}
-                    id={q.id}
-                    question={q.question}
-                    answer={q.answer}
-                    view={q.is_visible}
-                    isOpen={openQuestionIndex === index}
-                    onClick={() => handleQuestionClick(index)}
-                    btnUpdate={() => clickShowModal("update", q)}
-                    btnDelete={() => handleQuestionDelete(q.id)}
-                    toggleVisibility={() =>
-                        toggleVisibility(q.id, q.is_visible, q.question, q.answer)
-                    }
-                />
-            ))}
+              children={"Guardar"}
+              onClick={handleSave}
+            />
           </div>
+        </Modal>
+        <div className="faq-list">
+          {questions.map((q, index) => (
+            <QuestionAdmin
+              key={index}
+              id={q.id}
+              question={q.question}
+              answer={q.answer}
+              view={q.is_visible}
+              isOpen={openQuestionIndex === index}
+              onClick={() => handleQuestionClick(index)}
+              btnUpdate={() => clickShowModal("update", q)}
+              btnDelete={() => handleQuestionDelete(q.id)}
+              toggleVisibility={() =>
+                toggleVisibility(q.id, q.is_visible, q.question, q.answer)
+              }
+            />
+          ))}
         </div>
-      </>
+      </div>
+    </>
   );
 }
 
