@@ -1,5 +1,5 @@
 .header-container {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   display: flex;
   border-radius: 10px;
@@ -7,7 +7,7 @@
 }
 
 .content-container {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   border-radius: 10px;
 }

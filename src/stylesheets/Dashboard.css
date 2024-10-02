@@ -84,7 +84,7 @@
 
 /* Clases originales */
 .section {
-  background-color: white;
+  background-color: var(--container);
   height: 100%;
   padding: 20px;
   display: flex;

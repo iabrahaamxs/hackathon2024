@@ -1,5 +1,5 @@
 .patients-container {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   display: flex;
   border-radius: 10px;

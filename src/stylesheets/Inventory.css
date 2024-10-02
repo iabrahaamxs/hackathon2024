@@ -4,7 +4,7 @@
 }
 
 .agg-container {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@
 }
 
 .inventory-summary {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   display: flex;
   border-radius: 10px;
@@ -57,7 +57,7 @@
 }
 
 .filter-container {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   border-radius: 10px;
   justify-content: space-between;

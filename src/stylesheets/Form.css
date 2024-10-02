@@ -1,5 +1,5 @@
 .header-container {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   display: flex;
   border-radius: 10px;
@@ -7,7 +7,7 @@
 }
 
 .section {
-  background-color: white;
+  background-color: var(--container);
   height: 100%;
   padding: 20px;
   display: flex;
@@ -21,7 +21,7 @@
 }
 
 .form-container-user {
-  background-color: white;
+  background-color: var(--container);
   height: 100%;
   padding: 20px;
   display: flex;
@@ -55,7 +55,7 @@
 }
 
 .illness-container {
-  background-color: white;
+  background-color: var(--container);
   height: 100%;
   padding: 20px;
   border-radius: 10px;
@@ -93,7 +93,7 @@
 }
 
 .treatment-container {
-  background-color: white;
+  background-color: var(--container);
   height: 100%;
   padding: 20px;
   border-radius: 10px;
@@ -178,7 +178,7 @@
 /*FAQ*/
 
 .faq-header {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   display: flex;
   border-radius: 10px;
@@ -187,7 +187,7 @@
 }
 
 .faq-content {
-  background-color: white;
+  background-color: var(--container);
   padding: 10px;
   display: flex;
   flex-direction: column;

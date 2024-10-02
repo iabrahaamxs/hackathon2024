@@ -11,7 +11,7 @@
 }
 
 .question-container.active {
-  background-color: white; /* Fondo blanco cuando está abierta */
+  background-color: var(--container); /* Fondo blanco cuando está abierta */
 }
 
 .question {
@@ -30,7 +30,7 @@
 }
 
 .answer-text {
-  background-color: white; /* Fondo blanco para la respuesta */
+  background-color: var(--container); /* Fondo blanco para la respuesta */
 }
 
 .question-container.active .answer {

@@ -1,7 +1,7 @@
 .more-container {
   width: 100%;
   position: relative;
-  background-color: white; /* Fondo gris claro cuando está cerrada */
+  background-color: var(--container); /* Fondo gris claro cuando está cerrada */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccc;
   margin-top: 20px;
@@ -11,7 +11,7 @@
 }
 
 .more-container.active {
-  background-color: white; /* Fondo blanco cuando está abierta */
+  background-color: var(--container); /* Fondo blanco cuando está abierta */
 }
 
 .title {

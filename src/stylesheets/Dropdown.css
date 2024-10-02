@@ -5,7 +5,7 @@
 
 .dropdown-button {
   width: 250px;
-  background-color: white;
+  background-color: var(--container);
   padding: 10px 20px;
   font-size: 16px;
   border: none;
@@ -39,7 +39,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: white;
+  background-color: var(--container);
   min-width: 160px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
