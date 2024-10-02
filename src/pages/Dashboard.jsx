@@ -1,4 +1,3 @@
-//import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BtnOption from "../components/BtnOption";
 import "../stylesheets/Panel.css";
@@ -12,7 +11,6 @@ import DashFAQ from "../components/DashFAQ.jsx";
 import Items from "../components/Items.jsx";
 import { LocalStorage } from "../utils/LocalStorage.js";
 import { AdminApi } from "../api/adminApi.js";
-import { IoMenu } from "react-icons/io5";
 import { RiMenuFold2Fill, RiMenuFold3Fill } from "react-icons/ri";
 
 export default function Dashboard() {
