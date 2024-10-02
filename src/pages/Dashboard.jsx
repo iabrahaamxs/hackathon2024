@@ -12,10 +12,13 @@ import DashFAQ from "../components/DashFAQ.jsx";
 import Items from "../components/Items.jsx";
 import { LocalStorage } from "../utils/LocalStorage.js";
 import { AdminApi } from "../api/adminApi.js";
+import {IoMenu} from "react-icons/io5";
+import {RiMenuFold2Fill, RiMenuFold3Fill} from "react-icons/ri";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("deliver");
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleOptionClick = (option) => {
@@ -29,6 +32,10 @@ export default function Dashboard() {
       LocalStorage.Delete("token");
       navigate("/");
     }
+  };
+
+  const togglePanel = () => {
+    setIsPanelOpen(!isPanelOpen);
   };
 
   useEffect(() => {
@@ -54,7 +61,7 @@ export default function Dashboard() {
     };
 
     fetchData();
-  });
+  }, [navigate]);
 
   if (!isAuthorized) {
     return null;
@@ -62,7 +69,10 @@ export default function Dashboard() {
 
   return (
       <div className="dashboard-container">
-        <aside className="panel">
+        <button className="toggle-button" onClick={togglePanel}>
+          {isPanelOpen ? <RiMenuFold3Fill /> : <RiMenuFold2Fill />}
+        </button>
+        <aside className={`panel ${isPanelOpen ? 'open' : 'closed'}`}>
           <div className="panel-title">
             <img
                 src="https://www.nicepng.com/png/detail/204-2049937_logo-de-farmacia-png.png"
@@ -127,16 +137,14 @@ export default function Dashboard() {
         </aside>
 
         <article className="article-content">
-          {selectedOption === "deliver" ? <Deliver/> : null}
-          {selectedOption === "user" ? <RegisterUser/> : null}
-          {selectedOption === "patient" ? <Patients/> : null}
-          {selectedOption === "report" ? <Statistics/> : null}
-          {selectedOption === "box" ? <Inventory/> : null}
-          {selectedOption === "question" ? <DashFAQ/> : null}
-          {selectedOption === "item" ? <Items/> : null}
+          {selectedOption === "deliver" ? <Deliver /> : null}
+          {selectedOption === "user" ? <RegisterUser /> : null}
+          {selectedOption === "patient" ? <Patients /> : null}
+          {selectedOption === "report" ? <Statistics /> : null}
+          {selectedOption === "box" ? <Inventory /> : null}
+          {selectedOption === "question" ? <DashFAQ /> : null}
+          {selectedOption === "item" ? <Items /> : null}
         </article>
       </div>
-
-      //  <Link to="/">Home</Link>
   );
 }

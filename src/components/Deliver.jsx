@@ -242,7 +242,7 @@ function Deliver() {
               />
               <div className="medicine-options">
                 {presentations.map((presentation, index) => (
-                    <div key={index}>
+                    <div key={index} className="illness-option">
                       <input
                           type="radio"
                           id={`presentation-${index}`}
