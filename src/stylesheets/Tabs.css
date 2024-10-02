@@ -39,3 +39,23 @@
 .tab-content {
   padding: 20px;
 }
+
+/* Media query para dispositivos móviles */
+@media (max-width: 600px) {
+
+  .tabs {
+    width: 100%;
+    padding: 10px;
+    top: 20px;
+  }
+
+
+  .tab {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .tab-content {
+    padding: 10px;
+  }
+}
