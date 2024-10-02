@@ -5,6 +5,7 @@ import Button from "../components/Button.jsx";
 import { useNavigate } from "react-router-dom";
 import { AdminApi } from "../api/adminApi.js";
 import React, { useState, useEffect } from "react";
+import { LocalStorage } from "../utils/LocalStorage.js";
 
 const Login = () => {
   const Ingresar = () => {
@@ -197,7 +198,28 @@ const Login = () => {
 };
 
 export default function Home() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const validate = async () => {
+      const jwt = LocalStorage.Get("token");
+      if (jwt) {
+        const res = await AdminApi.getUserme(jwt);
+
+        if (res.is_admin) {
+          window.location.href = "/dashboard";
+          return;
+        }
+      }
+      setIsAuthorized(true);
+    };
+    validate();
+  }, []);
+
+  if (!isAuthorized) {
+    return null;
+  }
   return (
     <div className={"home"}>
       <div className={"welcome"}>

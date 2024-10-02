@@ -164,8 +164,6 @@ const getUserme = async (jwt) => {
       },
     });
 
-    console.log(res.data);
-
     return res.data;
   } catch (error) {
     if (error) {
