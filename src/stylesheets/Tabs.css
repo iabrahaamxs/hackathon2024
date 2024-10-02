@@ -38,8 +38,9 @@
 }
 
 .tab-content {
+  margin-top: -50px;
   padding: 20px;
-  background-color: var(--container);
+  background-color: transparent;
   border-radius: 10px;
 }
 
