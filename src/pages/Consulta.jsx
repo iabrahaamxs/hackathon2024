@@ -119,7 +119,7 @@ export default function Consulta() {
         </div>
       </div>
       <div className={"container faq"}>
-        {page === "paciente" ? <Resultado /> : <Donante />}
+        <Resultado />
       </div>
     </div>
   );
