@@ -103,10 +103,29 @@ function NewPatient({ backClick }) {
       showCancelButton: true,
       confirmButtonText: "Guardar",
       cancelButtonText: "Cancelar",
-      preConfirm: () => {
-        console.log("Nuevo paciente creado:", newPatient);
-        console.log("Diagnostico creado: ", newDiagnosis);
-        console.log("Tratamiento crrado: ", newTreatment);
+      preConfirm: async () => {
+        //console.log("Nuevo paciente creado:", newPatient);
+        //console.log("Diagnostico creado: ", newDiagnosis);
+        //console.log("Tratamiento crrado: ", newTreatment);
+
+        const jwt = LocalStorage.Get("token");
+        await AdminApi.createPatient(
+          jwt,
+          illness,
+          med,
+          presentation,
+          quantity,
+          name,
+          lastName,
+          documento,
+          birthdate,
+          address,
+          phone,
+          sex,
+          priority,
+          adminId,
+          sector
+        );
 
         // TODO: Lógica para guardar el nuevo paciente
         /*1. Crear paciente y recuperar ID
@@ -291,8 +310,8 @@ function NewPatient({ backClick }) {
               onChange={(e) => setSex(e.target.value)}
             >
               <option value="0">Sexo</option>
-              <option value="male">Masculino</option>
-              <option value="female">Femenino</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
             </select>
           </div>
           <div className="form-group">
