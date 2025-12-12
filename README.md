@@ -1,4 +1,4 @@
-# ❤️ Medicine Donation Management System (CCCD)
+# ❤️ Medicine Donation Management System (CCCB)
 
 **Note:** This repository contains the original source code developed during the Hackathon. The project was subsequently developed into a full production release which is currently in use. While the production code is private, you can interact with the finished system via the **Training Environment** linked below.
 
